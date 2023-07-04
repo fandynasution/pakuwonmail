@@ -10,9 +10,9 @@ use App\Mail\EmailSendApproval;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
 
-class ApprovalController extends Controller
+class LandMeasuringController extends Controller
 {
-    public function sendApprovalMail(Request $request) {
+    public function LandMeasuringMail(Request $request) {
         $callback = array(
             'data' => null,
             'Error' => false,
@@ -27,7 +27,7 @@ class ApprovalController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
-            'link'          => 'approvestatus',
+            'link'          => 'landmeasuring',
             'body'          => 'Please Approve '.$request->descs,
         );
 
@@ -49,14 +49,16 @@ class ApprovalController extends Controller
             'status'        => array("A",'R', 'C'),
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'P',
+            'type'          => 'K',
+            'module'        => 'LM',
         );
 
         $where3 = array(
             'doc_no'        => $doc_no,
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'P',
+            'type'          => 'K',
+            'module'        => 'LM',
         );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
@@ -68,7 +70,7 @@ class ApprovalController extends Controller
         ->where($where3)
         ->get();
         if(count($query)>0 || count($query3)==0){
-            $msg = 'You Have Already Made a Request to Prospect No. '.$doc_no ;
+            $msg = 'You Have Already Made a Request to Measuring Doc. No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -80,43 +82,43 @@ class ApprovalController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_land_measuring '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Approved the Prospect No. ".$doc_no;
+                    $msg = "You Have Successfully Approved the Measuring Doc. No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
                     $image = "approved.png";
                 } else {
-                    $msg = "You Failed to Approve the Prospect No ".$doc_no;
+                    $msg = "You Failed to Approve the Measuring Doc. No ".$doc_no;
                     $notif = 'Fail to Approve !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_land_measuring '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Made a Revise Request on Prospect No. ".$doc_no;
+                    $msg = "You Have Successfully Made a Revise Request on Measuring Doc. No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
                     $image = "revise.png";
                 } else {
-                    $msg = "You Failed to Make a Revise Request on Prospect No. ".$doc_no;
+                    $msg = "You Failed to Make a Revise Request on Measuring Doc. No. ".$doc_no;
                     $notif = 'Fail to Revised !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_land_measuring '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the Prospect No. ".$doc_no;
+                    $msg = "You Have Successfully Canceled the Measuring Doc. No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
-                    $msg = "You Failed to Cancel the Prospect No. ".$doc_no;
+                    $msg = "You Failed to Cancel the Measuring Doc. No. ".$doc_no;
                     $notif = 'Fail to Canceled !';
                     $st = 'OK';
                     $image = "reject.png";

@@ -20,5 +20,170 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 use App\Http\Controllers\ApprovalController as ApprovalMail;
 
-Route::post('/mailApproval', [ApprovalMail::class, 'sendApprovalMail']);
+Route::POST('/mailApproval', [ApprovalMail::class, 'sendApprovalMail']);
 Route::GET('/approvestatus/{status}/{entity_cd}/{doc_no}/{level_no}', [ApprovalMail::class, 'changestatus']);
+
+use App\Http\Controllers\LandApprovalController as LandApproval;
+
+Route::POST('/SendMailLand', [LandApproval::class, 'LandApprovalMail']);
+Route::GET('/approvestatusLand/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApproval::class, 'changestatus']);
+
+use App\Http\Controllers\LandFphApprovalController as LandFphApproval;
+
+Route::POST('/SendMailLandfph', [LandFphApproval::class, 'LandFphApprovalMail']);
+Route::GET('/approvestatusLandFph/{status}/{entity_cd}/{doc_no}/{level_no}', [LandFphApproval::class, 'changestatus']);
+
+use App\Http\Controllers\LandMasterApprovalController as LandMasterApproval;
+
+Route::POST('/SendMailLandmaster', [LandMasterApproval::class, 'LandMasterApprovalMail']);
+Route::GET('/approvestatusLandMaster/{status}/{entity_cd}/{doc_no}/{level_no}', [LandMasterApproval::class, 'changestatus']);
+
+use App\Http\Controllers\LandVerificationApprovalController as LandVerificationApproval;
+
+Route::POST('/SendMailLandverififcation', [LandVerificationApproval::class, 'LandVerificationApprovalMail']);
+Route::GET('/approvestatusLandverififcation/{status}/{entity_cd}/{doc_no}/{level_no}', [LandVerificationApproval::class, 'changestatus']);
+
+use App\Http\Controllers\LandMeasuringController as LandMeasuring;
+
+Route::POST('/landmeasuring', [LandMeasuring::class, 'LandMeasuringMail']);
+Route::GET('/landmeasuring/{status}/{entity_cd}/{doc_no}/{level_no}', [LandMeasuring::class, 'changestatus']);
+
+use App\Http\Controllers\LandSphController as LandSph;
+
+Route::POST('/landsph', [LandSph::class, 'LandSphMail']);
+Route::GET('/landsph/{status}/{entity_cd}/{doc_no}/{level_no}', [LandSph::class, 'changestatus']);
+
+use App\Http\Controllers\LandSertifikatController as LandSertifikat;
+
+Route::POST('/landsertifikat', [LandSertifikat::class, 'LandSertifikatMail']);
+Route::GET('/landsertifikat/{status}/{entity_cd}/{doc_no}/{level_no}', [LandSertifikat::class, 'changestatus']);
+
+use App\Http\Controllers\LandRequestController as LandRequest;
+
+Route::POST('/landrequest', [LandRequest::class, 'LandRequestMail']);
+Route::GET('/landrequest/{status}/{entity_cd}/{doc_no}/{level_no}', [LandRequest::class, 'changestatus']);
+
+use App\Http\Controllers\AgentDeactiveController as AgentDeactive;
+
+Route::POST('/agentdeactive', [AgentDeactive::class, 'AgentDeactiveMail']);
+Route::GET('/agentdeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [AgentDeactive::class, 'changestatus']);
+
+use App\Http\Controllers\SalesDeactiveController as SalesDeactive;
+
+Route::POST('/salesdeactive', [SalesDeactive::class, 'SalesDeactiveMail']);
+Route::GET('/salesdeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [SalesDeactive::class, 'changestatus']);
+
+use App\Http\Controllers\LotPriceDeactiveController as LotPriceDeactive;
+
+Route::POST('/lotpricedeactive', [LotPriceDeactive::class, 'Mail']);
+Route::GET('/lotpricedeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [LotPriceDeactive::class, 'changestatus']);
+
+use App\Http\Controllers\LotTempController as LotTemp;
+
+Route::POST('/lottemp', [LotTemp::class, 'Mail']);
+Route::GET('/lottemp/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [LotTemp::class, 'changestatus']);
+
+use App\Http\Controllers\SalesLotController as SalesLot;
+
+Route::POST('/saleslot', [SalesLot::class, 'Mail']);
+Route::GET('/saleslot/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [SalesLot::class, 'changestatus']);
+
+use App\Http\Controllers\SalesChangeNameController as SalesChangeName;
+
+Route::POST('/saleschangename', [SalesChangeName::class, 'Mail']);
+Route::GET('/saleschangename/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [SalesChangeName::class, 'changestatus']);
+
+use App\Http\Controllers\MeasuringSftController as MeasuringSft;
+
+Route::POST('/measuringsft', [MeasuringSft::class, 'Mail']);
+Route::GET('/measuringsft/{status}/{entity_cd}/{doc_no}/{level_no}', [MeasuringSft::class, 'changestatus']);
+
+use App\Http\Controllers\LandApprovalSftController as LandApprovalSft;
+
+Route::POST('/landapprovalsft', [LandApprovalSft::class, 'Mail']);
+Route::GET('/landapprovalsft/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSft::class, 'changestatus']);
+
+use App\Http\Controllers\LandApprovalSftBphtbController as LandApprovalSftBphtb;
+
+Route::POST('/landapprovalsftbphtb', [LandApprovalSftBphtb::class, 'Mail']);
+Route::GET('/landapprovalsftbphtb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSftBphtb::class, 'changestatus']);
+
+use App\Http\Controllers\LandApprovalSftShgbController as LandApprovalSftShgb;
+
+Route::POST('/landapprovalsftshgb', [LandApprovalSftShgb::class, 'Mail']);
+Route::GET('/landapprovalsftshgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSftShgb::class, 'changestatus']);
+
+use App\Http\Controllers\PlBudgetLymanController as PlBudgetLyman;
+
+Route::POST('/plbudgetlyman', [PlBudgetLyman::class, 'Mail']);
+Route::GET('/plbudgetlyman/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [PlBudgetLyman::class, 'changestatus']);
+
+use App\Http\Controllers\PlCogsActController as PlCogsAct;
+
+Route::POST('/plcogsact', [PlCogsAct::class, 'Mail']);
+Route::GET('/plcogsact/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{userid}', [PlCogsAct::class, 'changestatus']);
+
+use App\Http\Controllers\PlRecMaintenanceController as PlRecMaintenance;
+
+Route::POST('/plrecmaintenance', [PlRecMaintenance::class, 'Mail']);
+Route::GET('/plrecmaintenance/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{userid}', [PlRecMaintenance::class, 'changestatus']);
+
+use App\Http\Controllers\PlBudgetRevisionController as PlBudgetRevision;
+
+Route::POST('/plbudgetrevision', [PlBudgetRevision::class, 'Mail']);
+Route::GET('/plbudgetrevision/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [PlBudgetRevision::class, 'changestatus']);
+
+use App\Http\Controllers\SalesCancelController as SalesCancel;
+
+Route::POST('/salescancel', [SalesCancel::class, 'Mail']);
+Route::GET('/salescancel/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesCancel::class, 'changestatus']);
+
+use App\Http\Controllers\CmProgressController as CmProgress;
+
+Route::POST('/cmprogress', [CmProgress::class, 'Mail']);
+Route::GET('/cmprogress/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [CmProgress::class, 'changestatus']);
+
+use App\Http\Controllers\ProspectCancelController as ProspectCancel;
+
+Route::POST('/prospectcancel', [ProspectCancel::class, 'Mail']);
+Route::GET('/prospectcancel/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{user_id}/', [ProspectCancel::class, 'changestatus']);
+
+use App\Http\Controllers\CmContractDoneController as CmContractDone;
+
+Route::POST('/cmcontractdone', [CmContractDone::class, 'Mail']);
+Route::GET('/cmcontractdone/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [CmContractDone::class, 'changestatus']);
+
+use App\Http\Controllers\CmContractCloseController as CmContractClose;
+
+Route::POST('/cmcontractclose', [CmContractClose::class, 'Mail']);
+Route::GET('/cmcontractclose/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [CmContractClose::class, 'changestatus']);
+
+use App\Http\Controllers\RsRevenueShareController as RsRevenueShare;
+
+Route::POST('/revenueshare', [RsRevenueShare::class, 'Mail']);
+Route::GET('/revenueshare/{entity_cd}/{project_no}/{doc_no}/{trx_type}/{doc_date}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [RsRevenueShare::class, 'changestatus']);
+
+use App\Http\Controllers\SalesLotActivityController as SalesLotActivity;
+
+Route::POST('/saleslotactivity', [SalesLotActivity::class, 'Mail']);
+Route::GET('/saleslotactivity/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesLotActivity::class, 'changestatus']);
+
+use App\Http\Controllers\SalesLotActivityProspController as SalesLotActivityProsp;
+
+Route::POST('/saleslotactivityprosp', [SalesLotActivityProsp::class, 'Mail']);
+Route::GET('/saleslotactivityprosp/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesLotActivityProsp::class, 'changestatus']);
+
+use App\Http\Controllers\SalesBookingPackageController as SalesBookingPackage;
+
+Route::POST('/salesbookingpackage', [SalesBookingPackage::class, 'Mail']);
+Route::GET('/salesbookingpackage/{entity_cd}/{project_no}/{doc_no}/{lot_no}/{status}/{level_no}/{user_id}', [SalesBookingPackage::class, 'changestatus']);
+
+use App\Http\Controllers\SalesBookingDiscController as SalesBookingDisc;
+
+Route::POST('/salesbookingdisc', [SalesBookingDisc::class, 'Mail']);
+Route::GET('/salesbookingdisc/{entity_cd}/{project_no}/{doc_no}/{lot_no}/{status}/{level_no}/{user_id}', [SalesBookingDisc::class, 'changestatus']);
+
+use App\Http\Controllers\SalesTransferController as SalesTransfer;
+
+Route::POST('/salestransfer', [SalesTransfer::class, 'Mail']);
+Route::GET('/salestransfer/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesTransfer::class, 'changestatus']);

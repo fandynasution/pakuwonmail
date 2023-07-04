@@ -163,7 +163,7 @@ class EmailSendController extends Controller
     {
         $where2 = array(
             'doc_no'        => 'PF23060002',
-            'status'        => 'A',
+            'status'        => array("A",'R', 'C'),
             'entity_cd'     => '023',
             'level_no'      => '1',
         );

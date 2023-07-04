@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailSendApproval;
+use App\Mail\EmailPl;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
 
-class ApprovalController extends Controller
+class SalesCancelController extends Controller
 {
-    public function sendApprovalMail(Request $request) {
+    public function Mail(Request $request) {
         $callback = array(
             'data' => null,
             'Error' => false,
@@ -24,10 +25,11 @@ class ApprovalController extends Controller
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
+            'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
-            'link'          => 'approvestatus',
+            'link'          => 'salescancel',
             'body'          => 'Please Approve '.$request->descs,
         );
 
@@ -35,28 +37,29 @@ class ApprovalController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new EmailSendApproval($dataArray));
+                ->send(new EmailPl($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
     }
-
-    public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='',$level_no='',$user_id='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'P',
+            'type'          => 'O',
+            'module'        => 'SA',
         );
 
         $where3 = array(
             'doc_no'        => $doc_no,
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'P',
+            'type'          => 'O',
+            'module'        => 'SA',
         );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
@@ -68,7 +71,7 @@ class ApprovalController extends Controller
         ->where($where3)
         ->get();
         if(count($query)>0 || count($query3)==0){
-            $msg = 'You Have Already Made a Request to Prospect No. '.$doc_no ;
+            $msg = 'You Have Already Made a Request to Sales Cancel No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -80,43 +83,64 @@ class ApprovalController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
-                    $msg = "You Have Successfully Approved the Prospect No. ".$doc_no;
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $user_id);
+                $sth->execute();
+                if ($sth == true) {
+                    $msg = "You Have Successfully Approved the Sales Cancel No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
                     $image = "approved.png";
                 } else {
-                    $msg = "You Failed to Approve the Prospect No ".$doc_no;
+                    $msg = "You Failed to Approve the Sales Cancel No ".$doc_no;
                     $notif = 'Fail to Approve !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
-                    $msg = "You Have Successfully Made a Revise Request on Prospect No. ".$doc_no;
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $user_id);
+                $sth->execute();
+                if ($sth == true) {
+                    $msg = "You Have Successfully Made a Revise Request on Sales Cancel No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
                     $image = "revise.png";
                 } else {
-                    $msg = "You Failed to Make a Revise Request on Prospect No. ".$doc_no;
+                    $msg = "You Failed to Make a Revise Request on Sales Cancel No. ".$doc_no;
                     $notif = 'Fail to Revised !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the Prospect No. ".$doc_no;
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $user_id);
+                $sth->execute();
+                if ($sth == true) {
+                    $msg = "You Have Successfully Canceled the Sales Cancel No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
-                    $msg = "You Failed to Cancel the Prospect No. ".$doc_no;
+                    $msg = "You Failed to Cancel the Sales Cancel No. ".$doc_no;
                     $notif = 'Fail to Canceled !';
                     $st = 'OK';
                     $image = "reject.png";

@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailSendApproval;
+use App\Mail\SalesDeactiveMail;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
 
-class ApprovalController extends Controller
+class AgentDeactiveController extends Controller
 {
-    public function sendApprovalMail(Request $request) {
+    public function AgentDeactiveMail(Request $request) {
         $callback = array(
             'data' => null,
             'Error' => false,
@@ -27,7 +28,8 @@ class ApprovalController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
-            'link'          => 'approvestatus',
+            'payment_code'  => $request->payment_code,
+            'link'          => 'agentdeactive',
             'body'          => 'Please Approve '.$request->descs,
         );
 
@@ -35,28 +37,30 @@ class ApprovalController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new EmailSendApproval($dataArray));
+                ->send(new SalesDeactiveMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
     }
 
-    public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
+    public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='', $payment_code='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'P',
+            'type'          => 'B',
+            'module'        => 'SA',
         );
 
         $where3 = array(
             'doc_no'        => $doc_no,
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'P',
+            'type'          => 'B',
+            'module'        => 'SA',
         );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
@@ -68,7 +72,7 @@ class ApprovalController extends Controller
         ->where($where3)
         ->get();
         if(count($query)>0 || count($query3)==0){
-            $msg = 'You Have Already Made a Request to Prospect No. '.$doc_no ;
+            $msg = 'You Have Already Made a Request to Approval Sales Agent Deactive No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -80,43 +84,43 @@ class ApprovalController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_agent_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Approved the Prospect No. ".$doc_no;
+                    $msg = "You Have Successfully Approved the Approval Sales Agent Deactive No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
                     $image = "approved.png";
                 } else {
-                    $msg = "You Failed to Approve the Prospect No ".$doc_no;
+                    $msg = "You Failed to Approve the Approval Sales Agent Deactive No ".$doc_no;
                     $notif = 'Fail to Approve !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_agent_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Made a Revise Request on Prospect No. ".$doc_no;
+                    $msg = "You Have Successfully Made a Revise Request on Approval Sales Agent Deactive No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
                     $image = "revise.png";
                 } else {
-                    $msg = "You Failed to Make a Revise Request on Prospect No. ".$doc_no;
+                    $msg = "You Failed to Make a Revise Request on Approval Sales Agent Deactive No. ".$doc_no;
                     $notif = 'Fail to Revised !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_agent_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the Prospect No. ".$doc_no;
+                    $msg = "You Have Successfully Canceled the Approval Sales Agent Deactive No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
-                    $msg = "You Failed to Cancel the Prospect No. ".$doc_no;
+                    $msg = "You Failed to Cancel the Approval Sales Agent Deactive No. ".$doc_no;
                     $notif = 'Fail to Canceled !';
                     $st = 'OK';
                     $image = "reject.png";

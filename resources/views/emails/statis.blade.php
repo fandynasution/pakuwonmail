@@ -1,93 +1,60 @@
-@include('template.header')
-	
-	<!-- FEATURED CATEGORY STARTS -->
-    <table align="center" bgcolor="#eeeeee" class="mcbc-Body-bgcolor" border="0" cellpadding="0" cellspacing="0" width="100%" mc:repeatable="r">
-        <tbody>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <title></title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
+    <!-- Web Font / @font-face : BEGIN -->
+    <!--[if mso]>
+        <style>
+            * {
+                font-family: 'Roboto', sans-serif !important;
+            }
+        </style>
+    <![endif]-->
 
+    <!--[if !mso]>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
+    <![endif]-->
+
+    <!-- Web Font / @font-face : END -->
+
+    <!-- CSS Reset : BEGIN -->
+    
+    
+    @include('template.style')
+
+</head>
+
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #e6f0eb;">
+	<center style="width: 100%; background-color: #e6f0eb;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e6f0eb">
             <tr>
-                <td align="center">
-                    <!--SECTION TABLE-700-->
-                    <table align="center" bgcolor="#f5f5f5" border="0" cellpadding="0" cellspacing="0" class="mcbc-Light-bgcolor" width="700">
+               <td style="padding: 40px 0;">
+                    <table style="width:100%;max-width:620px;margin:0 auto;">
+                        @include('template.header')
+                    </table>
+                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;">
                         <tbody>
                             <tr>
-                                <td align="center">
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="display-width" width="100%">
-                                        <tbody>
-										<tr>
-										<td height="60" class="auto-hide"></td>
-										</tr>
-                                            <!-- ROW-ONE STARTS -->
-                                            <tr>
-                                                <td>
-                                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="80%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
-                                                        <tr>
-                                                            <td style="padding-right:50px;" class="auto-pad">
-                                                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style=" border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
-                                                                    <tr>
-                                                                        <th align="center" class="heading" style="color:#333333; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:23px; line-height:26px; font-weight:400; text-transform:capitalize; letter-spacing:1px;">
-                                                                            Dear data['user_id']
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td height="15"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th align="center" class="heading" style="color:#333333; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:23px; line-height:26px; font-weight:400; text-transform:capitalize; letter-spacing:1px;">
-                                                                            Please approve Prospect Approval data['doc_no'] .
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td height="15"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <table style="width:100%">
-                                                                            <tr>
-                                                                                <th align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px;  font-weight:700; padding:8px 12px 8px 12px; text-transform:uppercase; letter-spacing:1px;" mc:edit="FEATURED6">
-                                                                                    <table align="center" bgcolor="#1ec6bc" border="0" cellpadding="0" cellspacing="0" class="button mcbc-All-Button" style="border-radius:3px;">
-                                                                                        <td align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px;  font-weight:700; padding:8px 12px 8px 12px; text-transform:uppercase; letter-spacing:1px;" mc:edit="FEATURED6">
-                                                                                            <a href="http://dev.ifca.co.id:8080/sendmailapi/api/approvestatus/A/data['entity_cd']/data['doc_no']/data['level_no']/" style="text-decoration:none; color:#ffffff; text-transform:uppercase;">Approve</a>
-                                                                                        </td>
-                                                                                    </table>
-                                                                                </th>
-                                                                                <th align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px;  font-weight:700; padding:8px 12px 8px 12px; text-transform:uppercase; letter-spacing:1px;" mc:edit="FEATURED6">
-                                                                                    <table align="center" bgcolor="##04AA6D" border="0" cellpadding="0" cellspacing="0" class="button mcbc-All-Button" style="border-radius:3px;">
-                                                                                        <td align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px;  font-weight:700; padding:8px 12px 8px 12px; text-transform:uppercase; letter-spacing:1px;" mc:edit="FEATURED6">
-                                                                                            <a href="http://dev.ifca.co.id:8080/sendmailapi/api/approvestatus/R/data['entity_cd']/data['doc_no']//data['level_no']/" style="text-decoration:none; color:#ffffff; text-transform:uppercase;">Revise</a>
-                                                                                        </td>
-                                                                                    </table>
-                                                                                </th><th align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px;  font-weight:700; padding:8px 12px 8px 12px; text-transform:uppercase; letter-spacing:1px;" mc:edit="FEATURED6">
-                                                                                    <table align="center" bgcolor="#E60B0B" border="0" cellpadding="0" cellspacing="0" class="button mcbc-All-Button" style="border-radius:3px;">
-                                                                                        <td align="center" valign="middle" class="MsoNormal" style="color:#ffffff; font-family:'Segoe UI', Arial, Verdana, Trebuchet MS, sans-serif; font-size:14px;  font-weight:700; padding:8px 12px 8px 12px; text-transform:uppercase; letter-spacing:1px;" mc:edit="FEATURED6">
-                                                                                            <a href="http://dev.ifca.co.id:8080/sendmailapi/api/approvestatus/C/data['entity_cd']/data['doc_no']/data['level_no']/" style="text-decoration:none; color:#ffffff; text-transform:uppercase;">Cancel</a>
-                                                                                        </td>
-                                                                                    </table>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-											<tr>
-										        <td height="60"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <td style="text-align:center;padding: 50px 30px;">
+                                    <img style="width:88px; margin-bottom:24px;" src="http://dev.ifca.co.id:8080/sendmailapi/public/images/approved.png" alt="Verified">
+                                    <h2 style="font-size: 18px; color: #1ee0ac; font-weight: 400; margin-bottom: 8px;">Approved!</h2>
+                                    <p>Anda berhasil melakukan Approve pada prospect no $doc_no</p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <!--SECTION TABLE-700 END-->
-
-
-                </td>
+                    <table style="width:100%;max-width:620px;margin:0 auto;">
+                        @include('template.footer')
+                    </table>
+               </td>
             </tr>
-            
-        </tbody>
-    </table>
-    <!-- FEATURED CATEGORY ENDS -->
-	
-    @include('template.footer')
+        </table>
+    </center>
+</body>
+</html>
