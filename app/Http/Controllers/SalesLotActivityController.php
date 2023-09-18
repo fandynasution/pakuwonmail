@@ -24,11 +24,13 @@ class SalesLotActivityController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'user_name'     => $request->user_name,
             'project_no'    => $request->project_no,
             'link'          => 'saleslotactivity',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'Please Approve '.$request->descs.', Lot No. '.$request->ref_no,
         );
 
         $sendToEmail = strtolower($request->email_addr);
@@ -69,7 +71,7 @@ class SalesLotActivityController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Sales Lot Activity No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

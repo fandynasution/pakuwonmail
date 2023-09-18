@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailSendApproval;
-use App\Mail\SalesDeactiveMail;
-use App\Mail\LotTempMail;
-use App\Mail\UserEmail;
+use App\Mail\SalesChangeMail;
 use Illuminate\Support\Facades\DB;
 
 class SalesChangeNameController extends Controller
@@ -27,8 +24,10 @@ class SalesChangeNameController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'lot_no'        => $request->lot_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'user_name'     => $request->user_name,
             'project_no'    => $request->project_no,
             'rt_grp_name'   => $request->rt_grp_name,
             'link'          => 'saleschangename',
@@ -39,14 +38,14 @@ class SalesChangeNameController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new LotTempMail($dataArray));
+                ->send(new SalesChangeMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $grp='', $user_id='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $lot_no='',$status='', $level_no='', $grp='', $user_id='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
@@ -57,23 +56,23 @@ class SalesChangeNameController extends Controller
             'module'        => 'SA',
         );
 
-        $where3 = array(
-            'doc_no'        => $doc_no,
-            'entity_cd'     => $entity_cd,
-            'level_no'      => $level_no,
-            'type'          => 'D',
-            'module'        => 'SA',
-        );
+        // $where3 = array(
+        //     'doc_no'        => $doc_no,
+        //     'entity_cd'     => $entity_cd,
+        //     'level_no'      => $level_no,
+        //     'type'          => 'D',
+        //     'module'        => 'SA',
+        // );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        $query3 = DB::connection('SSI')
-        ->table('mgr.cb_cash_request_appr')
-        ->where($where3)
-        ->get();
-        if(count($query)>0 || count($query3)==0){
+        // $query3 = DB::connection('SSI')
+        // ->table('mgr.cb_cash_request_appr')
+        // ->where($where3)
+        // ->get();
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Sales Change Name Approval No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
@@ -86,9 +85,18 @@ class SalesChangeNameController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_change_name '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $lot_no);
+                $sth->bindParam(5, $status);
+                $sth->bindParam(6, $level_no);
+                $sth->bindParam(7, $grp);
+                $sth->bindParam(8, $user_id);
+                $sth->execute();
+                if ($sth == true) {
                     $msg = "You Have Successfully Approved the Sales Change Name Approval No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
@@ -100,9 +108,18 @@ class SalesChangeNameController extends Controller
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_change_name '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $lot_no);
+                $sth->bindParam(5, $status);
+                $sth->bindParam(6, $level_no);
+                $sth->bindParam(7, $grp);
+                $sth->bindParam(8, $user_id);
+                $sth->execute();
+                if ($sth == true) {
                     $msg = "You Have Successfully Made a Revise Request on Sales Change Name Approval No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
@@ -114,9 +131,18 @@ class SalesChangeNameController extends Controller
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_change_name '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $lot_no);
+                $sth->bindParam(5, $status);
+                $sth->bindParam(6, $level_no);
+                $sth->bindParam(7, $grp);
+                $sth->bindParam(8, $user_id);
+                $sth->execute();
+                if ($sth == true) {
                     $msg = "You Have Successfully Canceled the Sales Change Name Approval No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';

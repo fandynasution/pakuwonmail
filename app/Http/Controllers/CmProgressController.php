@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NineVarMail;
+use App\Mail\CmProgressMail;
 use Illuminate\Support\Facades\DB;
 
 class CmProgressController extends Controller
@@ -19,26 +20,43 @@ class CmProgressController extends Controller
             'Status' => 200
         );
 
+        $new_doc_no = str_replace("/","-",$request->doc_no);
+        $new_ref_no = str_replace("/","-",$request->ref_no);
+
+        $formattedNumber = number_format($request->amount, 2, '.', ',');
+        $formattedNumber_prev = number_format($request->prev_progress_amt, 2, '.', ',');
+
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
-            'doc_no'        => $request->doc_no,
-            'ref_no'        => $request->ref_no,
+            'doc_no'        => $new_doc_no,
+            'ref_no'        => $new_ref_no,
+            "old_doc_no"    => $request->doc_no,
+            'old_ref_no'    => $request->ref_no,
             'level_no'      => $request->level_no,
+            'progress_no'      => $request->progress_no,
             'user_id'       => $request->user_id,
             'email_addr'    => $request->email_addr,
+            'contract_no'    => $request->contract_no,
             'descs'         => $request->descs,
             'usergroup'     => $request->usergroup,
+            'user_name'     => $request->user_name,
             'supervisor'    => $request->supervisor,
+            'entity_name'   => $request->entity_name,
+            "curr_progress"	=> $request->curr_progress,
+            "prev_progress"	=> $request->prev_progress,
+            "amount"		=> $formattedNumber,
+            "prev_progress_amt"		=> $formattedNumber_prev,
+            "PONumberOracle"=> $request->PONumberOracle,
             'link'          => 'cmprogress',
-            'body'          => 'Please Approve '.$request->descs,
         );
+        // var_dump($dataArray);
 
         $sendToEmail = strtolower($request->email_addr);
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new NineVarMail($dataArray));
+                ->send(new CmProgressMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -47,10 +65,14 @@ class CmProgressController extends Controller
 
     public function changestatus($entity_cd='', $project_no='', $doc_no='', $ref_no='', $status='', $level_no='', $usergroup='', $user_id='', $supervisor='')
     {
+
+        $new_doc_no = str_replace("-","/",$doc_no);
+        $new_ref_no = str_replace("-","/",$ref_no);
+
         $where2 = array(
             'entity_cd'     =>  $entity_cd,
-            'doc_no'        =>  $doc_no,
-            'ref_no'        =>  $ref_no,
+            'doc_no'        =>  $new_doc_no,
+            'ref_no'        =>  $new_ref_no,
             'status'        =>  array("A",'R', 'C'),
             'level_no'      =>  $level_no,
             'user_id'       =>  $user_id,
@@ -60,8 +82,8 @@ class CmProgressController extends Controller
 
         $where3 = array(
             'entity_cd'     =>  $entity_cd,
-            'doc_no'        =>  $doc_no,
-            'ref_no'        =>  $ref_no,
+            'doc_no'        =>  $new_doc_no,
+            'ref_no'        =>  $new_ref_no,
             'status'        =>  'P',
             'level_no'      =>  $level_no,
             'user_id'       =>  $user_id,
@@ -77,7 +99,7 @@ class CmProgressController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to CM Progress No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
@@ -94,8 +116,8 @@ class CmProgressController extends Controller
                 $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_cm_progress ?, ?, ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $ref_no);
+                $sth->bindParam(3, $new_doc_no);
+                $sth->bindParam(4, $new_ref_no);
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $usergroup);
@@ -118,8 +140,8 @@ class CmProgressController extends Controller
                 $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_cm_progress ?, ?, ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $ref_no);
+                $sth->bindParam(3, $new_doc_no);
+                $sth->bindParam(4, $new_ref_no);
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $usergroup);
@@ -142,8 +164,8 @@ class CmProgressController extends Controller
                 $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_cm_progress ?, ?, ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $ref_no);
+                $sth->bindParam(3, $new_doc_no);
+                $sth->bindParam(4, $new_ref_no);
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $usergroup);

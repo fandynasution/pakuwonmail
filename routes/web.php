@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmailSendController;
+use App\Http\Controllers\TestingController;
 use App\Http\Controllers\ApprovalController as ApprovalController;
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::get('/changestatus/{status}/{email}', [EmailSendController::class, 'chang
 Route::get('kirim-email', [EmailSendController::class, 'sendingMail'])->name('send.email');
 
 Route::get('/getdate', [EmailSendController::class, 'getdate']);
+
+Route::get('/testing', [TestingController::class, 'index']);

@@ -10,7 +10,7 @@ use App\Mail\EmailSendApproval;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
 
-class PlBudgetLymanController extends Controller
+class LandChangeNopApprovalController extends Controller
 {
     public function Mail(Request $request) {
         $callback = array(
@@ -26,8 +26,9 @@ class PlBudgetLymanController extends Controller
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
             'descs'         => $request->descs,
-            'link'          => 'plbudgetlyman',
+            'link'          => 'approvestatusLandChangeNop',
             'body'          => 'Please Approve '.$request->descs,
         );
 
@@ -49,16 +50,16 @@ class PlBudgetLymanController extends Controller
             'status'        => array("A",'R', 'C'),
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'B',
-            'module'        => 'PL',
+            'type'          => 'C',
+            'module'        => 'LM',
         );
 
         $where3 = array(
             'doc_no'        => $doc_no,
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
-            'type'          => 'B',
-            'module'        => 'PL',
+            'type'          => 'C',
+            'module'        => 'LM',
         );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
@@ -69,8 +70,8 @@ class PlBudgetLymanController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
-            $msg = 'You Have Already Made a Request to PL Budget Lyman No. '.$doc_no ;
+        if(count($query)>0){
+            $msg = 'You Have Already Made a Request to Status Land Change NOP. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -82,43 +83,43 @@ class PlBudgetLymanController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_pl_budget_lyman '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_land_change_nop '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Approved the PL Budget Lyman No. ".$doc_no;
+                    $msg = "You Have Successfully Approved the Status Land Change NOP. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
                     $image = "approved.png";
                 } else {
-                    $msg = "You Failed to Approve the PL Budget Lyman No ".$doc_no;
+                    $msg = "You Failed to Approve the Status Land Change NOP ".$doc_no;
                     $notif = 'Fail to Approve !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_pl_budget_lyman '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_land_change_nop '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Made a Revise Request on PL Budget Lyman No. ".$doc_no;
+                    $msg = "You Have Successfully Made a Revise Request on Status Land Change NOP. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
                     $image = "revise.png";
                 } else {
-                    $msg = "You Failed to Make a Revise Request on PL Budget Lyman No. ".$doc_no;
+                    $msg = "You Failed to Make a Revise Request on Status Land Change NOP. ".$doc_no;
                     $notif = 'Fail to Revised !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_pl_budget_lyman '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_land_change_nop '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the PL Budget Lyman No. ".$doc_no;
+                    $msg = "You Have Successfully Canceled the Status Land Change NOP. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
-                    $msg = "You Failed to Cancel the PL Budget Lyman No. ".$doc_no;
+                    $msg = "You Failed to Cancel the Status Land Change NOP. ".$doc_no;
                     $notif = 'Fail to Canceled !';
                     $st = 'OK';
                     $image = "reject.png";

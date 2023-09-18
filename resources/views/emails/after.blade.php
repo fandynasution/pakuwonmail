@@ -31,8 +31,8 @@
 </head>
 
 <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #e6f0eb;">
-	<center style="width: 100%; background-color: #e6f0eb;">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e6f0eb">
+	<div style="width: 100%; background-color: #e6f0eb;">
+        <table width="50%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f5f0ea" style="margin-left: auto;margin-right: auto;" >
             <tr>
                <td style="padding: 40px 0;">
                     <table style="width:100%;max-width:620px;margin:0 auto;">
@@ -55,6 +55,6 @@
                </td>
             </tr>
         </table>
-    </center>
+    </div>
 </body>
 </html>

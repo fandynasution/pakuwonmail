@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SalesLotActivityMail;
+use App\Mail\SalesLotActivityProspNewMail;
 use Illuminate\Support\Facades\DB;
 
 class SalesLotActivityProspController extends Controller
@@ -23,10 +23,14 @@ class SalesLotActivityProspController extends Controller
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
-            'doc_no'        => $request->doc_no,
-            'email_addr'    => $request->email_addr,
-            'descs'         => $request->descs,
             'project_no'    => $request->project_no,
+            'doc_no'        => $request->doc_no,
+            'prospect_no'   => $request->prospect_no,
+            'lot_no'        => $request->lot_no,
+            'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
+            'entity_name'   => $request->entity_name,
+            'descs'         => $request->descs,
             'link'          => 'saleslotactivityprosp',
             'body'          => 'Please Approve '.$request->descs,
         );
@@ -35,14 +39,14 @@ class SalesLotActivityProspController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new SalesLotActivityMail($dataArray));
+                ->send(new SalesLotActivityProspNewMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $user_id='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $prospect_no='', $status ='', $level_no='', $user_id='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
@@ -55,6 +59,7 @@ class SalesLotActivityProspController extends Controller
 
         $where3 = array(
             'doc_no'        => $doc_no,
+            'status'        => 'P',
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
             'type'          => 'M',
@@ -69,7 +74,7 @@ class SalesLotActivityProspController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Sales Lot Activity Prosp No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
@@ -83,13 +88,14 @@ class SalesLotActivityProspController extends Controller
         } else {
             if($status == 'A') {
                 $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?;");
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
                 $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $user_id);
+                $sth->bindParam(4, $prospect_no);
+                $sth->bindParam(5, $status);
+                $sth->bindParam(6, $level_no);
+                $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Approved the Sales Lot Activity Prosp No. ".$doc_no;
@@ -104,13 +110,14 @@ class SalesLotActivityProspController extends Controller
                 }
             } else if($status == 'R'){
                 $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?;");
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
                 $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $user_id);
+                $sth->bindParam(4, $prospect_no);
+                $sth->bindParam(5, $status);
+                $sth->bindParam(6, $level_no);
+                $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Made a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
@@ -125,13 +132,14 @@ class SalesLotActivityProspController extends Controller
                 }
             } else {
                 $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?;");
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
                 $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $user_id);
+                $sth->bindParam(4, $prospect_no);
+                $sth->bindParam(5, $status);
+                $sth->bindParam(6, $level_no);
+                $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Canceled the Sales Lot Activity Prosp No. ".$doc_no;

@@ -30,6 +30,7 @@ class RsRevenueShareController extends Controller
             'user_id'       => $request->user_id,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'user_name'     => $request->user_name,
             'usergroup'     => $request->usergroup,
             'supervisor'    => $request->supervisor,
             'link'          => 'revenueshare',
@@ -89,7 +90,7 @@ class RsRevenueShareController extends Controller
         ->where($where3)
         ->get();
 
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to RS Revenue Share No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

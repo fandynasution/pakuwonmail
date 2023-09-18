@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailSendApproval;
-use App\Mail\SalesDeactiveMail;
-use App\Mail\LotTempMail;
-use App\Mail\UserEmail;
-use App\Mail\SevenVarMail;
+use App\Mail\BudgetLymanRMail;
 use Illuminate\Support\Facades\DB;
 
 class PlBudgetRevisionController extends Controller
@@ -23,31 +19,37 @@ class PlBudgetRevisionController extends Controller
             'Status' => 200
         );
 
+        $amount = number_format( $request->amount , 2 , '.' , ',' );
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
+            'trx_type'      => $request->trx_type,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'project_no'    => $request->project_no,
-            'rt_grp_name'   => $request->trx_type,
+            'entity_name'   => $request->entity_name,
+            'project_name'  => $request->project_name,
+            'amount'        => $amount,
+            'user_name'     => $request->user_name,
             'link'          => 'plbudgetrevision',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'Revision RAB Budget'
         );
 
         $sendToEmail = strtolower($request->email_addr);
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new SevenVarMail($dataArray));
+                ->send(new BudgetLymanRMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $trx_type='', $user_id='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $trx_type='', $status='', $level_no='', $user_id='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
@@ -60,6 +62,7 @@ class PlBudgetRevisionController extends Controller
 
         $where3 = array(
             'doc_no'        => $doc_no,
+            'status'        => 'P',
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
             'type'          => 'R',
@@ -74,8 +77,8 @@ class PlBudgetRevisionController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
-            $msg = 'You Have Already Made a Request to PL Budget Revision No. '.$doc_no ;
+        if(count($query)>0){
+            $msg = 'You Have Already Made a Request to Budget Revision No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -98,12 +101,12 @@ class PlBudgetRevisionController extends Controller
                 $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Approved the PL Budget Revision No. ".$doc_no;
+                    $msg = "You Have Successfully Approved the Budget Revision No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
                     $image = "approved.png";
                 } else {
-                    $msg = "You Failed to Approve the PL Budget Revision No ".$doc_no;
+                    $msg = "You Failed to Approve the Budget Revision No ".$doc_no;
                     $notif = 'Fail to Approve !';
                     $st = 'OK';
                     $image = "reject.png";
@@ -120,12 +123,12 @@ class PlBudgetRevisionController extends Controller
                 $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on PL Budget Revision No. ".$doc_no;
+                    $msg = "You Have Successfully Made a Revise Request on Budget Revision No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
                     $image = "revise.png";
                 } else {
-                    $msg = "You Failed to Make a Revise Request on PL Budget Revision No. ".$doc_no;
+                    $msg = "You Failed to Make a Revise Request on Budget Revision No. ".$doc_no;
                     $notif = 'Fail to Revised !';
                     $st = 'OK';
                     $image = "reject.png";
@@ -142,12 +145,12 @@ class PlBudgetRevisionController extends Controller
                 $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the PL Budget Revision No. ".$doc_no;
+                    $msg = "You Have Successfully Canceled the Budget Revision No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
-                    $msg = "You Failed to Cancel the PL Budget Revision No. ".$doc_no;
+                    $msg = "You Failed to Cancel the Budget Revision No. ".$doc_no;
                     $notif = 'Fail to Canceled !';
                     $st = 'OK';
                     $image = "reject.png";

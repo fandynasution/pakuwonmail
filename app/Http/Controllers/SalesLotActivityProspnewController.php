@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\NineVarMail;
+use App\Mail\SalesLotActivityProspNewMail;
 use Illuminate\Support\Facades\DB;
 
-class CmContractDoneController extends Controller
+class SalesLotActivityProspnewController extends Controller
 {
     public function Mail(Request $request) {
         $callback = array(
@@ -19,18 +19,34 @@ class CmContractDoneController extends Controller
             'Status' => 200
         );
 
+        // {
+        //     "user_id"       : "'+@f_user_id+'",
+        //     "level_no"		: "'+@f_level_no+'",
+        //     "entity_cd"     : "'+@rt_entity_cd+'",
+        //     "project_no"	: "'+@rt_project_no+'",
+        //     "doc_no"		: "'+@rt_doc_no+'",
+        //     "email_addr"    : "'+@f_email_addr+'",
+        //     "user_name"	    : "'+@f_user_name+'",
+        //     "lot_no"	    : "'+@f_lot_no+'",
+        //     "entity_name"	: "'+@f_entity_name+'",
+        //     "descs"			: "'+@f_desc+'",
+        // }
+
         $dataArray = array(
+            'user_id'       => $request->user_id,
+            'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
-            'ref_no'        => $request->ref_no,
-            'level_no'      => $request->level_no,
-            'user_id'       => $request->user_id,
+            'prospect_no'   => $request->prospect_no,
+            'lot_no'        => $request->lot_no,
             'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
+            'from'          => $request->from,
+            'name'          => $request->name,
+            'entity_name'   => $request->entity_name,
             'descs'         => $request->descs,
-            'usergroup'     => $request->usergroup,
-            'supervisor'    => $request->supervisor,
-            'link'          => 'cmcontractdone',
+            'link'          => 'saleslotactivityprospnew',
             'body'          => 'Please Approve '.$request->descs,
         );
 
@@ -38,35 +54,30 @@ class CmContractDoneController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new NineVarMail($dataArray));
+                ->send(new SalesLotActivityProspNewMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $ref_no='', $status='', $level_no='', $usergroup='', $user_id='', $supervisor='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $user_id='')
     {
         $where2 = array(
-            'entity_cd'     =>  $entity_cd,
-            'doc_no'        =>  $doc_no,
-            'ref_no'        =>  $ref_no,
-            'status'        =>  array("A",'R', 'C'),
-            'level_no'      =>  $level_no,
-            'user_id'       =>  $user_id,
-            'type'          =>  'C',
-            'module'        =>  'CM'
+            'doc_no'        => $doc_no,
+            'status'        => array("A",'R', 'C'),
+            'entity_cd'     => $entity_cd,
+            'level_no'      => $level_no,
+            'type'          => 'M',
+            'module'        => 'SA',
         );
 
         $where3 = array(
-            'entity_cd'     =>  $entity_cd,
-            'doc_no'        =>  $doc_no,
-            'ref_no'        =>  $ref_no,
-            'status'        =>  'P',
-            'level_no'      =>  $level_no,
-            'user_id'       =>  $user_id,
-            'type'          => 'C',
-            'module'        => 'CM',
+            'doc_no'        => $doc_no,
+            'entity_cd'     => $entity_cd,
+            'level_no'      => $level_no,
+            'type'          => 'M',
+            'module'        => 'SA',
         );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
@@ -77,8 +88,8 @@ class CmContractDoneController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
-            $msg = 'You Have Already Made a Request to CM Contract Done No. '.$doc_no ;
+        if(count($query)>0){
+            $msg = 'You Have Already Made a Request to Sales Lot Activity Prosp No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -91,72 +102,63 @@ class CmContractDoneController extends Controller
         } else {
             if($status == 'A') {
                 $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_cm_contract_done ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
                 $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $ref_no);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $usergroup);
-                $sth->bindParam(8, $user_id);
-                $sth->bindParam(9, $supervisor);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Approved the CM Contract Done No. ".$doc_no;
+                    $msg = "You Have Successfully Approved the Sales Lot Activity Prosp No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
                     $image = "approved.png";
                 } else {
-                    $msg = "You Failed to Approve the CM Contract Done No ".$doc_no;
+                    $msg = "You Failed to Approve the Sales Lot Activity Prosp No ".$doc_no;
                     $notif = 'Fail to Approve !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
                 $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_cm_contract_done ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
                 $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $ref_no);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $usergroup);
-                $sth->bindParam(8, $user_id);
-                $sth->bindParam(9, $supervisor);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on CM Contract Done No. ".$doc_no;
+                    $msg = "You Have Successfully Made a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
                     $image = "revise.png";
                 } else {
-                    $msg = "You Failed to Make a Revise Request on CM Contract Done No. ".$doc_no;
+                    $msg = "You Failed to Make a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
                     $notif = 'Fail to Revised !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
             } else {
                 $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_cm_contract_done ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
                 $sth->bindParam(2, $project_no);
                 $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $ref_no);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $usergroup);
-                $sth->bindParam(8, $user_id);
-                $sth->bindParam(9, $supervisor);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the CM Contract Done No. ".$doc_no;
+                    $msg = "You Have Successfully Canceled the Sales Lot Activity Prosp No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
-                    $msg = "You Failed to Cancel the CM Contract Done No. ".$doc_no;
+                    $msg = "You Failed to Cancel the Sales Lot Activity Prosp No. ".$doc_no;
                     $notif = 'Fail to Canceled !';
                     $st = 'OK';
                     $image = "reject.png";

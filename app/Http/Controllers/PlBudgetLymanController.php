@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailSendApproval;
-use App\Mail\EmailPl;
-use App\Mail\UserEmail;
+use App\Mail\BudgetLymanMail;
 use Illuminate\Support\Facades\DB;
 
 class PlBudgetLymanController extends Controller
@@ -21,6 +19,8 @@ class PlBudgetLymanController extends Controller
             'Status' => 200
         );
 
+        $amount = number_format( $request->amount , 2 , '.' , ',' );
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -29,15 +29,19 @@ class PlBudgetLymanController extends Controller
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'project_no'    => $request->project_no,
+            'entity_name'   => $request->entity_name,
+            'project_name'  => $request->project_name,
+            'amount'        => $amount,
+            'user_name'     => $request->user_name,
             'link'          => 'plbudgetlyman',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'RAB Budget'
         );
 
         $sendToEmail = strtolower($request->email_addr);
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new EmailPl($dataArray));
+                ->send(new BudgetLymanMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -70,7 +74,7 @@ class PlBudgetLymanController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Budget No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

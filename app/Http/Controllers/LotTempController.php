@@ -22,6 +22,8 @@ class LotTempController extends Controller
             'Status' => 200
         );
 
+        $formattedNumber = number_format($request->land_area, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -29,10 +31,16 @@ class LotTempController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'user_name'     => $request->user_name,
             'project_no'    => $request->project_no,
+            'temp_no'       => $request->temp_no,
+            'land_area'     => $formattedNumber,
+            'entity_name'   => $request->entity_name,
+            'prospect_no'   => $request->prospect_no,
+            'lot_no_dt'     => $request->lot_no_dt,
+            'lot_no_hd'     => $request->lot_no_hd,
             'rt_grp_name'   => $request->rt_grp_name,
-            'link'          => 'lotpricedeactive',
-            'body'          => 'Please Approve '.$request->descs,
+            'link'          => 'lottemp',
         );
 
         $sendToEmail = strtolower($request->email_addr);
@@ -59,6 +67,7 @@ class LotTempController extends Controller
 
         $where3 = array(
             'doc_no'        => $doc_no,
+            'status'        => 'P',
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
             'type'          => 'G',
@@ -73,7 +82,7 @@ class LotTempController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Approval Temporary Lot Approval No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

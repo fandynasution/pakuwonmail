@@ -91,7 +91,7 @@ Route::GET('/saleslot/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp
 use App\Http\Controllers\SalesChangeNameController as SalesChangeName;
 
 Route::POST('/saleschangename', [SalesChangeName::class, 'Mail']);
-Route::GET('/saleschangename/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [SalesChangeName::class, 'changestatus']);
+Route::GET('/saleschangename/{entity_cd}/{project_no}/{doc_no}/{lot_no}/{status}/{level_no}/{grp}/{userid}', [SalesChangeName::class, 'changestatus']);
 
 use App\Http\Controllers\MeasuringSftController as MeasuringSft;
 
@@ -118,6 +118,11 @@ use App\Http\Controllers\PlBudgetLymanController as PlBudgetLyman;
 Route::POST('/plbudgetlyman', [PlBudgetLyman::class, 'Mail']);
 Route::GET('/plbudgetlyman/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [PlBudgetLyman::class, 'changestatus']);
 
+use App\Http\Controllers\PlBudgetRevisionController as PlBudgetRevision;
+
+Route::POST('/plbudgetrevision', [PlBudgetRevision::class, 'Mail']);
+Route::GET('/plbudgetrevision/{entity_cd}/{project_no}/{doc_no}/{trx_type}/{status}/{level_no}/{userid}', [PlBudgetRevision::class, 'changestatus']);
+
 use App\Http\Controllers\PlCogsActController as PlCogsAct;
 
 Route::POST('/plcogsact', [PlCogsAct::class, 'Mail']);
@@ -127,11 +132,6 @@ use App\Http\Controllers\PlRecMaintenanceController as PlRecMaintenance;
 
 Route::POST('/plrecmaintenance', [PlRecMaintenance::class, 'Mail']);
 Route::GET('/plrecmaintenance/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{userid}', [PlRecMaintenance::class, 'changestatus']);
-
-use App\Http\Controllers\PlBudgetRevisionController as PlBudgetRevision;
-
-Route::POST('/plbudgetrevision', [PlBudgetRevision::class, 'Mail']);
-Route::GET('/plbudgetrevision/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [PlBudgetRevision::class, 'changestatus']);
 
 use App\Http\Controllers\SalesCancelController as SalesCancel;
 
@@ -171,7 +171,7 @@ Route::GET('/saleslotactivity/{entity_cd}/{project_no}/{doc_no}/{status}/{level_
 use App\Http\Controllers\SalesLotActivityProspController as SalesLotActivityProsp;
 
 Route::POST('/saleslotactivityprosp', [SalesLotActivityProsp::class, 'Mail']);
-Route::GET('/saleslotactivityprosp/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesLotActivityProsp::class, 'changestatus']);
+Route::GET('/saleslotactivityprosp/{entity_cd}/{project_no}/{doc_no}/{prospect_no}/{status}/{level_no}/{user_id}', [SalesLotActivityProsp::class, 'changestatus']);
 
 use App\Http\Controllers\SalesBookingPackageController as SalesBookingPackage;
 
@@ -187,3 +187,54 @@ use App\Http\Controllers\SalesTransferController as SalesTransfer;
 
 Route::POST('/salestransfer', [SalesTransfer::class, 'Mail']);
 Route::GET('/salestransfer/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesTransfer::class, 'changestatus']);
+
+use App\Http\Controllers\CmVoController as CmVo;
+
+Route::POST('/cmvo', [CmVo::class, 'Mail']);
+Route::GET('/cmvo/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [CmVo::class, 'changestatus']);
+
+use App\Http\Controllers\LandChangeNopApprovalController as LandChangeNopApproval;
+
+Route::POST('/approvestatusLandChangeNop', [LandChangeNopApproval::class, 'Mail']);
+Route::GET('/approvestatusLandChangeNop/{status}/{entity_cd}/{doc_no}/{level_no}', [LandChangeNopApproval::class, 'changestatus']);
+
+use App\Http\Controllers\CoordinateController as Coordinate;
+
+Route::GET('/getCoordinate', [Coordinate::class, 'getCoordinate']);
+
+use App\Http\Controllers\LandBoundaryController as LandBoundary;
+
+Route::POST('/landboundary', [LandBoundary::class, 'Mail']);
+Route::GET('/landboundary/{status}/{entity_cd}/{doc_no}/{level_no}', [LandBoundary::class, 'changestatus']);
+
+use App\Http\Controllers\LandMasterRenewController as LandMasterRenew;
+
+Route::POST('/landmasterrenew', [LandMasterRenew::class, 'Mail']);
+Route::GET('/landmasterrenew/{status}/{entity_cd}/{ref_no}/{doc_no}/{level_no}', [LandMasterRenew::class, 'changestatus']);
+
+use App\Http\Controllers\CmProgressMockupController as CmProgressMockup;
+
+Route::POST('/cmprogressmockup', [CmProgressMockup::class, 'Mail']);
+Route::GET('/cmprogressmockup/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [CmProgressMockup::class, 'changestatus']);
+Route::POST('/cmprogressmockup/update', [CmProgressMockup::class, 'update']);
+
+use App\Http\Controllers\SalesLotActivityProspnewController as SalesLotActivityProspnew;
+
+Route::POST('/saleslotactivityprospnew', [SalesLotActivityProspnew::class, 'Mail']);
+Route::GET('/saleslotactivityprospnew/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesLotActivityProspnew::class, 'changestatus']);
+
+use App\Http\Controllers\ContractTerminateController as ContractTerminate;
+
+Route::POST('/contractterminate', [ContractTerminate::class, 'Mail']);
+Route::GET('/contractterminate/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}/{doc_date}', [ContractTerminate::class, 'changestatus']);
+
+use App\Http\Controllers\ContractRenewController as ContractRenew;
+
+Route::POST('/contractrenew', [ContractRenew::class, 'Mail']);
+Route::GET('/contractrenew/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [ContractRenew::class, 'changestatus']);
+
+use App\Http\Controllers\SendController as Send;
+Route::POST('/Sendattach', [Send::class, 'Mail']);
+
+use App\Http\Controllers\InvoiceIfcaController as InvoiceIfca;
+Route::POST('/invoice_send', [InvoiceIfca::class, 'index']);

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\NineVarMail;
+use App\Mail\CmContractDone;
 use Illuminate\Support\Facades\DB;
 
 class CmContractDoneController extends Controller
@@ -20,27 +20,34 @@ class CmContractDoneController extends Controller
         );
 
         $new_doc_no = str_replace("/","-",$request->doc_no);
+        $new_ref_no = str_replace("/","-",$request->ref_no);
 
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $new_doc_no,
-            'ref_no'        => $request->ref_no,
+            'ref_no'        => $new_ref_no,
+            'contract_no'      => $request->contract_no,
+            'contract_amt'      => $request->contract_amt,
+            'ponumberoracle'      => $request->ponumberoracle,
+            'requisitionnumber'      => $request->requisitionnumber,
+            'auth_vo'      => $request->auth_vo,
             'level_no'      => $request->level_no,
             'user_id'       => $request->user_id,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'usergroup'     => $request->usergroup,
+            'user_name'     => $request->user_name,
             'supervisor'    => $request->supervisor,
             'link'          => 'cmcontractdone',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'Please Approve Contract Done with : ',
         );
 
         $sendToEmail = strtolower($request->email_addr);
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new NineVarMail($dataArray));
+                ->send(new CmContractDone($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -50,11 +57,12 @@ class CmContractDoneController extends Controller
     public function changestatus($entity_cd='', $project_no='', $doc_no='', $ref_no='', $status='', $level_no='', $usergroup='', $user_id='', $supervisor='')
     {
         $new_doc_no = str_replace("-","/",$doc_no);
+        $new_ref_no = str_replace("-","/",$ref_no);
 
         $where2 = array(
             'entity_cd'     =>  $entity_cd,
             'doc_no'        =>  $new_doc_no,
-            'ref_no'        =>  $ref_no,
+            'ref_no'        =>  $new_ref_no,
             'status'        =>  array("A",'R', 'C'),
             'level_no'      =>  $level_no,
             'user_id'       =>  $user_id,
@@ -62,27 +70,27 @@ class CmContractDoneController extends Controller
             'module'        =>  'CM'
         );
 
-        // $where3 = array(
-        //     'entity_cd'     =>  $entity_cd,
-        //     'doc_no'        =>  $new_doc_no,
-        //     'ref_no'        =>  $ref_no,
-        //     'status'        =>  'P',
-        //     'level_no'      =>  $level_no,
-        //     'user_id'       =>  $user_id,
-        //     'type'          => 'C',
-        //     'module'        => 'CM',
-        // );
+        $where3 = array(
+            'entity_cd'     =>  $entity_cd,
+            'doc_no'        =>  $new_doc_no,
+            'ref_no'        =>  $new_ref_no,
+            'status'        =>  'P',
+            'level_no'      =>  $level_no,
+            'user_id'       =>  $user_id,
+            'type'          =>  'C',
+            'module'        =>  'CM'
+        );
 
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        // $query3 = DB::connection('SSI')
-        // ->table('mgr.cb_cash_request_appr')
-        // ->where($where3)
-        // ->get();
-        // if(count($query)>0 || count($query3)==0){
+        $query3 = DB::connection('SSI')
+        ->table('mgr.cb_cash_request_appr')
+        ->where($where3)
+        ->get();
+
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to CM Contract Done No. '.$doc_no ;
             $notif = 'Restricted !';

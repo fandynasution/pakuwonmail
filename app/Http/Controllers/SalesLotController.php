@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailSendApproval;
-use App\Mail\SalesDeactiveMail;
-use App\Mail\LotTempMail;
-use App\Mail\UserEmail;
+use App\Mail\SalesLotMail;
 use Illuminate\Support\Facades\DB;
 
 class SalesLotController extends Controller
@@ -22,6 +19,8 @@ class SalesLotController extends Controller
             'Status' => 200
         );
 
+        $formattedNumber = number_format($request->land_area, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -30,16 +29,21 @@ class SalesLotController extends Controller
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'project_no'    => $request->project_no,
+            'temp_no'       => $request->temp_no,
+            'land_area'     => $formattedNumber,
+            'entity_name'   => $request->entity_name,
+            'prospect_no'   => $request->prospect_no,
+            'lot_no'        => $request->lot_no,
+            'user_name'     => $request->user_name,
             'rt_grp_name'   => $request->rt_grp_name,
             'link'          => 'saleslot',
-            'body'          => 'Please Approve '.$request->descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new LotTempMail($dataArray));
+                ->send(new SalesLotMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -73,7 +77,7 @@ class SalesLotController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Approval Sales Lot Approval No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
@@ -86,9 +90,17 @@ class SalesLotController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot ?, ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $grp);
+                $sth->bindParam(7, $user_id);
+                $sth->execute();
+                if ($sth == true) {
                     $msg = "You Have Successfully Approved the Approval Sales Lot Approval No. ".$doc_no;
                     $notif = 'Approved !';
                     $st = 'OK';
@@ -100,9 +112,17 @@ class SalesLotController extends Controller
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot ?, ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $grp);
+                $sth->bindParam(7, $user_id);
+                $sth->execute();
+                if ($sth == true) {
                     $msg = "You Have Successfully Made a Revise Request on Approval Sales Lot Approval No. ".$doc_no;
                     $notif = 'Revised !';
                     $st = 'OK';
@@ -114,9 +134,17 @@ class SalesLotController extends Controller
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
+                $pdo = DB::connection('SSI')->getPdo();
+                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot ?, ?, ?, ?, ?, ?, ?;");
+                $sth->bindParam(1, $entity_cd);
+                $sth->bindParam(2, $project_no);
+                $sth->bindParam(3, $doc_no);
+                $sth->bindParam(4, $status);
+                $sth->bindParam(5, $level_no);
+                $sth->bindParam(6, $grp);
+                $sth->bindParam(7, $user_id);
+                $sth->execute();
+                if ($sth == true) {
                     $msg = "You Have Successfully Canceled the Approval Sales Lot Approval No. ".$doc_no;
                     $notif = 'Canceled !';
                     $st = 'OK';

@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailSendApproval;
-use App\Mail\UserEmail;
+use App\Mail\LandMeasuringSftApproval;
 use Illuminate\Support\Facades\DB;
 
 class MeasuringSftController extends Controller
@@ -26,6 +25,7 @@ class MeasuringSftController extends Controller
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'measuringsft',
             'body'          => 'Please Approve '.$request->descs,
@@ -35,7 +35,7 @@ class MeasuringSftController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new EmailSendApproval($dataArray));
+                ->send(new LandMeasuringSftApproval($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -69,7 +69,7 @@ class MeasuringSftController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Land Measuring SFT Doc. No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

@@ -26,6 +26,7 @@ class LandMasterApprovalController extends Controller
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'approvestatusLandMaster',
             'body'          => 'Please Approve '.$request->descs,
@@ -69,7 +70,7 @@ class LandMasterApprovalController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Land Master Permit Location No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

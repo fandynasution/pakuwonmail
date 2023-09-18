@@ -96,8 +96,8 @@ return [
         'SSI' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL2'),
-            'host' => 'uat.ifca.co.id',
-            'port' => '1436\SQL2019',
+            'host' => '4.193.77.13',
+            'port' => '1433',
             'database' => 'SSI_PROD',
             'username' => 'mgr',
             'password' => 'mgr',

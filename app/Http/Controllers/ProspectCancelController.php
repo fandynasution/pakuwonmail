@@ -26,6 +26,7 @@ class ProspectCancelController extends Controller
             'ref_no'        => $request->ref_no,
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
+            'user_name'     => $request->user_name,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'link'          => 'prospectcancel',
@@ -72,7 +73,7 @@ class ProspectCancelController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Prospect Cancel No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

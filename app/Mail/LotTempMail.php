@@ -33,7 +33,7 @@ class LotTempMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Need Approval '.$this->mailData['descs'])
+        return $this->subject('Need Approval Lot Temporary Split No. '.$this->mailData['doc_no'])
                     ->view('emails.lottemp')
                     ->with(['data' => $this->mailData]);
     }

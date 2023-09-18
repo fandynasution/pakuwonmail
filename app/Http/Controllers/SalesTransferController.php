@@ -26,6 +26,7 @@ class SalesTransferController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'user_name'     => $request->user_name,
             'project_no'    => $request->project_no,
             'link'          => 'salestransfer',
             'body'          => 'Please Approve '.$request->descs,
@@ -69,7 +70,7 @@ class SalesTransferController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-        if(count($query)>0 || count($query3)==0){
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Sales Transfer No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';

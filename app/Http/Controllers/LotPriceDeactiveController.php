@@ -26,11 +26,13 @@ class LotPriceDeactiveController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'user_name'     => $request->user_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'lotpricedeactive',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no,
         );
 
         $sendToEmail = strtolower($request->email_addr);
@@ -55,23 +57,23 @@ class LotPriceDeactiveController extends Controller
             'module'        => 'SA',
         );
 
-        $where3 = array(
-            'doc_no'        => $doc_no,
-            'entity_cd'     => $entity_cd,
-            'level_no'      => $level_no,
-            'type'          => 'C',
-            'module'        => 'SA',
-        );
+        // $where3 = array(
+        //     'doc_no'        => $doc_no,
+        //     'entity_cd'     => $entity_cd,
+        //     'level_no'      => $level_no,
+        //     'type'          => 'C',
+        //     'module'        => 'SA',
+        // );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        $query3 = DB::connection('SSI')
-        ->table('mgr.cb_cash_request_appr')
-        ->where($where3)
-        ->get();
-        if(count($query)>0 || count($query3)==0){
+        // $query3 = DB::connection('SSI')
+        // ->table('mgr.cb_cash_request_appr')
+        // ->where($where3)
+        // ->get();
+        if(count($query)>0){
             $msg = 'You Have Already Made a Request to Approval Sales Lot Price Deactive No. '.$doc_no ;
             $notif = 'Restricted !';
             $st  = 'OK';
@@ -84,7 +86,7 @@ class LotPriceDeactiveController extends Controller
             );
         } else {
             if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $payment_code . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Approved the Approval Sales Lot Price Deactive No. ".$doc_no;
@@ -98,7 +100,7 @@ class LotPriceDeactiveController extends Controller
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $payment_code . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Made a Revise Request on Approval Sales Lot Price Deactive No. ".$doc_no;
@@ -112,7 +114,7 @@ class LotPriceDeactiveController extends Controller
                     $image = "reject.png";
                 }
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
+                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $payment_code . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Canceled the Approval Sales Lot Price Deactive No. ".$doc_no;
