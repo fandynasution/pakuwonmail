@@ -18,6 +18,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+use App\Http\Controllers\ConnectionController as Connection;
+
+Route::GET('/connection', [Connection::class, 'index'])->name('connection');
+
 use App\Http\Controllers\ApprovalController as ApprovalMail;
 
 Route::POST('/mailApproval', [ApprovalMail::class, 'sendApprovalMail']);
