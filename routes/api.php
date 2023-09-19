@@ -70,31 +70,37 @@ Route::GET('/landrequest/{status}/{entity_cd}/{doc_no}/{level_no}', [LandRequest
 use App\Http\Controllers\AgentDeactiveController as AgentDeactive;
 
 Route::POST('/agentdeactive', [AgentDeactive::class, 'AgentDeactiveMail']);
+Route::POST('/agentdeactive/update', [AgentDeactive::class, 'update']);
 Route::GET('/agentdeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [AgentDeactive::class, 'changestatus']);
 
 use App\Http\Controllers\SalesDeactiveController as SalesDeactive;
 
 Route::POST('/salesdeactive', [SalesDeactive::class, 'SalesDeactiveMail']);
+Route::POST('/salesdeactive/update', [SalesDeactive::class, 'update']);
 Route::GET('/salesdeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [SalesDeactive::class, 'changestatus']);
 
 use App\Http\Controllers\LotPriceDeactiveController as LotPriceDeactive;
 
 Route::POST('/lotpricedeactive', [LotPriceDeactive::class, 'Mail']);
+Route::POST('/lotpricedeactive/update', [LotPriceDeactive::class, 'update']);
 Route::GET('/lotpricedeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [LotPriceDeactive::class, 'changestatus']);
 
 use App\Http\Controllers\LotTempController as LotTemp;
 
 Route::POST('/lottemp', [LotTemp::class, 'Mail']);
-Route::GET('/lottemp/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [LotTemp::class, 'changestatus']);
+Route::GET('/lottemp/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp_name}/{userid}', [LotTemp::class, 'changestatus']);
+Route::POST('/lottemp/update', [LotTemp::class, 'update']);
 
 use App\Http\Controllers\SalesLotController as SalesLot;
 
 Route::POST('/saleslot', [SalesLot::class, 'Mail']);
-Route::GET('/saleslot/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{grp}/{userid}', [SalesLot::class, 'changestatus']);
+Route::GET('/saleslot/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{rt_grp_name}/{userid}', [SalesLot::class, 'changestatus']);
+Route::POST('/saleslot/update', [SalesLot::class, 'update']);
 
 use App\Http\Controllers\SalesChangeNameController as SalesChangeName;
 
 Route::POST('/saleschangename', [SalesChangeName::class, 'Mail']);
+Route::POST('/saleschangename/update', [SalesChangeName::class, 'update']);
 Route::GET('/saleschangename/{entity_cd}/{project_no}/{doc_no}/{lot_no}/{status}/{level_no}/{grp}/{userid}', [SalesChangeName::class, 'changestatus']);
 
 use App\Http\Controllers\MeasuringSftController as MeasuringSft;
@@ -140,6 +146,7 @@ Route::GET('/plrecmaintenance/{entity_cd}/{project_no}/{doc_no}/{status}/{level_
 use App\Http\Controllers\SalesCancelController as SalesCancel;
 
 Route::POST('/salescancel', [SalesCancel::class, 'Mail']);
+Route::POST('/salescancel/update', [SalesCancel::class, 'update']);
 Route::GET('/salescancel/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesCancel::class, 'changestatus']);
 
 use App\Http\Controllers\CmProgressController as CmProgress;
@@ -150,6 +157,7 @@ Route::GET('/cmprogress/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{lev
 use App\Http\Controllers\ProspectCancelController as ProspectCancel;
 
 Route::POST('/prospectcancel', [ProspectCancel::class, 'Mail']);
+Route::POST('/prospectcancel/update', [ProspectCancel::class, 'update']);
 Route::GET('/prospectcancel/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{user_id}/', [ProspectCancel::class, 'changestatus']);
 
 use App\Http\Controllers\CmContractDoneController as CmContractDone;
@@ -170,11 +178,13 @@ Route::GET('/revenueshare/{entity_cd}/{project_no}/{doc_no}/{trx_type}/{doc_date
 use App\Http\Controllers\SalesLotActivityController as SalesLotActivity;
 
 Route::POST('/saleslotactivity', [SalesLotActivity::class, 'Mail']);
+Route::POST('/saleslotactivity/update', [SalesLotActivity::class, 'update']);
 Route::GET('/saleslotactivity/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [SalesLotActivity::class, 'changestatus']);
 
 use App\Http\Controllers\SalesLotActivityProspController as SalesLotActivityProsp;
 
 Route::POST('/saleslotactivityprosp', [SalesLotActivityProsp::class, 'Mail']);
+Route::POST('/saleslotactivityprosp/update', [SalesLotActivityProsp::class, 'update']);
 Route::GET('/saleslotactivityprosp/{entity_cd}/{project_no}/{doc_no}/{prospect_no}/{status}/{level_no}/{user_id}', [SalesLotActivityProsp::class, 'changestatus']);
 
 use App\Http\Controllers\SalesBookingPackageController as SalesBookingPackage;

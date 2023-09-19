@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailSendApproval;
-use App\Mail\EmailPl;
+use App\Mail\SalesCancelMail;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
 
@@ -38,7 +38,7 @@ class SalesCancelController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new EmailPl($dataArray));
+                ->send(new SalesCancelMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -82,78 +82,118 @@ class SalesCancelController extends Controller
                 "notif" => $notif,
                 "image" => $image
             );
+            return view("emails.after", $msg1);
         } else {
-            if($status == 'A') {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Approved the Sales Cancel No. ".$doc_no;
-                    $notif = 'Approved !';
-                    $st = 'OK';
-                    $image = "approved.png";
-                } else {
-                    $msg = "You Failed to Approve the Sales Cancel No ".$doc_no;
-                    $notif = 'Fail to Approve !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else if($status == 'R'){
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on Sales Cancel No. ".$doc_no;
-                    $notif = 'Revised !';
-                    $st = 'OK';
-                    $image = "revise.png";
-                } else {
-                    $msg = "You Failed to Make a Revise Request on Sales Cancel No. ".$doc_no;
-                    $notif = 'Fail to Revised !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+            if ($status == 'A') {
+                $name   = 'Approval';
+                $bgcolor = '#40de1d';
+                $valuebt  = 'Approve';
+            }else if ($status == 'R') {
+                $name   = 'Revision';
+                $bgcolor = '#f4bd0e';
+                $valuebt  = 'Revise';
             } else {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the Sales Cancel No. ".$doc_no;
-                    $notif = 'Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                } else {
-                    $msg = "You Failed to Cancel the Sales Cancel No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+                $name   = 'Cancelation';
+                $bgcolor = '#e85347';
+                $valuebt  = 'Cancel';
             }
-            $msg1 = array(
-                "Pesan" => $msg,
-                "St" => $st,
-                "image" => $image,
-                "notif" => $notif
+            $data = array(
+                'entity_cd'     => $entity_cd, 
+                'project_no'    => $project_no, 
+                'doc_no'        => $doc_no, 
+                'status'        => $status,
+                'level_no'      => $level_no, 
+                'user_id'       => $userid,
+                'name'          => $name,
+                'bgcolor'       => $bgcolor,
+                'valuebt'       => $valuebt
             );
         }
+        return view('emails/salescancel/action', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $entity_cd = $request->entity_cd;
+        $project_no = $request->project_no;
+        $doc_no = $request->doc_no;
+        $status = $request->status;
+        $level_no = $request->level_no;
+        $user_id = $request->user_id;
+        $remarks = $request->remarks;
+        if($status == 'A') {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $user_id);
+            $sth->bindParam(7, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Approved the Sales Cancel No. ".$doc_no;
+                $notif = 'Approved !';
+                $st = 'OK';
+                $image = "approved.png";
+            } else {
+                $msg = "You Failed to Approve the Sales Cancel No ".$doc_no;
+                $notif = 'Fail to Approve !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else if($status == 'R'){
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $user_id);
+            $sth->bindParam(7, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Made a Revise Request on Sales Cancel No. ".$doc_no;
+                $notif = 'Revised !';
+                $st = 'OK';
+                $image = "revise.png";
+            } else {
+                $msg = "You Failed to Make a Revise Request on Sales Cancel No. ".$doc_no;
+                $notif = 'Fail to Revised !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_cancel ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $user_id);
+            $sth->bindParam(7, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Canceled the Sales Cancel No. ".$doc_no;
+                $notif = 'Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            } else {
+                $msg = "You Failed to Cancel the Sales Cancel No. ".$doc_no;
+                $notif = 'Fail to Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        }
+        $msg1 = array(
+            "Pesan" => $msg,
+            "St" => $st,
+            "image" => $image,
+            "notif" => $notif
+        );
         return view("emails.after", $msg1);
     }
 }

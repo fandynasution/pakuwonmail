@@ -34,7 +34,7 @@ class SalesLotActivityProspNewMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.saleslotactivityprosp')
+                    ->view('emails.saleslotactivityprosp.send')
                     ->with(['data' => $this->mailData]);
     }
 }

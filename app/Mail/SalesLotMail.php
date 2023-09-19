@@ -34,7 +34,7 @@ class SalesLotMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval Lot Temporary Merge No. '.$this->mailData['doc_no'])
-                    ->view('emails.saleslot')
+                    ->view('emails.saleslot.send')
                     ->with(['data' => $this->mailData]);
     }
 }

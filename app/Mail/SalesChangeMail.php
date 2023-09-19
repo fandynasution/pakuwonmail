@@ -34,7 +34,7 @@ class SalesChangeMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.saleschange')
+                    ->view('emails.saleschange.send')
                     ->with(['data' => $this->mailData]);
     }
 }

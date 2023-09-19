@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class LotTempMail extends Mailable
+class SalesCancelMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -33,8 +33,8 @@ class LotTempMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Need Approval Lot Temporary Split No. '.$this->mailData['doc_no'])
-                    ->view('emails.lottemp.send')
+        return $this->subject('Need Approval '.$this->mailData['descs'])
+                    ->view('emails.salescancel.send')
                     ->with(['data' => $this->mailData]);
     }
 }

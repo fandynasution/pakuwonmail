@@ -85,81 +85,123 @@ class SalesLotActivityProspController extends Controller
                 "notif" => $notif,
                 "image" => $image
             );
+            return view("emails.after", $msg1);
         } else {
-            if($status == 'A') {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $prospect_no);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Approved the Sales Lot Activity Prosp No. ".$doc_no;
-                    $notif = 'Approved !';
-                    $st = 'OK';
-                    $image = "approved.png";
-                } else {
-                    $msg = "You Failed to Approve the Sales Lot Activity Prosp No ".$doc_no;
-                    $notif = 'Fail to Approve !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else if($status == 'R'){
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $prospect_no);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
-                    $notif = 'Revised !';
-                    $st = 'OK';
-                    $image = "revise.png";
-                } else {
-                    $msg = "You Failed to Make a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
-                    $notif = 'Fail to Revised !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+            if ($status == 'A') {
+                $name   = 'Approval';
+                $bgcolor = '#40de1d';
+                $valuebt  = 'Approve';
+            }else if ($status == 'R') {
+                $name   = 'Revision';
+                $bgcolor = '#f4bd0e';
+                $valuebt  = 'Revise';
             } else {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $prospect_no);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the Sales Lot Activity Prosp No. ".$doc_no;
-                    $notif = 'Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                } else {
-                    $msg = "You Failed to Cancel the Sales Lot Activity Prosp No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+                $name   = 'Cancelation';
+                $bgcolor = '#e85347';
+                $valuebt  = 'Cancel';
             }
-            $msg1 = array(
-                "Pesan" => $msg,
-                "St" => $st,
-                "image" => $image,
-                "notif" => $notif
+            $data = array(
+                'entity_cd'     => $entity_cd, 
+                'project_no'    => $project_no, 
+                'doc_no'        => $doc_no,
+                'prospect_no'   => $prospect_no,
+                'status'        => $status,
+                'level_no'      => $level_no, 
+                'user_id'       => $userid,
+                'name'          => $name,
+                'bgcolor'       => $bgcolor,
+                'valuebt'       => $valuebt
             );
+            return view('emails/saleslotactivityprosp/action', $data);
         }
+    }
+
+    public function update(Request $request)
+    {
+        $entity_cd = $request->entity_cd;
+        $project_no = $request->project_no;
+        $doc_no = $request->doc_no;
+        $prospect_no = $request->prospect_no;
+        $status = $request->status;
+        $level_no = $request->level_no;
+        $user_id = $request->user_id;
+        $remarks = $request->remarks;
+        if($status == 'A') {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $prospect_no);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Approved the Sales Lot Activity Prosp No. ".$doc_no;
+                $notif = 'Approved !';
+                $st = 'OK';
+                $image = "approved.png";
+            } else {
+                $msg = "You Failed to Approve the Sales Lot Activity Prosp No ".$doc_no;
+                $notif = 'Fail to Approve !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else if($status == 'R'){
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $prospect_no);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Made a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
+                $notif = 'Revised !';
+                $st = 'OK';
+                $image = "revise.png";
+            } else {
+                $msg = "You Failed to Make a Revise Request on Sales Lot Activity Prosp No. ".$doc_no;
+                $notif = 'Fail to Revised !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_activity_prosp ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $prospect_no);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Canceled the Sales Lot Activity Prosp No. ".$doc_no;
+                $notif = 'Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            } else {
+                $msg = "You Failed to Cancel the Sales Lot Activity Prosp No. ".$doc_no;
+                $notif = 'Fail to Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        }
+        $msg1 = array(
+            "Pesan" => $msg,
+            "St" => $st,
+            "image" => $image,
+            "notif" => $notif
+        );
         return view("emails.after", $msg1);
     }
 }

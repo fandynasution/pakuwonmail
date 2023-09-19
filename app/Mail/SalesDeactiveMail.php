@@ -34,7 +34,7 @@ class SalesDeactiveMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.SalesDeactive')
+                    ->view('emails.salesdeactive.send')
                     ->with(['data' => $this->mailData]);
     }
 }

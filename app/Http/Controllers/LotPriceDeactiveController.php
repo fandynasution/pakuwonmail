@@ -57,22 +57,11 @@ class LotPriceDeactiveController extends Controller
             'module'        => 'SA',
         );
 
-        // $where3 = array(
-        //     'doc_no'        => $doc_no,
-        //     'entity_cd'     => $entity_cd,
-        //     'level_no'      => $level_no,
-        //     'type'          => 'C',
-        //     'module'        => 'SA',
-        // );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        // $query3 = DB::connection('SSI')
-        // ->table('mgr.cb_cash_request_appr')
-        // ->where($where3)
-        // ->get();
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to Approval Sales Lot Price Deactive No. '.$doc_no ;
             $notif = 'Restricted !';
@@ -84,57 +73,114 @@ class LotPriceDeactiveController extends Controller
                 "notif" => $notif,
                 "image" => $image
             );
+            return view("emails.after", $msg1);
         } else {
-            if($status == 'A') {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $payment_code . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
-                    $msg = "You Have Successfully Approved the Approval Sales Lot Price Deactive No. ".$doc_no;
-                    $notif = 'Approved !';
-                    $st = 'OK';
-                    $image = "approved.png";
-                } else {
-                    $msg = "You Failed to Approve the Approval Sales Lot Price Deactive No ".$doc_no;
-                    $notif = 'Fail to Approve !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else if($status == 'R'){
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $payment_code . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
-                    $msg = "You Have Successfully Made a Revise Request on Approval Sales Lot Price Deactive No. ".$doc_no;
-                    $notif = 'Revised !';
-                    $st = 'OK';
-                    $image = "revise.png";
-                } else {
-                    $msg = "You Failed to Make a Revise Request on Approval Sales Lot Price Deactive No. ".$doc_no;
-                    $notif = 'Fail to Revised !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+            if ($status == 'A') {
+                $name   = 'Approval';
+                $bgcolor = '#40de1d';
+                $valuebt  = 'Approve';
+            }else if ($status == 'R') {
+                $name   = 'Revision';
+                $bgcolor = '#f4bd0e';
+                $valuebt  = 'Revise';
             } else {
-                $sqlsendemail = "mgr.xrl_send_mail_approval_sales_lotprice_deactive '" . $entity_cd . "', '" . $doc_no . "', '" . $payment_code . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
-                if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the Approval Sales Lot Price Deactive No. ".$doc_no;
-                    $notif = 'Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                } else {
-                    $msg = "You Failed to Cancel the Approval Sales Lot Price Deactive No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+                $name   = 'Cancelation';
+                $bgcolor = '#e85347';
+                $valuebt  = 'Cancel';
             }
-            $msg1 = array(
-                "Pesan" => $msg,
-                "St" => $st,
-                "image" => $image,
-                "notif" => $notif
+            $data = array(
+                'entity_cd'     => $entity_cd, 
+                'doc_no'        => $doc_no, 
+                'payment_cd'    => $payment_cd, 
+                'status'        => $status,
+                'level_no'      => $level_no,
+                'name'          => $name,
+                'bgcolor'       => $bgcolor,
+                'valuebt'       => $valuebt
             );
         }
+        return view('emails/salesdeactive/action', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $entity_cd = $request->entity_cd;
+        $doc_no = $request->doc_no;
+        $payment_cd = $request->payment_cd;
+        $status = $request->status;
+        $level_no = $request->level_no;
+        $remarks = $request->remarks;
+        if($status == 'A') {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $doc_no);
+            $sth->bindParam(3, $payment_cd);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $remarks);
+            $sth->execute();
+            if ($sth == true) 
+            {
+                $msg = "You Have Successfully Approved the Approval Sales Lot Price Deactive No. ".$doc_no;
+                $notif = 'Approved !';
+                $st = 'OK';
+                $image = "approved.png";
+            } else {
+                $msg = "You Failed to Approve the Approval Sales Lot Price Deactive No ".$doc_no;
+                $notif = 'Fail to Approve !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else if($status == 'R'){
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $doc_no);
+            $sth->bindParam(3, $payment_cd);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Made a Revise Request on Approval Sales Lot Price Deactive No. ".$doc_no;
+                $notif = 'Revised !';
+                $st = 'OK';
+                $image = "revise.png";
+            } else {
+                $msg = "You Failed to Make a Revise Request on Approval Sales Lot Price Deactive No. ".$doc_no;
+                $notif = 'Fail to Revised !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $doc_no);
+            $sth->bindParam(3, $payment_cd);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Canceled the Approval Sales Lot Price Deactive No. ".$doc_no;
+                $notif = 'Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            } else {
+                $msg = "You Failed to Cancel the Approval Sales Lot Price Deactive No. ".$doc_no;
+                $notif = 'Fail to Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        }
+        $msg1 = array(
+            "Pesan" => $msg,
+            "St" => $st,
+            "image" => $image,
+            "notif" => $notif
+        );
         return view("emails.after", $msg1);
     }
 }

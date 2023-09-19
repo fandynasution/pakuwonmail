@@ -54,7 +54,7 @@ class LotTempController extends Controller
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $grp='', $user_id='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $rt_grp_name='', $user_id='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
@@ -93,81 +93,124 @@ class LotTempController extends Controller
                 "notif" => $notif,
                 "image" => $image
             );
+            return view("emails.after", $msg1);
         } else {
-            if($status == 'A') {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_temp ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $grp);
-                $sth->bindParam(7, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Approved the Temporary Lot Approval No. ".$doc_no;
-                    $notif = 'Approved !';
-                    $st = 'OK';
-                    $image = "approved.png";
-                } else {
-                    $msg = "You Failed to Approve the Temporary Lot Approval No ".$doc_no;
-                    $notif = 'Fail to Approve !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else if($status == 'R'){
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_temp ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $grp);
-                $sth->bindParam(7, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on Temporary Lot Approval No. ".$doc_no;
-                    $notif = 'Revised !';
-                    $st = 'OK';
-                    $image = "revise.png";
-                } else {
-                    $msg = "You Failed to Make a Revise Request on Temporary Lot Approval No. ".$doc_no;
-                    $notif = 'Fail to Revised !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_temp ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->bindParam(6, $grp);
-                $sth->bindParam(7, $user_id);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the Temporary Lot Approval No. ".$doc_no;
-                    $notif = 'Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                } else {
-                    $msg = "You Failed to Cancel the Temporary Lot Approval No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+            if ($status == 'A') {
+                $name   = 'Approval';
+                $bgcolor = '#40de1d';
+                $valuebt  = 'Approve';
+            }else if ($status == 'R') {
+                $name   = 'Revision';
+                $bgcolor = '#f4bd0e';
+                $valuebt  = 'Revise';
+            } else if ($status == 'C'){
+                $name   = 'Cancelation';
+                $bgcolor = '#e85347';
+                $valuebt  = 'Cancel';
             }
-            $msg1 = array(
-                "Pesan" => $msg,
-                "St" => $st,
-                "image" => $image,
-                "notif" => $notif
+            $data = array(
+                'entity_cd'     => $entity_cd, 
+                'project_no'    => $project_no, 
+                'doc_no'        => $doc_no, 
+                'status'        => $status,
+                'level_no'      => $level_no, 
+                'rt_grp_name'   => $rt_grp_name, 
+                'user_id'       => $userid,
+                'name'          => $name,
+                'bgcolor'       => $bgcolor,
+                'valuebt'       => $valuebt
             );
         }
-        return view("emails.after", $msg1);
+        return view('emails/lottemp/action', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $new_doc_no = str_replace("-","/",$request->doc_no);
+        $entity_cd = $request->entity_cd;
+        $project_no = $request->project_no;
+        $doc_no = $new_doc_no;
+        $status = $request->status;
+        $level_no = $request->level_no;
+        $rt_grp_name = $request->rt_grp_name;
+        $user_id = $request->user_id;
+        $remarks = $request->remarks;
+        if($status == 'A') {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_temp ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $rt_grp_name);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Approved the Temporary Lot Approval No. ".$doc_no;
+                $notif = 'Approved !';
+                $st = 'OK';
+                $image = "approved.png";
+            } else {
+                $msg = "You Failed to Approve the Temporary Lot Approval No ".$doc_no;
+                $notif = 'Fail to Approve !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else if($status == 'R'){
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_temp ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $rt_grp_name);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Made a Revise Request on Temporary Lot Approval No. ".$doc_no;
+                $notif = 'Revised !';
+                $st = 'OK';
+                $image = "revise.png";
+            } else {
+                $msg = "You Failed to Make a Revise Request on Temporary Lot Approval No. ".$doc_no;
+                $notif = 'Fail to Revised !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lot_temp ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $rt_grp_name);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Canceled the Temporary Lot Approval No. ".$doc_no;
+                $notif = 'Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            } else {
+                $msg = "You Failed to Cancel the Temporary Lot Approval No. ".$doc_no;
+                $notif = 'Fail to Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        }
+        $msg1 = array(
+            "Pesan" => $msg,
+            "St" => $st,
+            "image" => $image,
+            "notif" => $notif
+        );
+    return view("emails.after", $msg1);
     }
 }
