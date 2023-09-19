@@ -83,75 +83,114 @@ class LandMasterRenewController extends Controller
                 "notif" => $notif,
                 "image" => $image
             );
+            return view("emails.after", $msg1);
         } else {
-            if($status == 'A') {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master_renew ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $doc_no);
-                $sth->bindParam(3, $ref_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Approved the Land Master Renew. No. ".$doc_no;
-                    $notif = 'Approved !';
-                    $st = 'OK';
-                    $image = "approved.png";
-                } else {
-                    $msg = "You Failed to Approve the Land Master Renew. No ".$doc_no;
-                    $notif = 'Fail to Approve !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else if($status == 'R'){
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master_renew ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $doc_no);
-                $sth->bindParam(3, $ref_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on Land Master Renew. No. ".$doc_no;
-                    $notif = 'Revised !';
-                    $st = 'OK';
-                    $image = "revise.png";
-                } else {
-                    $msg = "You Failed to Make a Revise Request on Land Master Renew. No. ".$doc_no;
-                    $notif = 'Fail to Revised !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+            if ($status == 'A') {
+                $name   = 'Approval';
+                $bgcolor = '#40de1d';
+                $valuebt  = 'Approve';
+            }else if ($status == 'R') {
+                $name   = 'Revision';
+                $bgcolor = '#f4bd0e';
+                $valuebt  = 'Revise';
             } else {
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master_renew ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $doc_no);
-                $sth->bindParam(3, $ref_no);
-                $sth->bindParam(4, $status);
-                $sth->bindParam(5, $level_no);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the Land Master Renew. No. ".$doc_no;
-                    $notif = 'Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                } else {
-                    $msg = "You Failed to Cancel the Land Master Renew. No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+                $name   = 'Cancelation';
+                $bgcolor = '#e85347';
+                $valuebt  = 'Cancel';
             }
-            $msg1 = array(
-                "Pesan" => $msg,
-                "St" => $st,
-                "image" => $image,
-                "notif" => $notif
+            $data = array(
+                'entity_cd'     => $entity_cd, 
+                'doc_no'        => $doc_no, 
+                'ref_no'        => $ref_no, 
+                'status'        => $status,
+                'level_no'      => $level_no, 
+                'name'          => $name,
+                'bgcolor'       => $bgcolor,
+                'valuebt'       => $valuebt
             );
         }
+        return view('emails/landmasterrenew/action', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $entity_cd = $request->entity_cd;
+        $doc_no = $request->doc_no;
+        $ref_no = $request->ref_no;
+        $status = $request->status;
+        $level_no = $request->level_no;
+        $remarks = $request->remarks;
+        if($status == 'A') {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master_renew ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $doc_no);
+            $sth->bindParam(3, $ref_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $remarks);
+            $sth->execute();
+            if ($sth == true) 
+            {
+                $msg = "You Have Successfully Approved the Land Master Renew No. ".$doc_no;
+                $notif = 'Approved !';
+                $st = 'OK';
+                $image = "approved.png";
+            } else {
+                $msg = "You Failed to Approve the Land Master Renew No ".$doc_no;
+                $notif = 'Fail to Approve !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else if($status == 'R'){
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master_renew ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $doc_no);
+            $sth->bindParam(3, $ref_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Made a Revise Request on Land Master Renew No. ".$doc_no;
+                $notif = 'Revised !';
+                $st = 'OK';
+                $image = "revise.png";
+            } else {
+                $msg = "You Failed to Make a Revise Request on Land Master Renew No. ".$doc_no;
+                $notif = 'Fail to Revised !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master_renew ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $doc_no);
+            $sth->bindParam(3, $ref_no);
+            $sth->bindParam(4, $status);
+            $sth->bindParam(5, $level_no);
+            $sth->bindParam(6, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Canceled the Land Master Renew No. ".$doc_no;
+                $notif = 'Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            } else {
+                $msg = "You Failed to Cancel the Land Master Renew No. ".$doc_no;
+                $notif = 'Fail to Canceled !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        }
+        $msg1 = array(
+            "Pesan" => $msg,
+            "St" => $st,
+            "image" => $image,
+            "notif" => $notif
+        );
         return view("emails.after", $msg1);
     }
 }

@@ -35,16 +35,19 @@ Route::GET('/approvestatusLand/{status}/{entity_cd}/{doc_no}/{level_no}', [LandA
 use App\Http\Controllers\LandFphApprovalController as LandFphApproval;
 
 Route::POST('/SendMailLandfph', [LandFphApproval::class, 'LandFphApprovalMail']);
+Route::POST('/SendMailLandfph/update', [LandFphApproval::class, 'update']);
 Route::GET('/approvestatusLandFph/{status}/{entity_cd}/{doc_no}/{level_no}', [LandFphApproval::class, 'changestatus']);
 
 use App\Http\Controllers\LandMasterApprovalController as LandMasterApproval;
 
 Route::POST('/SendMailLandmaster', [LandMasterApproval::class, 'LandMasterApprovalMail']);
+Route::POST('/SendMailLandmaster/update', [LandMasterApproval::class, 'update']);
 Route::GET('/approvestatusLandMaster/{status}/{entity_cd}/{doc_no}/{level_no}', [LandMasterApproval::class, 'changestatus']);
 
 use App\Http\Controllers\LandVerificationApprovalController as LandVerificationApproval;
 
 Route::POST('/SendMailLandverififcation', [LandVerificationApproval::class, 'LandVerificationApprovalMail']);
+Route::POST('/SendMailLandverififcation/update', [LandVerificationApproval::class, 'update']);
 Route::GET('/approvestatusLandverififcation/{status}/{entity_cd}/{doc_no}/{level_no}', [LandVerificationApproval::class, 'changestatus']);
 
 use App\Http\Controllers\LandMeasuringController as LandMeasuring;
@@ -224,6 +227,7 @@ Route::GET('/landboundary/{status}/{entity_cd}/{doc_no}/{level_no}', [LandBounda
 use App\Http\Controllers\LandMasterRenewController as LandMasterRenew;
 
 Route::POST('/landmasterrenew', [LandMasterRenew::class, 'Mail']);
+Route::POST('/landmasterrenew/update', [LandMasterRenew::class, 'update']);
 Route::GET('/landmasterrenew/{status}/{entity_cd}/{ref_no}/{doc_no}/{level_no}', [LandMasterRenew::class, 'changestatus']);
 
 use App\Http\Controllers\CmProgressMockupController as CmProgressMockup;
