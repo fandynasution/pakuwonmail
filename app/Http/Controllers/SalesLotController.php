@@ -112,7 +112,7 @@ class SalesLotController extends Controller
                 'status'        => $status,
                 'level_no'      => $level_no, 
                 'rt_grp_name'   => $rt_grp_name, 
-                'user_id'       => $userid,
+                'user_id'       => $user_id,
                 'name'          => $name,
                 'bgcolor'       => $bgcolor,
                 'valuebt'       => $valuebt

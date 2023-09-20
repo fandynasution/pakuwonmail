@@ -106,7 +106,7 @@ class ProspectCancelController extends Controller
                 'ref_no'        => $ref_no, 
                 'status'        => $status,
                 'level_no'      => $level_no, 
-                'user_id'       => $userid,
+                'user_id'       => $user_id,
                 'name'          => $name,
                 'bgcolor'       => $bgcolor,
                 'valuebt'       => $valuebt

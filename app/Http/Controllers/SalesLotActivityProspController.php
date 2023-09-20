@@ -107,7 +107,7 @@ class SalesLotActivityProspController extends Controller
                 'prospect_no'   => $prospect_no,
                 'status'        => $status,
                 'level_no'      => $level_no, 
-                'user_id'       => $userid,
+                'user_id'       => $user_id,
                 'name'          => $name,
                 'bgcolor'       => $bgcolor,
                 'valuebt'       => $valuebt

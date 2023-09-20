@@ -95,7 +95,7 @@ class SalesChangeNameController extends Controller
                 'status'        => $status,
                 'level_no'      => $level_no, 
                 'grp'           => $grp, 
-                'user_id'       => $userid,
+                'user_id'       => $user_id,
                 'name'          => $name,
                 'bgcolor'       => $bgcolor,
                 'valuebt'       => $valuebt
