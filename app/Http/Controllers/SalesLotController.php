@@ -22,21 +22,23 @@ class SalesLotController extends Controller
         $formattedNumber = number_format($request->land_area, 2, '.', ',');
 
         $dataArray = array(
-            'user_id'       => $request->user_id,
-            'level_no'      => $request->level_no,
-            'entity_cd'     => $request->entity_cd,
-            'doc_no'        => $request->doc_no,
-            'email_addr'    => $request->email_addr,
-            'descs'         => $request->descs,
-            'project_no'    => $request->project_no,
-            'temp_no'       => $request->temp_no,
-            'land_area'     => $formattedNumber,
-            'entity_name'   => $request->entity_name,
-            'prospect_no'   => $request->prospect_no,
-            'lot_no'        => $request->lot_no,
-            'user_name'     => $request->user_name,
-            'rt_grp_name'   => $request->rt_grp_name,
-            'link'          => 'saleslot',
+            'user_id'           => $request->user_id,
+            'level_no'          => $request->level_no,
+            'entity_cd'         => $request->entity_cd,
+            'doc_no'            => $request->doc_no,
+            'email_addr'        => $request->email_addr,
+            'descs'             => $request->descs,
+            'project_no'        => $request->project_no,
+            'lot_no_hd'         => $request->lot_no_hd,
+            'rentable_area'     => $request->rentable_area,
+            'temp_no'           => $request->temp_no,
+            'land_area'         => $formattedNumber,
+            'entity_name'       => $request->entity_name,
+            'prospect_no'       => $request->prospect_no,
+            'lot_no'            => $request->lot_no,
+            'user_name'         => $request->user_name,
+            'rt_grp_name'       => $request->rt_grp_name,
+            'link'              => 'saleslot',
         );
 
         $sendToEmail = strtolower($request->email_addr);
