@@ -18,4 +18,15 @@ class TestingController extends Controller
         $new_ref_no = str_replace("/","-",$first);
         echo $new_ref_no;
     }
+
+    public function gambar()
+    {
+        $image = "reject.png";
+        $st = 'OK';
+        $msg1 = array(
+            "St" => $st,
+            "image" => $image
+        );
+        return view("emails.statis", $msg1);
+    }
 }

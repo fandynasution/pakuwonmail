@@ -42,7 +42,7 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 50px 30px;">
-                                    <img style="width:88px; margin-bottom:24px;" src="{{ url('/public/images/<?php echo $image ?>') }}" alt="Verified">
+                                    <img style="width:88px; margin-bottom:24px;" src="{{ url('/public/images/') }}/<?php echo $image ?>" alt="Verified">
                                     <!-- <h2 style="font-size: 18px; color: #1ee0ac; font-weight: 400; margin-bottom: 8px;"><?php echo $notif ?></h2> -->
                                     <p><?php echo $Pesan ?></p>
                                 </td>

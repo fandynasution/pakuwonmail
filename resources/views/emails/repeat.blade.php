@@ -26,7 +26,7 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td valign="middle" align="left" style="color:#666666;">
-                                                                <img src="{{ url('/public/images/<?php echo $image ?>') }}" alt="200x200x1" width="200" height="200" style="margin:0; padding:0; width:100%; height:auto;" />
+                                                                <img src="{{ url('/public/images/') }}/<?php echo $image ?>" alt="200x200x1" width="200" height="200" style="margin:0; padding:0; width:100%; height:auto;" />
                                                                 </td>
                                                             </tr>
 
