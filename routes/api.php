@@ -30,6 +30,7 @@ Route::GET('/approvestatus/{status}/{entity_cd}/{doc_no}/{level_no}', [ApprovalM
 use App\Http\Controllers\LandApprovalController as LandApproval;
 
 Route::POST('/SendMailLand', [LandApproval::class, 'LandApprovalMail']);
+Route::POST('/SendMailLand/update', [LandApproval::class, 'update']);
 Route::GET('/approvestatusLand/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApproval::class, 'changestatus']);
 
 use App\Http\Controllers\LandFphApprovalController as LandFphApproval;
@@ -58,6 +59,7 @@ Route::GET('/landmeasuring/{status}/{entity_cd}/{doc_no}/{level_no}', [LandMeasu
 use App\Http\Controllers\LandSphController as LandSph;
 
 Route::POST('/landsph', [LandSph::class, 'LandSphMail']);
+Route::POST('/landsph/update', [LandSph::class, 'update']);
 Route::GET('/landsph/{status}/{entity_cd}/{doc_no}/{level_no}', [LandSph::class, 'changestatus']);
 
 use App\Http\Controllers\LandSertifikatController as LandSertifikat;
@@ -68,6 +70,7 @@ Route::GET('/landsertifikat/{status}/{entity_cd}/{doc_no}/{level_no}', [LandSert
 use App\Http\Controllers\LandRequestController as LandRequest;
 
 Route::POST('/landrequest', [LandRequest::class, 'LandRequestMail']);
+Route::POST('/landrequest/update', [LandRequest::class, 'update']);
 Route::GET('/landrequest/{status}/{entity_cd}/{doc_no}/{level_no}', [LandRequest::class, 'changestatus']);
 
 use App\Http\Controllers\AgentDeactiveController as AgentDeactive;
@@ -222,6 +225,7 @@ Route::GET('/getCoordinate', [Coordinate::class, 'getCoordinate']);
 use App\Http\Controllers\LandBoundaryController as LandBoundary;
 
 Route::POST('/landboundary', [LandBoundary::class, 'Mail']);
+Route::POST('/landboundary/update', [LandBoundary::class, 'update']);
 Route::GET('/landboundary/{status}/{entity_cd}/{doc_no}/{level_no}', [LandBoundary::class, 'changestatus']);
 
 use App\Http\Controllers\LandMasterRenewController as LandMasterRenew;
