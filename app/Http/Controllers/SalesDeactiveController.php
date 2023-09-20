@@ -164,13 +164,13 @@ class SalesDeactiveController extends Controller
             $sth->bindParam(6, $remarks);
             $sth->execute();
             if ($sth == true) {
-                $msg = "You Have Successfully Canceled the Approval Sales Deactive No. ".$doc_no;
-                $notif = 'Canceled !';
+                $msg = "You Have Successfully Cancelled the Approval Sales Deactive No. ".$doc_no;
+                $notif = 'Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             } else {
                 $msg = "You Failed to Cancel the Approval Sales Deactive No. ".$doc_no;
-                $notif = 'Fail to Canceled !';
+                $notif = 'Fail to Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             }

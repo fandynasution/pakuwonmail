@@ -115,13 +115,13 @@ class PlRecMaintenanceController extends Controller
                 $sqlsendemail = "mgr.xrl_send_mail_approval_pl_rec_maintenace '" . $entity_cd . "', '" . $project_no . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "', '" . $user_id . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the PL Rec Maintenance No. ".$doc_no;
-                    $notif = 'Canceled !';
+                    $msg = "You Have Successfully Cancelled the PL Rec Maintenance No. ".$doc_no;
+                    $notif = 'Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
                     $msg = "You Failed to Cancel the PL Rec Maintenance No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
+                    $notif = 'Fail to Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 }

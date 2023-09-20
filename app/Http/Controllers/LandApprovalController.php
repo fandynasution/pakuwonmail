@@ -165,13 +165,13 @@ class LandApprovalController extends Controller
             $sth->bindParam(5, $remarks);
             $sth->execute();
             if ($sth == true) {
-                $msg = "You Have Successfully Canceled the MAP Land Doc. No. ".$doc_no;
-                $notif = 'Canceled !';
+                $msg = "You Have Successfully Cancelled the MAP Land Doc. No. ".$doc_no;
+                $notif = 'Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             } else {
                 $msg = "You Failed to Cancel the MAP Land Doc. No. ".$doc_no;
-                $notif = 'Fail to Canceled !';
+                $notif = 'Fail to Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             }

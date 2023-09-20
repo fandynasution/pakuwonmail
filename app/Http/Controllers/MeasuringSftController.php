@@ -113,13 +113,13 @@ class MeasuringSftController extends Controller
                 $sqlsendemail = "mgr.xrl_send_mail_approval_land_measuring_sft '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the Land Measuring SFT Doc. No. ".$doc_no;
-                    $notif = 'Canceled !';
+                    $msg = "You Have Successfully Cancelled the Land Measuring SFT Doc. No. ".$doc_no;
+                    $notif = 'Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
                     $msg = "You Failed to Cancel the Land Measuring SFT Doc. No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
+                    $notif = 'Fail to Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 }

@@ -214,8 +214,8 @@ class CmProgressMockupController extends Controller
                 $st = 'OK';
                 $image = "revise.png";
             } else if ($status == 'C'){
-                $msg = "You Have Successfully Canceled the CM Progress No. ".$doc_no." with a reason " .$reason;
-                $notif = 'Canceled !';
+                $msg = "You Have Successfully Cancelled the CM Progress No. ".$doc_no." with a reason " .$reason;
+                $notif = 'Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             }
@@ -227,7 +227,7 @@ class CmProgressMockupController extends Controller
                 $image = "reject.png";
             } else if ($status == 'C'){
                 $msg = "You Failed to Cancel the CM Progress No. ".$doc_no;
-                $notif = 'Fail to Canceled !';
+                $notif = 'Fail to Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             }

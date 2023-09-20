@@ -185,13 +185,13 @@ class SalesLotActivityProspController extends Controller
             $sth->bindParam(8, $remarks);
             $sth->execute();
             if ($sth == true) {
-                $msg = "You Have Successfully Canceled the Sales Lot Activity Prosp No. ".$doc_no;
-                $notif = 'Canceled !';
+                $msg = "You Have Successfully Cancelled the Sales Lot Activity Prosp No. ".$doc_no;
+                $notif = 'Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             } else {
                 $msg = "You Failed to Cancel the Sales Lot Activity Prosp No. ".$doc_no;
-                $notif = 'Fail to Canceled !';
+                $notif = 'Fail to Cancelled !';
                 $st = 'OK';
                 $image = "reject.png";
             }

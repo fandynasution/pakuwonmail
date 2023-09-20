@@ -101,13 +101,13 @@ class ApprovalController extends Controller
                 $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
                 $snd = DB::connection('SSI')->insert($sqlsendemail);
                 if ($snd == '1') {
-                    $msg = "You Have Successfully Canceled the Prospect No. ".$doc_no;
-                    $notif = 'Canceled !';
+                    $msg = "You Have Successfully Cancelled the Prospect No. ".$doc_no;
+                    $notif = 'Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
                     $msg = "You Failed to Cancel the Prospect No. ".$doc_no;
-                    $notif = 'Fail to Canceled !';
+                    $notif = 'Fail to Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 }

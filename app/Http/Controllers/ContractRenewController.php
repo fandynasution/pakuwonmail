@@ -151,13 +151,13 @@ class ContractRenewController extends Controller
                 $sth->bindParam(7, $user_id);
                 $sth->execute();
                 if ($sth == true) {
-                    $msg = "You Have Successfully Canceled the Contract Renewal No. ".$new_doc_no1;
-                    $notif = 'Canceled !';
+                    $msg = "You Have Successfully Cancelled the Contract Renewal No. ".$new_doc_no1;
+                    $notif = 'Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 } else {
                     $msg = "You Failed to Cancel the Contract Renewal No. ".$new_doc_no1;
-                    $notif = 'Fail to Canceled !';
+                    $notif = 'Fail to Cancelled !';
                     $st = 'OK';
                     $image = "reject.png";
                 }
