@@ -112,21 +112,25 @@ Route::GET('/saleschangename/{entity_cd}/{project_no}/{doc_no}/{lot_no}/{status}
 use App\Http\Controllers\MeasuringSftController as MeasuringSft;
 
 Route::POST('/measuringsft', [MeasuringSft::class, 'Mail']);
+Route::POST('/measuringsft/update', [MeasuringSft::class, 'update']);
 Route::GET('/measuringsft/{status}/{entity_cd}/{doc_no}/{level_no}', [MeasuringSft::class, 'changestatus']);
 
 use App\Http\Controllers\LandApprovalSftController as LandApprovalSft;
 
 Route::POST('/landapprovalsft', [LandApprovalSft::class, 'Mail']);
+Route::POST('/landapprovalsft/update', [LandApprovalSft::class, 'update']);
 Route::GET('/landapprovalsft/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSft::class, 'changestatus']);
 
 use App\Http\Controllers\LandApprovalSftBphtbController as LandApprovalSftBphtb;
 
 Route::POST('/landapprovalsftbphtb', [LandApprovalSftBphtb::class, 'Mail']);
+Route::POST('/landapprovalsftbphtb/update', [LandApprovalSftBphtb::class, 'update']);
 Route::GET('/landapprovalsftbphtb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSftBphtb::class, 'changestatus']);
 
 use App\Http\Controllers\LandApprovalSftShgbController as LandApprovalSftShgb;
 
 Route::POST('/landapprovalsftshgb', [LandApprovalSftShgb::class, 'Mail']);
+Route::POST('/landapprovalsftshgb/update', [LandApprovalSftShgb::class, 'update']);
 Route::GET('/landapprovalsftshgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSftShgb::class, 'changestatus']);
 
 use App\Http\Controllers\PlBudgetLymanController as PlBudgetLyman;

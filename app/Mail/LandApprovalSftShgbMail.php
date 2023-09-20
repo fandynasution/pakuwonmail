@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class LandMeasuringSftApproval extends Mailable
+class LandApprovalSftShgbMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -34,7 +34,7 @@ class LandMeasuringSftApproval extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.measuringsft.send')
+                    ->view('emails.landsftshgb.send')
                     ->with(['data' => $this->mailData]);
     }
 }

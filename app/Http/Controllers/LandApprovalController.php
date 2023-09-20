@@ -80,7 +80,7 @@ class LandApprovalController extends Controller
                 "St" => $st,
                 "notif" => $notif,
                 "image" => $image
-            );
+            );return view("emails.after", $msg1);
         } else {
             if ($status == 'A') {
                 $name   = 'Approval';
@@ -182,6 +182,6 @@ class LandApprovalController extends Controller
             "image" => $image,
             "notif" => $notif
         );
-    return view("emails.after", $msg1);
+        return view("emails.after", $msg1);
     }
 }

@@ -69,7 +69,7 @@ class LandFphApprovalController extends Controller
                 "St" => $st,
                 "notif" => $notif,
                 "image" => $image
-            );
+            );return view("emails.after", $msg1);
         } else {
             if ($status == 'A') {
                 $name   = 'Approval';
