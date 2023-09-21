@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\EmailSendApproval;
-use App\Mail\SalesDeactiveMail;
-use App\Mail\UserEmail;
+use App\Mail\LotPriceDeactiveMail;
 use Illuminate\Support\Facades\DB;
 
 class LotPriceDeactiveController extends Controller
@@ -40,7 +38,7 @@ class LotPriceDeactiveController extends Controller
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
         {
             Mail::to($sendToEmail)
-                ->send(new SalesDeactiveMail($dataArray));
+                ->send(new LotPriceDeactiveMail($dataArray));
             $callback['Error'] = true;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
@@ -100,7 +98,7 @@ class LotPriceDeactiveController extends Controller
                 'valuebt'       => $valuebt
             );
         }
-        return view('emails/salesdeactive/action', $data);
+        return view('emails/lotpricedeactive/action', $data);
     }
 
     public function update(Request $request)
