@@ -27,11 +27,13 @@ class SalesCancelController extends Controller
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
+            'reason_descs'  => $request->reason_descs,
+            'cust_name'     => $request->cust_name,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
             'link'          => 'salescancel',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'Please Approve '.$request->descs.' because '.$request->reason_descs.' for customer '.$request->cust_name,
         );
 
         $sendToEmail = strtolower($request->email_addr);

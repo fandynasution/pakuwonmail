@@ -26,13 +26,14 @@ class AgentDeactiveController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'plan_descs'    => $request->plan_descs,
             'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'agentdeactive',
-            'body'          => 'Please Approve '.$request->descs.', Agent Code '.$request->ref_no,
+            'body'          => 'Please Approve Agent Code '.$request->ref_no.' because '.$request->plan_descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);
@@ -91,7 +92,7 @@ class AgentDeactiveController extends Controller
             $data = array(
                 'entity_cd'     => $entity_cd, 
                 'doc_no'        => $doc_no, 
-                'payment_cd'    => $payment_cd, 
+                'payment_cd'    => $payment_code, 
                 'status'        => $status,
                 'level_no'      => $level_no,
                 'name'          => $name,

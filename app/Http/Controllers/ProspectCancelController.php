@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SevenVarCancelMail;
+use App\Mail\ProspectCancelMail;
 use Illuminate\Support\Facades\DB;
 
 class ProspectCancelController extends Controller
