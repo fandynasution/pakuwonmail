@@ -118,7 +118,7 @@ class SalesLotController extends Controller
                 'valuebt'       => $valuebt
             );
         }
-        return view('emails/lottemp/action', $data);
+        return view('emails/saleslot/action', $data);
     }
 
     public function update(Request $request)
