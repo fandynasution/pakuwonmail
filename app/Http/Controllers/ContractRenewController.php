@@ -105,7 +105,7 @@ class ContractRenewController extends Controller
                 $sth->bindParam(5, $new_level_no);
                 $sth->bindParam(6, $grp_name);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, 0);
+                $sth->bindParam(8, '0');
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Approved the Contract Renewal No. ".$new_doc_no1;
@@ -128,7 +128,7 @@ class ContractRenewController extends Controller
                 $sth->bindParam(5, $new_level_no);
                 $sth->bindParam(6, $grp_name);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, 0);
+                $sth->bindParam(8, '0');
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Made a Revise Request on Contract Renewal No. ".$new_doc_no1;
@@ -151,7 +151,7 @@ class ContractRenewController extends Controller
                 $sth->bindParam(5, $new_level_no);
                 $sth->bindParam(6, $grp_name);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, 0);
+                $sth->bindParam(8, '0');
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Cancelled the Contract Renewal No. ".$new_doc_no1;

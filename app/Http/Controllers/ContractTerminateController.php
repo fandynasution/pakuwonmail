@@ -102,7 +102,7 @@ class ContractTerminateController extends Controller
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, 0);
+                $sth->bindParam(8, '0');
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Approved the Contract Terminate No. ".$doc_no;
@@ -125,7 +125,7 @@ class ContractTerminateController extends Controller
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, 0);
+                $sth->bindParam(8, '0');
                 if ($sth == true) {
                     $msg = "You Have Successfully Made a Revise Request on Contract Terminate No. ".$doc_no;
                     $notif = 'Revised !';
@@ -147,7 +147,7 @@ class ContractTerminateController extends Controller
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, 0);
+                $sth->bindParam(8, '0');
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Cancelled the Contract Terminate No. ".$doc_no;
