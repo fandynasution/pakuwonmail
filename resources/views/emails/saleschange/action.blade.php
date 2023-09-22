@@ -25,7 +25,7 @@
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
                                 <p>Please Give a Remarks to <?php echo $doc_no?> <?php echo $name?> : </p>
-                                    <form id="frmEditor" class="form-horizontal" method="POST" action="{{url('/api/lottemp/update')}}" enctype="multipart/form-data">
+                                    <form id="frmEditor" class="form-horizontal" method="POST" action="{{url('/api/saleschangename/update')}}" enctype="multipart/form-data">
                                     @csrf
                                         <input type="text" id="entity_cd" name="entity_cd" value="<?php echo $entity_cd?>" hidden>
                                         <input type="text" id="project_no" name="project_no" value="<?php echo $project_no?>" hidden>

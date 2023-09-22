@@ -20,16 +20,20 @@ class LandMasterRenewController extends Controller
         );
 
         $dataArray = array(
-            'user_id'       => $request->user_id,
-            'level_no'      => $request->level_no,
-            'entity_cd'     => $request->entity_cd,
-            'doc_no'        => $request->doc_no,
-            'ref_no'        => $request->ref_no,
-            'email_addr'    => $request->email_addr,
-            'user_name'     => $request->user_name,
-            'descs'         => $request->descs,
-            'link'          => 'landmasterrenew',
-            'body'          => 'Please Approve '.$request->descs,
+            'user_id'           => $request->user_id,
+            'level_no'          => $request->level_no,
+            'entity_cd'         => $request->entity_cd,
+            'entity_cd_land'    => $request->entity_cd_land,
+            'land_no'           => $request->land_no,
+            'area'              => $request->area,
+            'city'              => $request->city,
+            'entity_name'       => $request->entity_name,
+            'doc_no'            => $request->doc_no,
+            'ref_no'            => $request->ref_no,
+            'email_addr'        => $request->email_addr,
+            'user_name'         => $request->user_name,
+            'descs'             => $request->descs,
+            'link'              => 'landmasterrenew',
         );
 
         $sendToEmail = strtolower($request->email_addr);
