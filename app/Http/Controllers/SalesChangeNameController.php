@@ -101,7 +101,7 @@ class SalesChangeNameController extends Controller
                 'valuebt'       => $valuebt
             );
         }
-        return view('emails/saleschangename/action', $data);
+        return view('emails/saleschange/action', $data);
     }
 
     public function update(Request $request)
