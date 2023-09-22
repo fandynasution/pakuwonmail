@@ -23,7 +23,7 @@ class CmVoController extends Controller
         $new_doc_no = str_replace("/","-",$request->doc_no);
         $new_ref_no = str_replace("/","-",$request->ref_no);
 
-        var_dump($new_ref_no);
+        
 
         $formattedNumber = number_format($request->submission_amt, 2, '.', ',');
 

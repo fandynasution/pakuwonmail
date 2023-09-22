@@ -24,12 +24,14 @@ class LandVerificationApprovalController extends Controller
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
+            'nop_no'      => $request->nop_no,
+            'name_owner'     => $request->name_owner,
+            'own_descs'        => $request->own_descs,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'approvestatusLandverififcation',
-            'body'          => 'Please Approve '.$request->descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);

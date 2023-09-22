@@ -20,10 +20,15 @@ class LandApprovalSftController extends Controller
             'Status' => 200
         );
 
+        $sk_amt = number_format($request->sk_amt, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
+            'ref_no'        => $request->ref_no,
+            'sk_no'         => $request->sk_no,
+            'sk_amt'        => $sk_amt,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,

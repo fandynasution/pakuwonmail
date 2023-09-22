@@ -19,11 +19,17 @@ class MeasuringSftController extends Controller
             'Status' => 200
         );
 
+        $measuring_amt = number_format($request->measuring_amt, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'kloter'       => $request->kloter,
+            'file_no'      => $request->file_no,
+            'nib_no'     => $request->nib_no,
+            'measuring_amt'        => $measuring_amt,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,

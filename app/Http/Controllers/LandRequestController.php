@@ -20,16 +20,19 @@ class LandRequestController extends Controller
             'Status' => 200
         );
 
+        $request_amt = number_format($request->request_amt, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
+            'type'        => $request->type,
+            'request_amt'     => $request_amt,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'landrequest',
-            'body'          => 'Please Approve '.$request->descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);

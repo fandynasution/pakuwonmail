@@ -20,16 +20,22 @@ class LandFphApprovalController extends Controller
             'Status' => 200
         );
 
+        $total_amt = number_format($request->total_amt, 2, '.', ',');
+        $book_amt = number_format($request->total_amt, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'nop_no'        => $request->nop_no,
+            'name_owner'    => $request->name_owner,
+            'total_amt'     => $total_amt,
+            'book_amt'      => $book_amt,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'approvestatusLandFph',
-            'body'          => 'Please Approve '.$request->descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);

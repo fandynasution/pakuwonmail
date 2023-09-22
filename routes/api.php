@@ -54,6 +54,7 @@ Route::GET('/approvestatusLandverififcation/{status}/{entity_cd}/{doc_no}/{level
 use App\Http\Controllers\LandMeasuringController as LandMeasuring;
 
 Route::POST('/landmeasuring', [LandMeasuring::class, 'LandMeasuringMail']);
+Route::POST('/landmeasuring/update', [LandMeasuring::class, 'update']);
 Route::GET('/landmeasuring/{status}/{entity_cd}/{doc_no}/{level_no}', [LandMeasuring::class, 'changestatus']);
 
 use App\Http\Controllers\LandSphController as LandSph;

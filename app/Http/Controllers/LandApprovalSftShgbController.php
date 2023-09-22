@@ -20,16 +20,21 @@ class LandApprovalSftShgbController extends Controller
             'Status' => 200
         );
 
+        $shgb_amt = number_format($request->shgb_amt, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'ref_no'       => $request->ref_no,
+            'nop_no'      => $request->nop_no,
+            'pbt_area'     => $request->pbt_area,
+            'shgb_amt'        => $shgb_amt,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'landapprovalsftshgb',
-            'body'          => 'Please Approve '.$request->descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);
