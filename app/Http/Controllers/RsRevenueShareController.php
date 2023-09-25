@@ -122,14 +122,12 @@ class RsRevenueShareController extends Controller
     public function update(Request $request)
     {
         $date = strtotime($request->doc_date);
-        $tanggal = date('Y-m-d', $date);
-        $hasil = $tanggal.'T00:00:00.000';
+        $tanggal = date('d-m-Y', $date);
 
         $entity_cd = $request->entity_cd;
         $project_no = $request->project_no;
         $doc_no = $request->doc_no;
         $trx_type = $request->trx_type;
-        $doc_date = $request->doc_date;
         $ref_no = $request->ref_no;
         $status = $request->status;
         $level_no = $request->level_no;
@@ -145,7 +143,7 @@ class RsRevenueShareController extends Controller
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $doc_no);
             $sth->bindParam(4, $trx_type);
-            $sth->bindParam(5, $hasil);
+            $sth->bindParam(5, $tanggal);
             $sth->bindParam(6, $ref_no);
             $sth->bindParam(7, $status);
             $sth->bindParam(8, $level_no);
@@ -173,7 +171,7 @@ class RsRevenueShareController extends Controller
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $doc_no);
             $sth->bindParam(4, $trx_type);
-            $sth->bindParam(5, $hasil);
+            $sth->bindParam(5, $tanggal);
             $sth->bindParam(6, $ref_no);
             $sth->bindParam(7, $status);
             $sth->bindParam(8, $level_no);
@@ -200,7 +198,7 @@ class RsRevenueShareController extends Controller
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $doc_no);
             $sth->bindParam(4, $trx_type);
-            $sth->bindParam(5, $hasil);
+            $sth->bindParam(5, $tanggal);
             $sth->bindParam(6, $ref_no);
             $sth->bindParam(7, $status);
             $sth->bindParam(8, $level_no);
