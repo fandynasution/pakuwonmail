@@ -21,7 +21,7 @@ class LandFphApprovalController extends Controller
         );
 
         $total_amt = number_format($request->total_amt, 2, '.', ',');
-        $book_amt = number_format($request->total_amt, 2, '.', ',');
+        $book_amt = number_format($request->book_amt, 2, '.', ',');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
