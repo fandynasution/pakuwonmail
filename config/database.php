@@ -108,6 +108,21 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'SSI2' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL2'),
+            'host' => 'uat.ifca.co.id',
+            'port' => '1436',
+            'database' => 'SSI_PROD',
+            'username' => 'mgr',
+            'password' => 'mgr',
+            'charset' => 'utf8',
+            'prefix' => '',            
+            'encrypt' => 'yes',
+            'trust_server_certificate' => true,            
+            'prefix_indexes' => true,
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

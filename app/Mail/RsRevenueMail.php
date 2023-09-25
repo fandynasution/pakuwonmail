@@ -34,7 +34,7 @@ class RsRevenueMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.revenue')
+                    ->view('emails.rsrevenue.send')
                     ->with(['data' => $this->mailData]);
     }
 }

@@ -184,6 +184,7 @@ Route::GET('/cmcontractclose/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}
 use App\Http\Controllers\RsRevenueShareController as RsRevenueShare;
 
 Route::POST('/revenueshare', [RsRevenueShare::class, 'Mail']);
+Route::POST('/revenueshare/update', [RsRevenueShare::class, 'update']);
 Route::GET('/revenueshare/{entity_cd}/{project_no}/{doc_no}/{trx_type}/{doc_date}/{ref_no}/{status}/{level_no}/{usergroup}/{user_id}/{supervisor}', [RsRevenueShare::class, 'changestatus']);
 
 use App\Http\Controllers\SalesLotActivityController as SalesLotActivity;
