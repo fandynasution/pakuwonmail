@@ -29,7 +29,7 @@ class LandMasterApprovalController extends Controller
             'area'              => $request->area,
             'city'              => $request->city,
             'entity_name'       => $request->entity_name,
-            'doc_no'            => $doc_no,
+            'doc_no'            => $request->doc_no,
             'email_addr'        => $request->email_addr,
             'user_name'         => $request->user_name,
             'descs'             => $request->descs,
