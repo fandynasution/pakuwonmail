@@ -23,17 +23,19 @@ class LandSphController extends Controller
         $sph_amt = number_format($request->sph_amt, 2, '.', ',');
         $book_amt = number_format($request->book_amt, 2, '.', ',');
         $total_amt = number_format($request->total_amt, 2, '.', ',');
+        $laf = number_format($request->laf, 2, '.', ',');
+        $baf = number_format($request->baf, 2, '.', ',');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
-            'name_owner'     => $request->name_owner,
-            'nop_no'     => $request->nop_no,
-            'laf'     => $request->laf,
-            'baf'     => $request->baf,
-            'sph_amt'     => $sph_amt,
-            'book_amt'     => $book_amt,
+            'name_owner'    => $request->name_owner,
+            'nop_no'        => $request->nop_no,
+            'laf'           => $laf,
+            'baf'           => $baf,
+            'sph_amt'       => $sph_amt,
+            'book_amt'      => $book_amt,
             'total_amt'     => $total_amt,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
