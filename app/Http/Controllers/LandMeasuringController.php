@@ -27,7 +27,7 @@ class LandMeasuringController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'ref_no'        => $request->ref_no,
-            'descs_officer'    => $request->descs_officer,
+            'descs_officer' => $request->descs_officer,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'landmeasuring',
