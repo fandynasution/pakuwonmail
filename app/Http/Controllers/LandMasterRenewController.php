@@ -19,7 +19,7 @@ class LandMasterRenewController extends Controller
             'Status' => 200
         );
 
-        $doc_no = number_format($request->doc_no, 2, '.', ',');
+        $area = number_format($request->area, 2, '.', ',');
 
         $dataArray = array(
             'user_id'           => $request->user_id,
@@ -27,10 +27,10 @@ class LandMasterRenewController extends Controller
             'entity_cd'         => $request->entity_cd,
             'entity_cd_land'    => $request->entity_cd_land,
             'land_no'           => $request->land_no,
-            'area'              => $request->area,
+            'area'              => $area,
             'city'              => $request->city,
             'entity_name'       => $request->entity_name,
-            'doc_no'            => $doc_no,
+            'doc_no'            => $request->doc_no,
             'ref_no'            => $request->ref_no,
             'email_addr'        => $request->email_addr,
             'user_name'         => $request->user_name,
