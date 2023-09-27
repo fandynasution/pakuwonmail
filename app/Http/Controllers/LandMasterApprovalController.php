@@ -20,8 +20,6 @@ class LandMasterApprovalController extends Controller
             'Status' => 200
         );
 
-        // $doc_no = number_format($request->doc_no, 2, '.', ',');
-
         $dataArray = array(
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
