@@ -21,6 +21,7 @@ class LandApprovalSftShgbController extends Controller
         );
 
         $shgb_amt = number_format($request->shgb_amt, 2, '.', ',');
+        $pbt_area = number_format($request->pbt_area, 2, '.', ',');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
@@ -29,7 +30,7 @@ class LandApprovalSftShgbController extends Controller
             'doc_no'        => $request->doc_no,
             'ref_no'       => $request->ref_no,
             'nop_no'      => $request->nop_no,
-            'pbt_area'     => $request->pbt_area,
+            'pbt_area'     => $pbt_area,
             'shgb_amt'        => $shgb_amt,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
