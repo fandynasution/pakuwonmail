@@ -93,6 +93,7 @@ class ContractTerminateController extends Controller
             );
         } else {
             if($status == 'A') {
+                $remarks = '0';
                 $pdo = DB::connection('SSI')->getPdo();
                 $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
@@ -102,7 +103,7 @@ class ContractTerminateController extends Controller
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, '0');
+                $sth->bindParam(8, $remarks);
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Approved the Contract Terminate No. ".$doc_no;
@@ -116,6 +117,7 @@ class ContractTerminateController extends Controller
                     $image = "reject.png";
                 }
             } else if($status == 'R'){
+                $remarks = '0';
                 $pdo = DB::connection('SSI')->getPdo();
                 $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
@@ -125,7 +127,7 @@ class ContractTerminateController extends Controller
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, '0');
+                $sth->bindParam(8, $remarks);
                 if ($sth == true) {
                     $msg = "You Have Successfully Made a Revise Request on Contract Terminate No. ".$doc_no;
                     $notif = 'Revised !';
@@ -138,6 +140,7 @@ class ContractTerminateController extends Controller
                     $image = "reject.png";
                 }
             } else {
+                $remarks = '0';
                 $pdo = DB::connection('SSI')->getPdo();
                 $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
                 $sth->bindParam(1, $entity_cd);
@@ -147,7 +150,7 @@ class ContractTerminateController extends Controller
                 $sth->bindParam(5, $status);
                 $sth->bindParam(6, $level_no);
                 $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, '0');
+                $sth->bindParam(8, $remarks);
                 $sth->execute();
                 if ($sth == true) {
                     $msg = "You Have Successfully Cancelled the Contract Terminate No. ".$doc_no;
