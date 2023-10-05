@@ -25,6 +25,8 @@ class SalesLotActivityProspController extends Controller
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
+            'url_file'        => $request->url_file,
+            'file_name'        => $request->file_name,
             'prospect_no'   => $request->prospect_no,
             'lot_no'        => $request->lot_no,
             'email_addr'    => $request->email_addr,
