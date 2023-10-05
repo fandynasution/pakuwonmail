@@ -48,26 +48,22 @@ class ContractTerminateController extends Controller
 
     public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $user_id='', $doc_date='')
     {
-
-        $change_date = date("d-m-Y", strtotime($doc_date));
         $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
-            'level_no'      => $level_no,
             'entity_cd'     => $entity_cd,
+            'level_no'      => $level_no,
             'type'          => 'T',
             'module'        => 'TM',
         );
 
         $where3 = array(
             'doc_no'        => $doc_no,
-            'status'        => "P",
-            'level_no'      => $level_no,
             'entity_cd'     => $entity_cd,
+            'level_no'      => $level_no,
             'type'          => 'T',
             'module'        => 'TM',
         );
-
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
@@ -77,9 +73,6 @@ class ContractTerminateController extends Controller
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
-
-        // var_dump($change_date);
-
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to Contract Terminate No. '.$doc_no ;
             $notif = 'Restricted !';
@@ -90,87 +83,126 @@ class ContractTerminateController extends Controller
                 "St" => $st,
                 "notif" => $notif,
                 "image" => $image
-            );
+            );return view("emails.after", $msg1);
         } else {
-            if($status == 'A') {
-                $remarks = '0';
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $change_date);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, $remarks);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Approved the Contract Terminate No. ".$doc_no;
-                    $notif = 'Approved !';
-                    $st = 'OK';
-                    $image = "approved.png";
-                } else {
-                    $msg = "You Failed to Approve the Contract Terminate No ".$doc_no;
-                    $notif = 'Fail to Approve !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else if($status == 'R'){
-                $remarks = '0';
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $change_date);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, $remarks);
-                if ($sth == true) {
-                    $msg = "You Have Successfully Made a Revise Request on Contract Terminate No. ".$doc_no;
-                    $notif = 'Revised !';
-                    $st = 'OK';
-                    $image = "revise.png";
-                } else {
-                    $msg = "You Failed to Make a Revise Request on Contract Terminate No. ".$doc_no;
-                    $notif = 'Fail to Revised !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
-            } else {
-                $remarks = '0';
-                $pdo = DB::connection('SSI')->getPdo();
-                $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
-                $sth->bindParam(1, $entity_cd);
-                $sth->bindParam(2, $project_no);
-                $sth->bindParam(3, $doc_no);
-                $sth->bindParam(4, $change_date);
-                $sth->bindParam(5, $status);
-                $sth->bindParam(6, $level_no);
-                $sth->bindParam(7, $user_id);
-                $sth->bindParam(8, $remarks);
-                $sth->execute();
-                if ($sth == true) {
-                    $msg = "You Have Successfully Cancelled the Contract Terminate No. ".$doc_no;
-                    $notif = 'Cancelled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                } else {
-                    $msg = "You Failed to Cancel the Contract Terminate No. ".$doc_no;
-                    $notif = 'Fail to Cancelled !';
-                    $st = 'OK';
-                    $image = "reject.png";
-                }
+            if ($status == 'A') {
+                $name   = 'Approval';
+                $bgcolor = '#40de1d';
+                $valuebt  = 'Approve';
+            }else if ($status == 'R') {
+                $name   = 'Revision';
+                $bgcolor = '#f4bd0e';
+                $valuebt  = 'Revise';
+            } else if ($status == 'C'){
+                $name   = 'Cancelation';
+                $bgcolor = '#e85347';
+                $valuebt  = 'Cancel';
             }
-            $msg1 = array(
-                "Pesan" => $msg,
-                "St" => $st,
-                "image" => $image,
-                "notif" => $notif
+            $new_doc_no = str_replace("_sla","/",$doc_no);
+            $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
+            $data = array(
+                'entity_cd'     => $entity_cd, 
+                'project_no'     => $project_no, 
+                'doc_no'        => $new_doc_no1, 
+                'doc_date'        => $doc_date, 
+                'status'        => $status,
+                'level_no'      => $level_no, 
+                'user_id'      => $user_id, 
+                'name'          => $name,
+                'bgcolor'       => $bgcolor,
+                'valuebt'       => $valuebt
             );
         }
+        return view('emails/contractterminate/action', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $entity_cd = $request->entity_cd;
+        $project_no = $request->project_no;
+        $doc_no = $request->doc_no;
+        $doc_date = $request->doc_date;
+        $change_date = date("d-m-Y", strtotime($doc_date));
+        $status = $request->status;
+        $level_no = $request->level_no;
+        $user_id = $request->user_id;
+        $remarks = $request->remarks;
+        if($status == 'A') {
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $change_date);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Approved the Contract Terminate No. ".$doc_no;
+                $notif = 'Approved !';
+                $st = 'OK';
+                $image = "approved.png";
+            } else {
+                $msg = "You Failed to Approve the Contract Terminate No ".$doc_no;
+                $notif = 'Fail to Approve !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else if($status == 'R'){
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $change_date);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            if ($sth == true) {
+                $msg = "You Have Successfully Made a Revise Request on Contract Terminate No. ".$doc_no;
+                $notif = 'Revised !';
+                $st = 'OK';
+                $image = "revise.png";
+            } else {
+                $msg = "You Failed to Make a Revise Request on Contract Terminate No. ".$doc_no;
+                $notif = 'Fail to Revised !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        } else {
+            
+            $pdo = DB::connection('SSI')->getPdo();
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_terminate ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth->bindParam(1, $entity_cd);
+            $sth->bindParam(2, $project_no);
+            $sth->bindParam(3, $doc_no);
+            $sth->bindParam(4, $change_date);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $remarks);
+            $sth->execute();
+            if ($sth == true) {
+                $msg = "You Have Successfully Cancelled the Contract Terminate No. ".$doc_no;
+                $notif = 'Cancelled !';
+                $st = 'OK';
+                $image = "reject.png";
+            } else {
+                $msg = "You Failed to Cancel the Contract Terminate No. ".$doc_no;
+                $notif = 'Fail to Cancelled !';
+                $st = 'OK';
+                $image = "reject.png";
+            }
+        }
+        $msg1 = array(
+            "Pesan" => $msg,
+            "St" => $st,
+            "image" => $image,
+            "notif" => $notif
+        );
         return view("emails.after", $msg1);
     }
 }

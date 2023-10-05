@@ -254,11 +254,13 @@ Route::GET('/saleslotactivityprospnew/{entity_cd}/{project_no}/{doc_no}/{status}
 use App\Http\Controllers\ContractTerminateController as ContractTerminate;
 
 Route::POST('/contractterminate', [ContractTerminate::class, 'Mail']);
+Route::POST('/contractterminate/update', [ContractTerminate::class, 'update']);
 Route::GET('/contractterminate/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}/{doc_date}', [ContractTerminate::class, 'changestatus']);
 
 use App\Http\Controllers\ContractRenewController as ContractRenew;
 
 Route::POST('/contractrenew', [ContractRenew::class, 'Mail']);
+Route::POST('/contractrenew/update', [ContractRenew::class, 'update']);
 Route::GET('/contractrenew/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}', [ContractRenew::class, 'changestatus']);
 
 use App\Http\Controllers\SendController as Send;
