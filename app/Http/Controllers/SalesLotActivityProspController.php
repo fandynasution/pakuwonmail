@@ -26,6 +26,7 @@ class SalesLotActivityProspController extends Controller
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
             'url_file'        => $request->url_file,
+            'mailmerge'        => $request->mailmerge,
             'file_name'        => $request->file_name,
             'prospect_no'   => $request->prospect_no,
             'lot_no'        => $request->lot_no,
