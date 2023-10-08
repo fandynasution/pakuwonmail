@@ -20,19 +20,36 @@ class LandApprovalController extends Controller
             'Status' => 200
         );
 
-        $dataArray = array(
-            'user_id'       => $request->user_id,
-            'level_no'      => $request->level_no,
-            'entity_cd'     => $request->entity_cd,
-            'nop_no'       => $request->nop_no,
-            'name_owner'      => $request->name_owner,
-            'land_area_spk'     => $request->land_area_spk,
-            'doc_no'        => $request->doc_no,
-            'email_addr'    => $request->email_addr,
-            'user_name'     => $request->user_name,
-            'descs'         => $request->descs,
-            'link'          => 'approvestatusLand',
-        );
+        if ($request->land_area_bpn == 'empty')
+        {
+            $dataArray = array(
+                'user_id'       => $request->user_id,
+                'level_no'      => $request->level_no,
+                'entity_cd'     => $request->entity_cd,
+                'nop_no'       => $request->nop_no,
+                'name_owner'      => $request->name_owner,
+                'land_area'     => $request->land_area_spk,
+                'doc_no'        => $request->doc_no,
+                'email_addr'    => $request->email_addr,
+                'user_name'     => $request->user_name,
+                'descs'         => $request->descs,
+                'link'          => 'approvestatusLand',
+            );
+        } else {
+            $dataArray = array(
+                'user_id'       => $request->user_id,
+                'level_no'      => $request->level_no,
+                'entity_cd'     => $request->entity_cd,
+                'nop_no'       => $request->nop_no,
+                'name_owner'      => $request->name_owner,
+                'land_area'     => $request->land_area_bpn,
+                'doc_no'        => $request->doc_no,
+                'email_addr'    => $request->email_addr,
+                'user_name'     => $request->user_name,
+                'descs'         => $request->descs,
+                'link'          => 'approvestatusLand',
+            );
+        }
 
         $sendToEmail = strtolower($request->email_addr);
         if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
