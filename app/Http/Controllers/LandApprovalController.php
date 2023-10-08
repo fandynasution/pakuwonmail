@@ -20,7 +20,7 @@ class LandApprovalController extends Controller
             'Status' => 200
         );
 
-        if ($request->land_area_bpn == 'empty')
+        if ($request->land_area_bpn == '0')
         {
             $dataArray = array(
                 'user_id'       => $request->user_id,
