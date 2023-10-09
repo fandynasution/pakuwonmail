@@ -100,7 +100,7 @@ return [
             'port' => '1433',
             'database' => 'SSI_PROD',
             'username' => 'mgr',
-            'password' => 'mgr',
+            'password' => '@rie44IFCA',
             'charset' => 'utf8',
             'prefix' => '',            
             'encrypt' => 'yes',
