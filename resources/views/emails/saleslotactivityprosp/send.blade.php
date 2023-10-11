@@ -30,12 +30,10 @@
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/{{ $data['prospect_no'] }}/R/{{ $data['level_no'] }}/{{ $data['user_id'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/{{ $data['prospect_no'] }}/C/{{ $data['level_no'] }}/{{ $data['user_id'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>
                                     <br>
-                                    @if ( $data['mailmerge'] == 'Y')
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px">
                                         <b style="font-style:italic;">To view the attachment, please click the link below:</b><br>
                                         <a href="{{ $data['url_file'] }}" target="_blank">{{ $data['file_name'] }}</a>
                                     </p>
-                                    @endif
                                 </td>
                             </tr>
                         </tbody>
