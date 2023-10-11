@@ -49,9 +49,13 @@
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px">
                                         <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
-                                        @foreach($data['url_link'] as $tampil)
-                                            <a href={{ $tampil }} target="_blank">{{ trim(str_replace('%20',' ',substr($tampil, strrpos($tampil, '/') + 1))) }}</a><br>
-                                        @endforeach
+                                        @if ( is_array($data['url_link']) || is_object($data['url_link']) )
+                                            @foreach ($data['url_link'] as $tampil)
+                                                <a href={{ $tampil }} target="_blank">{{ trim(str_replace('%20',' ',substr($tampil, strrpos($tampil, '/') + 1))) }}</a><br><br>
+                                            @endforeach
+                                        @else
+                                            <a href={{ $data['url_link'] }} target="_blank">{{ trim(str_replace('%20',' ',substr($data['url_link'], strrpos($data['url_link'], '/') + 1))) }}</a><br><br>
+                                        @endif
                                     </p>
                                 </td>
                             </tr>
