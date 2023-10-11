@@ -20,6 +20,13 @@ class LandApprovalController extends Controller
             'Status' => 200
         );
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         if ($request->land_area_bpn == '0' || $request->land_area_bpn == 'empty' || $request->land_area_bpn == 'null')
         {
             $dataArray = array(
@@ -29,6 +36,7 @@ class LandApprovalController extends Controller
                 'nop_no'       => $request->nop_no,
                 'name_owner'      => $request->name_owner,
                 'land_area'     => $request->land_area_spk,
+                'url_link'      => $link,
                 'doc_no'        => $request->doc_no,
                 'email_addr'    => $request->email_addr,
                 'user_name'     => $request->user_name,
@@ -43,6 +51,7 @@ class LandApprovalController extends Controller
                 'nop_no'       => $request->nop_no,
                 'name_owner'      => $request->name_owner,
                 'land_area'     => $request->land_area_bpn,
+                'url_link'      => $link,
                 'doc_no'        => $request->doc_no,
                 'email_addr'    => $request->email_addr,
                 'user_name'     => $request->user_name,

@@ -21,6 +21,13 @@ class LandMasterRenewController extends Controller
 
         $area = number_format($request->area, 2, '.', ',');
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $dataArray = array(
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
@@ -30,6 +37,7 @@ class LandMasterRenewController extends Controller
             'area'              => $area,
             'city'              => $request->city,
             'entity_name'       => $request->entity_name,
+            'url_link'          => $link,
             'doc_no'            => $request->doc_no,
             'ref_no'            => $request->ref_no,
             'email_addr'        => $request->email_addr,

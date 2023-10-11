@@ -20,6 +20,13 @@ class LandMeasuringController extends Controller
             'Status' => 200
         );
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -28,6 +35,7 @@ class LandMeasuringController extends Controller
             'email_addr'    => $request->email_addr,
             'ref_no'        => $request->ref_no,
             'descs_officer' => $request->descs_officer,
+            'url_link'      => $link,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,
             'link'          => 'landmeasuring',

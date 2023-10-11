@@ -22,6 +22,13 @@ class LandApprovalSftController extends Controller
 
         $sk_amt = number_format($request->sk_amt, 2, '.', ',');
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -29,6 +36,7 @@ class LandApprovalSftController extends Controller
             'ref_no'        => $request->ref_no,
             'sk_no'         => $request->sk_no,
             'sk_amt'        => $sk_amt,
+            'url_link'      => $link,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,

@@ -20,12 +20,20 @@ class LandBoundaryController extends Controller
             'Status' => 200
         );
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'boundary_ref'  => $request->boundary_ref,
             'off_name'      => $request->off_name,
+            'url_link'      => $link,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,

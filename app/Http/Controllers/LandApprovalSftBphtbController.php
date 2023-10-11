@@ -21,6 +21,13 @@ class LandApprovalSftBphtbController extends Controller
         );
 
         $bphtb_amt = number_format($request->bphtb_amt, 2, '.', ',');
+
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
         
 
         $dataArray = array(
@@ -32,6 +39,7 @@ class LandApprovalSftBphtbController extends Controller
             'nib_no'        => $request->nib_no,
             'nop_bphtb'        => $request->nop_bphtb,
             'bphtb_amt'        => $bphtb_amt,
+            'url_link'      => $link,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'descs'         => $request->descs,

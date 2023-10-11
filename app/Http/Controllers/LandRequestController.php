@@ -20,6 +20,13 @@ class LandRequestController extends Controller
             'Status' => 200
         );
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $request_amt = number_format($request->request_amt, 2, '.', ',');
 
         $dataArray = array(
@@ -27,6 +34,7 @@ class LandRequestController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'type'          => $request->type,
+            'url_link'      => $link,
             'request_amt'   => $request_amt,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,

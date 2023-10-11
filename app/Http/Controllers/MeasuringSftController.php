@@ -18,6 +18,12 @@ class MeasuringSftController extends Controller
             'Pesan' => '',
             'Status' => 200
         );
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
 
         $measuring_amt = number_format($request->measuring_amt, 2, '.', ',');
 
@@ -26,6 +32,7 @@ class MeasuringSftController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'url_link'      => $link,
             'kloter'       => $request->kloter,
             'file_no'      => $request->file_no,
             'nib_no'     => $request->nib_no,

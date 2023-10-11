@@ -26,11 +26,19 @@ class LandSphController extends Controller
         $laf = number_format($request->laf, 2, '.', ',');
         $baf = number_format($request->baf, 2, '.', ',');
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'name_owner'    => $request->name_owner,
+            'url_link'      => $link,
             'nop_no'        => $request->nop_no,
             'laf'           => $laf,
             'baf'           => $baf,

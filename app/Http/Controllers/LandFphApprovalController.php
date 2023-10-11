@@ -20,6 +20,13 @@ class LandFphApprovalController extends Controller
             'Status' => 200
         );
 
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $total_amt = number_format($request->total_amt, 2, '.', ',');
         $book_amt = number_format($request->book_amt, 2, '.', ',');
 
@@ -30,6 +37,7 @@ class LandFphApprovalController extends Controller
             'doc_no'        => $request->doc_no,
             'nop_no'        => $request->nop_no,
             'name_owner'    => $request->name_owner,
+            'url_link'      => $link,
             'total_amt'     => $total_amt,
             'book_amt'      => $book_amt,
             'email_addr'    => $request->email_addr,
