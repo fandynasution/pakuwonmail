@@ -19,13 +19,22 @@ class SalesLotActivityProspController extends Controller
             'Status' => 200
         );
 
+        $area = number_format($request->area, 2, '.', ',');
+
+        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+
+        foreach ($newurl2 as $show)
+        {
+            $link[] = $show;
+        }
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
-            'url_file'        => $request->url_file,
+            'url_link'        => $request->url_link,
             'file_name'        => $request->file_name,
             'prospect_no'   => $request->prospect_no,
             'lot_no'        => $request->lot_no,
