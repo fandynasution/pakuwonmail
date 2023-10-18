@@ -25,12 +25,14 @@ class ProspectCancelController extends Controller
             'doc_no'        => $request->doc_no,
             'ref_no'        => $request->ref_no,
             'user_id'       => $request->user_id,
+            'remarks'       => $request->remarks,
+            'comp_name'     => $request->comp_name,
             'level_no'      => $request->level_no,
             'user_name'     => $request->user_name,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'link'          => 'prospectcancel',
-            'body'          => 'Please Approve '.$request->descs,
+            'body'          => 'Please Approve '.$request->descs.' because '.$request->remarks.' for customer '.$request->comp_name,
         );
 
         $sendToEmail = strtolower($request->email_addr);
