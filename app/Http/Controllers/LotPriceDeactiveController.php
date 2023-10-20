@@ -19,19 +19,21 @@ class LotPriceDeactiveController extends Controller
             'Status' => 200
         );
 
+        $plan_descs = str_replace('&','"',$request->plan_descs);
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
-            'plan_descs'    => $request->plan_descs,
+            'plan_descs'    => $plan_descs,
             'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'lotpricedeactive',
-            'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no. 'because '.$request->plan_descs,
+            'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no. 'because '.$plan_descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);
