@@ -19,6 +19,12 @@ class RsRevenueShareController extends Controller
             'Status' => 200
         );
 
+        $total_sales = number_format($request->total_sales, 2, '.', ',');
+        $tariff_percent = number_format($request->tariff_percent, 2, '.', ',');
+        $tariff_amt = number_format($request->tariff_amt, 2, '.', ',');
+        $tax_amt = number_format($request->tax_amt, 2, '.', ',');
+        $net_amt = number_format($request->net_amt, 2, '.', ',');
+
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
@@ -30,11 +36,19 @@ class RsRevenueShareController extends Controller
             'user_id'       => $request->user_id,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'debtor_name'   => $request->debtor_name,
+            'pgs_doc_no'    => $request->pgs_doc_no,
+            'total_sales'   => $total_sales,
+            'tariff_percent'=> $tariff_percent,
+            'tariff_amt'    => $tariff_amt,
+            'tax_amt'       => $tax_amt,
+            'net_amt'       => $net_amt,
+            'file_name'     => $request->file_name,
+            'url_link'      => $request->url_link,
             'user_name'     => $request->user_name,
             'usergroup'     => $request->usergroup,
             'supervisor'    => $request->supervisor,
-            'link'          => 'revenueshare',
-            'body'          => 'Please Approve '.$request->descs,
+            'link'          => 'revenueshare'
         );
 
         $sendToEmail = strtolower($request->email_addr);
