@@ -28,6 +28,7 @@ class LotPriceDeactiveController extends Controller
             'doc_no'        => $request->doc_no,
             'plan_descs'    => $plan_descs,
             'ref_no'        => $request->ref_no,
+            'lot_no'        => $request->lot_no,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
@@ -47,7 +48,7 @@ class LotPriceDeactiveController extends Controller
         }
     }
 
-    public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='', $payment_code='')
+    public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='', $payment_code='', $lot_no='')
     {
         $where2 = array(
             'doc_no'        => $doc_no,
@@ -95,6 +96,7 @@ class LotPriceDeactiveController extends Controller
                 'payment_cd'    => $payment_code, 
                 'status'        => $status,
                 'level_no'      => $level_no,
+                'lot_no'        => $lot_no,
                 'name'          => $name,
                 'bgcolor'       => $bgcolor,
                 'valuebt'       => $valuebt
@@ -110,16 +112,18 @@ class LotPriceDeactiveController extends Controller
         $payment_cd = $request->payment_cd;
         $status = $request->status;
         $level_no = $request->level_no;
+        $lot_no = $request->lot_no;
         $remarks = $request->remarks;
         if($status == 'A') {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
             $sth->bindParam(3, $payment_cd);
-            $sth->bindParam(4, $status);
-            $sth->bindParam(5, $level_no);
-            $sth->bindParam(6, $remarks);
+            $sth->bindParam(4, $lot_no);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $remarks);
             $sth->execute();
             if ($sth == true) 
             {
@@ -135,13 +139,14 @@ class LotPriceDeactiveController extends Controller
             }
         } else if($status == 'R'){
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
             $sth->bindParam(3, $payment_cd);
-            $sth->bindParam(4, $status);
-            $sth->bindParam(5, $level_no);
-            $sth->bindParam(6, $remarks);
+            $sth->bindParam(4, $lot_no);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $remarks);
             $sth->execute();
             if ($sth == true) {
                 $msg = "You Have Successfully Made a Revise Request on Approval Sales Lot Price Deactive No. ".$doc_no;
@@ -156,13 +161,14 @@ class LotPriceDeactiveController extends Controller
             }
         } else {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_lotprice_deactive ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
             $sth->bindParam(3, $payment_cd);
-            $sth->bindParam(4, $status);
-            $sth->bindParam(5, $level_no);
-            $sth->bindParam(6, $remarks);
+            $sth->bindParam(4, $lot_no);
+            $sth->bindParam(5, $status);
+            $sth->bindParam(6, $level_no);
+            $sth->bindParam(7, $remarks);
             $sth->execute();
             if ($sth == true) {
                 $msg = "You Have Successfully Cancelled the Approval Sales Lot Price Deactive No. ".$doc_no;

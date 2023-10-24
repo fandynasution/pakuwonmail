@@ -90,7 +90,7 @@ use App\Http\Controllers\LotPriceDeactiveController as LotPriceDeactive;
 
 Route::POST('/lotpricedeactive', [LotPriceDeactive::class, 'Mail']);
 Route::POST('/lotpricedeactive/update', [LotPriceDeactive::class, 'update']);
-Route::GET('/lotpricedeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}', [LotPriceDeactive::class, 'changestatus']);
+Route::GET('/lotpricedeactive/{status}/{entity_cd}/{doc_no}/{level_no}/{code}/{lot_no}', [LotPriceDeactive::class, 'changestatus']);
 
 use App\Http\Controllers\LotTempController as LotTemp;
 

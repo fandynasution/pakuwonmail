@@ -32,6 +32,7 @@
                                         <input type="text" id="payment_cd" name="payment_cd" value="<?php echo $payment_cd?>" hidden>
                                         <input type="text" id="status" name="status" value="<?php echo $status?>" hidden>
                                         <input type="text" id="level_no" name="level_no" value="<?php echo $level_no?>" hidden>
+                                        <input type="text" id="lot_no" name="lot_no" value="<?php echo $lot_no?>" hidden>
                                         <div class="form-group">
                                             <textarea class="form-control" id="remarks" name="remarks" rows="3"></textarea>
                                         </div>                                          
