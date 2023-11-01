@@ -32,6 +32,7 @@ class SalesLotController extends Controller
             'lot_no_hd'         => $request->lot_no_hd,
             'rentable_area'     => $request->rentable_area,
             'temp_no'           => $request->temp_no,
+            'url_link'          => $request->url_link,
             'land_area'         => $formattedNumber,
             'entity_name'       => $request->entity_name,
             'prospect_no'       => $request->prospect_no,

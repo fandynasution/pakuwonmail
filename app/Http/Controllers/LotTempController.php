@@ -34,6 +34,7 @@ class LotTempController extends Controller
             'user_name'     => $request->user_name,
             'project_no'    => $request->project_no,
             'temp_no'       => $request->temp_no,
+            'url_link'      => $request->url_link,
             'land_area'     => $formattedNumber,
             'entity_name'   => $request->entity_name,
             'prospect_no'   => $request->prospect_no,
