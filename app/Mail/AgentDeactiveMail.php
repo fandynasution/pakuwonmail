@@ -33,7 +33,7 @@ class AgentDeactiveMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Need Approval '.$this->mailData['descs'])
+        return $this->subject('Need Approval Agent Deactive '.$this->mailData['agent_name'])
                     ->view('emails.agentdeactive.send')
                     ->with(['data' => $this->mailData]);
     }

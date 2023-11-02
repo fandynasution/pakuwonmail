@@ -32,7 +32,7 @@
                                     <br>
                                     @if ($data['url_link'] != 'EMPTY')
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px">
-                                        <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
+                                        <b style="font-style:italic;">To view the attachment, please click the link below : </b><br>
                                         <a href={{ $data['url_link'] }} target="_blank">{{ trim(str_replace('%20', ' ',substr($data['url_link'], strrpos($data['url_link'], '/') + 1))) }}</a><br><br>
                                     </p>
                                     @endif

@@ -27,7 +27,7 @@ class AgentDeactiveController extends Controller
             'plan_descs'    => $request->plan_descs,
             'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
-            'descs'         => $request->descs,
+            'agent_name'    => $request->agent_name,
             'user_name'     => $request->user_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'agentdeactive',

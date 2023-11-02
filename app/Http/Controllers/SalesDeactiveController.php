@@ -33,7 +33,7 @@ class SalesDeactiveController extends Controller
             'user_name'     => $request->user_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'salesdeactive',
-            'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no. 'because '.$request->plan_descs,
+            'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no. ' because '.$request->plan_descs,
         );
 
         $sendToEmail = strtolower($request->email_addr);
