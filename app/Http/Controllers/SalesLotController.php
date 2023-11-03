@@ -37,7 +37,9 @@ class SalesLotController extends Controller
             'entity_name'       => $request->entity_name,
             'prospect_no'       => $request->prospect_no,
             'lot_no'            => $request->lot_no,
+            'lot_no_old'        => $request->lot_no_old,
             'user_name'         => $request->user_name,
+            'sender_name'         => $request->sender_name,
             'rt_grp_name'       => $request->rt_grp_name,
             'link'              => 'saleslot',
         );

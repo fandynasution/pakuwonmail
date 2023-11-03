@@ -32,6 +32,7 @@ class LotTempController extends Controller
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
+            'sender_name'   => $request->sender_name,
             'project_no'    => $request->project_no,
             'temp_no'       => $request->temp_no,
             'url_link'      => $request->url_link,

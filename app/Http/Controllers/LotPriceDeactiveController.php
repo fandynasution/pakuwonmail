@@ -32,6 +32,7 @@ class LotPriceDeactiveController extends Controller
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'lotpricedeactive',
             'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no. ' because '.$plan_descs,

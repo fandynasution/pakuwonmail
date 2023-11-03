@@ -46,6 +46,7 @@ class RsRevenueShareController extends Controller
             'file_name'     => $request->file_name,
             'url_link'      => $request->url_link,
             'user_name'     => $request->user_name,
+            'sender_name'   => $request->sender_name,
             'usergroup'     => $request->usergroup,
             'supervisor'    => $request->supervisor,
             'link'          => 'revenueshare'

@@ -29,6 +29,7 @@ class AgentDeactiveController extends Controller
             'email_addr'    => $request->email_addr,
             'agent_name'    => $request->agent_name,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'payment_code'  => $request->payment_code,
             'link'          => 'agentdeactive',
             'body'          => 'Please Approve Agent Code '.$request->ref_no.' because '.$request->plan_descs,
