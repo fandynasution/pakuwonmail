@@ -42,6 +42,7 @@ class LandApprovalSftBphtbController extends Controller
             'url_link'      => $link,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'descs'         => $request->descs,
             'link'          => 'landapprovalsftbphtb',
         );

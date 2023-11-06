@@ -42,6 +42,7 @@ class LandFphApprovalController extends Controller
             'book_amt'      => $book_amt,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'descs'         => $request->descs,
             'link'          => 'approvestatusLandFph',
         );

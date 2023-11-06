@@ -37,6 +37,7 @@ class LandMeasuringController extends Controller
             'descs_officer' => $request->descs_officer,
             'url_link'      => $link,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'descs'         => $request->descs,
             'link'          => 'landmeasuring',
             'body'          => 'Please Approve '.$request->descs,

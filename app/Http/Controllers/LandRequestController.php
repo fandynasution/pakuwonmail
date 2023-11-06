@@ -39,6 +39,7 @@ class LandRequestController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'descs'         => $request->descs,
             'link'          => 'landrequest',
         );
