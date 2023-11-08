@@ -51,7 +51,7 @@
                                             <td>{{ $data['name_owner'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Harga yang disepakati</td>
+                                            <td>Tipe Kepemilikan Tanah</td>
                                             <td>:</td>
                                             <td>{{ $data['own_descs'] }}</td>
                                         </tr>
