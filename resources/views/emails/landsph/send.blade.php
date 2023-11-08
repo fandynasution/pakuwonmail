@@ -53,27 +53,27 @@
                                         <tr>
                                             <td>Luas Tanah yang disepakati</td>
                                             <td>:</td>
-                                            <td>{{ $data['laf'] }}</td>
+                                            <td>{{ $data['laf'] }} m&sup2</td>
                                         </tr>
                                         <tr>
                                             <td>Luas Bangunan yang disepakati</td>
                                             <td>:</td>
-                                            <td>{{ $data['baf'] }}</td>
+                                            <td>{{ $data['baf'] }} m&sup2</td>
                                         </tr>
                                         <tr>
                                             <td>Uang Tanda Jadi</td>
                                             <td>:</td>
-                                            <td>{{ $data['book_amt'] }}</td>
+                                            <td>Rp. {{ $data['book_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>Pembayaran Bidang Tanah</td>
                                             <td>:</td>
-                                            <td>{{ $data['total_amt'] }}</td>
+                                            <td>Rp. {{ $data['total_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>Nominal SPH</td>
                                             <td>:</td>
-                                            <td>{{ $data['sph_amt'] }}</td>
+                                            <td>Rp. {{ $data['sph_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>
