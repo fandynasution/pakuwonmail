@@ -53,12 +53,12 @@
                                         <tr>
                                             <td>Harga yang disepakati</td>
                                             <td>:</td>
-                                            <td>{{ $data['total_amt'] }}</td>
+                                            <td>Rp. {{ $data['total_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>Uang Tanda Jadi</td>
                                             <td>:</td>
-                                            <td>{{ $data['book_amt'] }}</td>
+                                            <td>Rp. {{ $data['book_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>
