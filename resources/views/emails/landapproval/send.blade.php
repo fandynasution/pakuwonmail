@@ -53,7 +53,7 @@
                                         <tr>
                                             <td>Luas Tanah Gambar Ukur</td>
                                             <td>:</td>
-                                            <td>{{ $data['land_area'] }}</td>
+                                            <td>{{ $data['land_area'] }} m&sup2</td>
                                         </tr>
                                     </table>
                                     <br>
