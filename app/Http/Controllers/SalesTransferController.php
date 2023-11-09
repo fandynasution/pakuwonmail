@@ -37,7 +37,7 @@ class SalesTransferController extends Controller
         {
             Mail::to($sendToEmail)
                 ->send(new SalesLotActivityMail($dataArray));
-            $callback['Error'] = true;
+            $callback['Error'] = false;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }

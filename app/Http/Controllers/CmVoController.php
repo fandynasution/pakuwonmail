@@ -54,7 +54,7 @@ class CmVoController extends Controller
         {
             Mail::to($sendToEmail)
                 ->send(new CmVoMail($dataArray));
-            $callback['Error'] = true;
+            $callback['Error'] = false;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }

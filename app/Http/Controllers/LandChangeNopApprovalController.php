@@ -37,7 +37,7 @@ class LandChangeNopApprovalController extends Controller
         {
             Mail::to($sendToEmail)
                 ->send(new EmailSendApproval($dataArray));
-            $callback['Error'] = true;
+            $callback['Error'] = false;
             $callback['Pesan'] = 'sendToEmail';
             echo json_encode($callback);
         }
