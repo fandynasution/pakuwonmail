@@ -121,15 +121,17 @@ class LandMasterApprovalController extends Controller
         $remarks = $request->remarks;
         if($status == 'A') {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master ?, ?, ?, ?, ?;");
-            $sth->bindParam(1, $entity_cd);
-            $sth->bindParam(2, $doc_no);
-            $sth->bindParam(3, $status);
-            $sth->bindParam(4, $level_no);
-            $sth->bindParam(5, $remarks);
-            $sth->execute();
-            if ($sth == true) 
-            {
+
+            // Example stored procedure
+            $storedProc = 'SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master ?, ?, ?, ?, ?;';
+            $params = array($entity_cd, $doc_no, $status, $level_no, $remarks);
+
+            // Prepare and execute the stored procedure
+            $stmt = $pdo->prepare($storedProc);
+            $stmt->execute($params);
+
+            // Check if the stored procedure executed successfully
+            if ($stmt->rowCount() > 0) {
                 $msg = "You Have Successfully Approved the Land Master Permit Location No. ".$doc_no;
                 $notif = 'Approved !';
                 $st = 'OK';
@@ -140,36 +142,52 @@ class LandMasterApprovalController extends Controller
                 $st = 'OK';
                 $image = "reject.png";
             }
+
+            // Close the cursor
+            $stmt->closeCursor();
+
+            // Optionally, close the connection (not necessary if you want to reuse $pdo)
+            $pdo = null;
         } else if($status == 'R'){
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master ?, ?, ?, ?, ?;");
-            $sth->bindParam(1, $entity_cd);
-            $sth->bindParam(2, $doc_no);
-            $sth->bindParam(3, $status);
-            $sth->bindParam(4, $level_no);
-            $sth->bindParam(5, $remarks);
-            $sth->execute();
-            if ($sth == true) {
+
+            // Example stored procedure
+            $storedProc = 'SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master ?, ?, ?, ?, ?;';
+            $params = array($entity_cd, $doc_no, $status, $level_no, $remarks);
+
+            // Prepare and execute the stored procedure
+            $stmt = $pdo->prepare($storedProc);
+            $stmt->execute($params);
+
+            // Check if the stored procedure executed successfully
+            if ($stmt->rowCount() > 0) {
                 $msg = "You Have Successfully Made a Revise Request on Land Master Permit Location No. ".$doc_no;
-                $notif = 'Revised !';
+                $notif = 'Revised!';
                 $st = 'OK';
                 $image = "revise.png";
             } else {
                 $msg = "You Failed to Make a Revise Request on Land Master Permit Location No. ".$doc_no;
-                $notif = 'Fail to Revised !';
+                $notif = 'Fail to Revised!';
                 $st = 'OK';
                 $image = "reject.png";
             }
+
+            // Close the cursor
+            $stmt->closeCursor();
+
+            // Optionally, close the connection (not necessary if you want to reuse $pdo)
+            $pdo = null;
         } else {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master ?, ?, ?, ?, ?;");
-            $sth->bindParam(1, $entity_cd);
-            $sth->bindParam(2, $doc_no);
-            $sth->bindParam(3, $status);
-            $sth->bindParam(4, $level_no);
-            $sth->bindParam(5, $remarks);
-            $sth->execute();
-            if ($sth == true) {
+
+            // Example stored procedure
+            $storedProc = 'SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_master ?, ?, ?, ?, ?;';
+            $params = array($entity_cd, $doc_no, $status, $level_no, $remarks);
+
+            // Prepare and execute the stored procedure
+            $stmt = $pdo->prepare($storedProc);
+            $stmt->execute($params);
+            if ($stmt->rowCount() > 0) {
                 $msg = "You Have Successfully Cancelled the Land Master Permit Location No. ".$doc_no;
                 $notif = 'Cancelled !';
                 $st = 'OK';
@@ -180,6 +198,12 @@ class LandMasterApprovalController extends Controller
                 $st = 'OK';
                 $image = "reject.png";
             }
+
+            // Close the cursor
+            $stmt->closeCursor();
+
+            // Optionally, close the connection (not necessary if you want to reuse $pdo)
+            $pdo = null;
         }
         $msg1 = array(
             "Pesan" => $msg,
