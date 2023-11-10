@@ -46,12 +46,7 @@
                                             <td> {{ $data['expiry_date'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Contract renewal No.</td>
-                                            <td> : </td>
-                                            <td> {{ $data['doc_no'] }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Entity Name</td>
+                                            <td>Entity</td>
                                             <td>:</td>
                                             <td>{{ $data['entity_name'] }} </td>
                                         </tr>
