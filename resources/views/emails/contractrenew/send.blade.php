@@ -46,6 +46,21 @@
                                             <td> {{ $data['expiry_date'] }} </td>
                                         </tr>
                                         <tr>
+                                            <td>Tenant Name</td>
+                                            <td>:</td>
+                                            <td>{{ $data['tenant_name'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lot No.</td>
+                                            <td>:</td>
+                                            <td>{{ $data['lot_no'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contract Amount</td>
+                                            <td>:</td>
+                                            <td>{{ $data['contract_sum'] }} </td>
+                                        </tr>
+                                        <tr>
                                             <td>Entity</td>
                                             <td>:</td>
                                             <td>{{ $data['entity_name'] }} </td>
