@@ -29,6 +29,7 @@ class ContractRenewController extends Controller
             'new_doc_no'    => $new_doc_no1,
             'ref_no'        => $request->ref_no,
             'level_no'      => $request->level_no,
+            'renew_no'      => $request->renew_no,
             'rt_grp_name'   => $request->rt_grp_name,
             'user_id'       => $request->user_id,
             'commence_date' => $request->commence_date,
@@ -50,7 +51,7 @@ class ContractRenewController extends Controller
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $user_id='', $grp_name='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $renew_no='',$ref_no='',$status='', $level_no='', $user_id='', $grp_name='')
     {
         $new_doc_no = str_replace("_sla","/",$doc_no);
         $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
@@ -111,7 +112,9 @@ class ContractRenewController extends Controller
                 'project_no'     => $project_no, 
                 'doc_no'        => $new_doc_no1, 
                 'status'        => $status,
-                'level_no'      => $level_no, 
+                'level_no'      => $level_no,
+                'ref_no'      => $ref_no,
+                'renew_no'      => $renew_no, 
                 'user_id'      => $user_id, 
                 'grp_name'      => $grp_name, 
                 'name'          => $name,
@@ -129,6 +132,7 @@ class ContractRenewController extends Controller
         $doc_no = $request->doc_no;
         $new_doc_no = str_replace(" ","",$doc_no);
         $ref_no = $request->ref_no;
+        $renew_no = $request->renew_no;
         $status = $request->status;
         $level_no = $request->level_no;
         $user_id = $request->user_id;
@@ -136,16 +140,17 @@ class ContractRenewController extends Controller
         $remarks = $request->remarks;
         if($status == 'A') {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_renewal ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_renewal ?, ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $new_doc_no);
             $sth->bindParam(4, $ref_no);
             $sth->bindParam(5, $status);
             $sth->bindParam(6, $level_no);
-            $sth->bindParam(7, $grp_name);
-            $sth->bindParam(8, $user_id);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $grp_name);
             $sth->bindParam(9, $remarks);
+            $sth->bindParam(10, $renew_no);
             $sth->execute();
             if ($sth == true) {
                 $msg = "You Have Successfully Approved the Contract Renewal No. ".$doc_no;
@@ -160,16 +165,17 @@ class ContractRenewController extends Controller
             }
         } else if($status == 'R'){
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_renewal ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_renewal ?, ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $new_doc_no);
             $sth->bindParam(4, $ref_no);
             $sth->bindParam(5, $status);
             $sth->bindParam(6, $level_no);
-            $sth->bindParam(7, $grp_name);
-            $sth->bindParam(8, $user_id);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $grp_name);
             $sth->bindParam(9, $remarks);
+            $sth->bindParam(10, $renew_no);
             $sth->execute();
             if ($sth == true) {
                 $msg = "You Have Successfully Made a Revise Request on Contract Renewal No. ".$doc_no;
@@ -184,16 +190,17 @@ class ContractRenewController extends Controller
             }
         } else {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_renewal ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_tm_contract_renewal ?, ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $new_doc_no);
             $sth->bindParam(4, $ref_no);
             $sth->bindParam(5, $status);
             $sth->bindParam(6, $level_no);
-            $sth->bindParam(7, $grp_name);
-            $sth->bindParam(8, $user_id);
+            $sth->bindParam(7, $user_id);
+            $sth->bindParam(8, $grp_name);
             $sth->bindParam(9, $remarks);
+            $sth->bindParam(10, $renew_no);
             $sth->execute();
             if ($sth == true) {
                 $msg = "You Have Successfully Cancelled the Contract Renewal No. ".$doc_no;
