@@ -30,7 +30,6 @@
                                         <input type="text" id="entity_cd" name="entity_cd" value="<?php echo $entity_cd?>" hidden>
                                         <input type="text" id="project_no" name="project_no" value="<?php echo $project_no?>" hidden>
                                         <input type="text" id="doc_no" name="doc_no" value="<?php echo $doc_no?>" hidden>
-                                        <input type="text" id="ref_no" name="ref_no" value="<?php echo $ref_no?>" hidden>
                                         <input type="text" id="status" name="status" value="<?php echo $status?>" hidden>
                                         <input type="text" id="level_no" name="level_no" value="<?php echo $level_no?>" hidden>
                                         <input type="text" id="user_id" name="user_id" value="<?php echo $user_id?>" hidden>
