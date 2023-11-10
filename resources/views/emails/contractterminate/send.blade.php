@@ -58,10 +58,10 @@
                                         <tr>
                                     </table>
                                     <br>
-                                    <!-- <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
                                         <b>Thank you,</b><br>
                                         {{ $data['sender_name'] }}
-                                    </p> -->
+                                    </p>
                                     <br>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/A/{{ $data['level_no'] }}/{{ $data['user_id'] }}/{{ $data['doc_date'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/R/{{ $data['level_no'] }}/{{ $data['user_id'] }}/{{ $data['doc_date'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
