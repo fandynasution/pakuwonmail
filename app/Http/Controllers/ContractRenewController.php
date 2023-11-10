@@ -21,6 +21,7 @@ class ContractRenewController extends Controller
 
         $new_doc_no = str_replace("/","_sla",$request->doc_no);
         $new_doc_no1 = str_replace("-","_ash",$new_doc_no);
+        $contract_sum = number_format($request->contract_sum, 2, '.', ',');
 
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
@@ -32,7 +33,7 @@ class ContractRenewController extends Controller
             'renew_no'      => $request->renew_no,
             'tenant_name'      => $request->tenant_name,
             'lot_no'      => $request->lot_no,
-            'contract_sum'      => $request->contract_sum,
+            'contract_sum'      => $contract_sum,
             'rt_grp_name'   => $request->rt_grp_name,
             'user_id'       => $request->user_id,
             'commence_date' => $request->commence_date,

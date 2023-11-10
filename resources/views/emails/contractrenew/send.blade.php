@@ -58,7 +58,7 @@
                                         <tr>
                                             <td>Contract Amount</td>
                                             <td>:</td>
-                                            <td>{{ $data['contract_sum'] }} </td>
+                                            <td>IDR {{ $data['contract_sum'] }} </td>
                                         </tr>
                                         <tr>
                                             <td>Entity</td>
