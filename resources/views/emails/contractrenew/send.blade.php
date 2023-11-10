@@ -51,7 +51,7 @@
                                             <td> {{ $data['doc_no'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Entity</td>
+                                            <td>Entity Name</td>
                                             <td>:</td>
                                             <td>{{ $data['entity_name'] }} </td>
                                         </tr>

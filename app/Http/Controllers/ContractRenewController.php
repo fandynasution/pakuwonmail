@@ -38,6 +38,7 @@ class ContractRenewController extends Controller
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'link'          => 'contractrenew',
         );
         $sendToEmail = strtolower($request->email_addr);

@@ -34,7 +34,7 @@ class ContractRenewMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.contactrenew')
+                    ->view('emails.contractrenew.send')
                     ->with(['data' => $this->mailData]);
     }
 }
