@@ -50,10 +50,13 @@ class ContractRenewController extends Controller
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $ref_no='', $status='', $level_no='', $user_id='', $grp_name='')
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $user_id='', $grp_name='')
     {
+        $new_doc_no = str_replace("_sla","/",$doc_no);
+        $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
+
         $where2 = array(
-            'doc_no'        => $doc_no,
+            'doc_no'        => $new_doc_no1,
             'status'        => array("A",'R', 'C'),
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
@@ -62,7 +65,7 @@ class ContractRenewController extends Controller
         );
 
         $where3 = array(
-            'doc_no'        => $doc_no,
+            'doc_no'        => $new_doc_no1,
             'entity_cd'     => $entity_cd,
             'level_no'      => $level_no,
             'type'          => 'R',
@@ -78,7 +81,7 @@ class ContractRenewController extends Controller
         ->where($where3)
         ->get();
         if(count($query)>0){
-            $msg = 'You Have Already Made a Request to Contract Renewal No. '.$doc_no ;
+            $msg = 'You Have Already Made a Request to Contract Renewal No. '.$new_doc_no1 ;
             $notif = 'Restricted !';
             $st  = 'OK';
             $image = "double_approve.png";
@@ -87,7 +90,8 @@ class ContractRenewController extends Controller
                 "St" => $st,
                 "notif" => $notif,
                 "image" => $image
-            );return view("emails.after", $msg1);
+            );
+            return view("emails.after", $msg1);
         } else {
             if ($status == 'A') {
                 $name   = 'Approval';
@@ -102,8 +106,6 @@ class ContractRenewController extends Controller
                 $bgcolor = '#e85347';
                 $valuebt  = 'Cancel';
             }
-            $new_doc_no = str_replace("_sla","/",$doc_no);
-            $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
             $data = array(
                 'entity_cd'     => $entity_cd, 
                 'project_no'     => $project_no, 
