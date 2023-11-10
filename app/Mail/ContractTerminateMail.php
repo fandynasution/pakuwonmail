@@ -34,7 +34,7 @@ class ContractTerminateMail extends Mailable
     public function build()
     {
         return $this->subject('Need Approval '.$this->mailData['descs'])
-                    ->view('emails.contactterminate.send')
+                    ->view('emails.contractterminate.send')
                     ->with(['data' => $this->mailData]);
     }
 }
