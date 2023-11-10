@@ -29,6 +29,7 @@ class ContractTerminateController extends Controller
             'descs'         => $request->descs,
             'entity_name'   => $request->entity_name,
             'tenant_name'   => $request->tenant_name,
+            'sender_name'   => $request->sender_name,
             'remarks'       => $request->remarks_web,
             'project_no'    => $request->project_no,
             'user_name'     => $request->user_name,
