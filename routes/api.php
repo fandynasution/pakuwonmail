@@ -261,7 +261,7 @@ use App\Http\Controllers\ContractRenewController as ContractRenew;
 
 Route::POST('/contractrenew', [ContractRenew::class, 'Mail']);
 Route::POST('/contractrenew/update', [ContractRenew::class, 'update']);
-Route::GET('/contractrenew/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{user_id}/{renew_no}', [ContractRenew::class, 'changestatus']);
+Route::GET('/contractrenew/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}/{user_id}/{grp_name}/{renew_no}', [ContractRenew::class, 'changestatus']);
 
 use App\Http\Controllers\SendController as Send;
 Route::POST('/Sendattach', [Send::class, 'Mail']);

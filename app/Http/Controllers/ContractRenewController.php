@@ -52,8 +52,8 @@ class ContractRenewController extends Controller
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $renew_no='',$ref_no='',$status='', $level_no='', $user_id='', $grp_name='')
-    {
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $ref_no='',$status='', $level_no='', $user_id='', $grp_name='', $renew_no)
+    {    
         $new_doc_no = str_replace("_sla","/",$doc_no);
         $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
 
