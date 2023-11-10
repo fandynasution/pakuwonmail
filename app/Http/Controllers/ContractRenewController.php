@@ -21,6 +21,7 @@ class ContractRenewController extends Controller
 
         $new_doc_no = str_replace("/","_sla",$request->doc_no);
         $new_doc_no1 = str_replace("-","_ash",$new_doc_no);
+        $contract_sum = number_format($request->contract_sum, 2, '.', ',');
 
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
@@ -30,6 +31,9 @@ class ContractRenewController extends Controller
             'ref_no'        => $request->ref_no,
             'level_no'      => $request->level_no,
             'renew_no'      => $request->renew_no,
+            'tenant_name'      => $request->tenant_name,
+            'lot_no'      => $request->lot_no,
+            'contract_sum'      => $contract_sum,
             'rt_grp_name'   => $request->rt_grp_name,
             'user_id'       => $request->user_id,
             'commence_date' => $request->commence_date,
@@ -38,6 +42,7 @@ class ContractRenewController extends Controller
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
             'link'          => 'contractrenew',
         );
         $sendToEmail = strtolower($request->email_addr);
@@ -51,8 +56,8 @@ class ContractRenewController extends Controller
         }
     }
 
-    public function changestatus($entity_cd='', $project_no='', $doc_no='', $renew_no='',$ref_no='',$status='', $level_no='', $user_id='', $grp_name='')
-    {
+    public function changestatus($entity_cd='', $project_no='', $doc_no='', $ref_no='',$status='', $level_no='', $user_id='', $grp_name='', $renew_no)
+    {    
         $new_doc_no = str_replace("_sla","/",$doc_no);
         $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
 

@@ -46,9 +46,19 @@
                                             <td> {{ $data['expiry_date'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Contract renewal No.</td>
-                                            <td> : </td>
-                                            <td> {{ $data['doc_no'] }} </td>
+                                            <td>Tenant Name</td>
+                                            <td>:</td>
+                                            <td>{{ $data['tenant_name'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lot No.</td>
+                                            <td>:</td>
+                                            <td>{{ $data['lot_no'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contract Amount</td>
+                                            <td>:</td>
+                                            <td>IDR {{ $data['contract_sum'] }} </td>
                                         </tr>
                                         <tr>
                                             <td>Entity</td>
@@ -62,9 +72,9 @@
                                         {{ $data['sender_name'] }}
                                     </p>
                                     <br>
-                                    <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/{{ $data['renew_no'] }}/{{ $data['ref_no'] }}/A/{{ $data['level_no'] }}/{{ $data['user_id'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>
-                                    <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/{{ $data['renew_no'] }}/{{ $data['ref_no'] }}/R/{{ $data['level_no'] }}/{{ $data['user_id'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
-                                    <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/{{ $data['renew_no'] }}/{{ $data['ref_no'] }}/C/{{ $data['level_no'] }}/{{ $data['user_id'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>
+                                    <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/{{ $data['ref_no'] }}/A/{{ $data['level_no'] }}/{{ $data['user_id'] }}/{{ $data['rt_grp_name'] }}/{{ $data['renew_no'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>
+                                    <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/{{ $data['ref_no'] }}/R/{{ $data['level_no'] }}/{{ $data['user_id'] }}/{{ $data['rt_grp_name'] }}/{{ $data['renew_no'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
+                                    <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/{{ $data['ref_no'] }}/C/{{ $data['level_no'] }}/{{ $data['user_id'] }}/{{ $data['rt_grp_name'] }}/{{ $data['renew_no'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>
                                     <br>
                                 </td>
                             </tr>
