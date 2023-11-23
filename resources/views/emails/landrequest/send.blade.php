@@ -46,7 +46,7 @@
                                             <td> {{ $data['type'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Nama Pemilik</td>
+                                            <td>Nominal Pembayaran</td>
                                             <td>:</td>
                                             <td>Rp. {{ $data['request_amt'] }}</td>
                                         </tr>
