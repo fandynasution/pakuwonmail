@@ -74,6 +74,13 @@ Route::POST('/landrequest', [LandRequest::class, 'LandRequestMail']);
 Route::POST('/landrequest/update', [LandRequest::class, 'update']);
 Route::GET('/landrequest/{status}/{entity_cd}/{doc_no}/{level_no}', [LandRequest::class, 'changestatus']);
 
+
+use App\Http\Controllers\LandSubmissionController as LandSubmission;
+
+Route::POST('/landsubmission', [LandSubmission::class, 'mail']);
+Route::POST('/landsubmission/update', [LandSubmission::class, 'update']);
+Route::GET('/landsubmission/{status}/{entity_cd}/{doc_no}/{level_no}', [LandSubmission::class, 'changestatus']);
+
 use App\Http\Controllers\AgentDeactiveController as AgentDeactive;
 
 Route::POST('/agentdeactive', [AgentDeactive::class, 'AgentDeactiveMail']);
