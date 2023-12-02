@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\LandMasterMail;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LandMasterApprovalController extends Controller
 {
@@ -47,14 +48,17 @@ class LandMasterApprovalController extends Controller
             'link'              => 'approvestatusLandMaster',
         );
 
-        $sendToEmail = strtolower($request->email_addr);
-        if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        {
-            Mail::to($sendToEmail)
-                ->send(new LandMasterMail($dataArray));
-            $callback['Error'] = false;
-            $callback['Pesan'] = 'sendToEmail';
-            echo json_encode($callback);
+        try {
+            $sendToEmail = strtolower($request->email_addr);
+            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
+            {
+                Mail::to($sendToEmail)->send(new LandMasterMail($dataArray));
+                Log::info('Email berhasil dikirim ke: ' . $sendToEmail);
+                return "Email berhasil dikirim";
+            }
+        } catch (\Exception $e) {
+            Log::error('Gagal mengirim email: ' . $e->getMessage());
+            return "Gagal Mengirim Email";
         }
     }
 
