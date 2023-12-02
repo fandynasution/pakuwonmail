@@ -57,6 +57,7 @@ class LandFphApprovalController extends Controller
             }
         } catch (\Exception $e) {
             Log::error('Gagal mengirim email: ' . $e->getMessage());
+	    return "Gagal Mengirim Email";
         }
     }
 
