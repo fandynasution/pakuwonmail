@@ -15,3 +15,5 @@ yarn-error.log
 /.idea
 /.vscode
 app/Http/Controllers/ContractRenewControllerBackup.php
+.env.save
+.env.work
