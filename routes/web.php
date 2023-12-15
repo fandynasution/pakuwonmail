@@ -19,9 +19,6 @@ use App\Http\Controllers\ApprovalController as ApprovalController;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/statis', function () {
-//     return view('emails.statis');
-// });
 
 Route::get('/changestatus/{status}/{email}', [EmailSendController::class, 'changestatus']);
 Route::get('kirim-email', [EmailSendController::class, 'sendingMail'])->name('send.email');
@@ -31,3 +28,6 @@ Route::get('/getdate', [EmailSendController::class, 'getdate']);
 Route::get('/testing', [TestingController::class, 'index']);
 
 Route::get('/statis', [TestingController::class, 'gambar']);
+
+use App\Http\Controllers\ShgbMergeController as ShgbMerge;
+Route::POST('/shgbmerger', [ShgbMerge::class, 'mail']);

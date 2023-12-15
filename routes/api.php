@@ -275,3 +275,6 @@ Route::POST('/Sendattach', [Send::class, 'Mail']);
 
 use App\Http\Controllers\InvoiceIfcaController as InvoiceIfca;
 Route::POST('/invoice_send', [InvoiceIfca::class, 'index']);
+
+use App\Http\Controllers\ShgbMergeController as ShgbMerge;
+Route::POST('/shgbmerger', [ShgbMerge::class, 'mail']);
