@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use App\Mail\LandSphMail;
 use App\Mail\UserEmail;
-use Illuminate\Support\Facades\DB;
 
 class LandSphController extends Controller
 {
@@ -102,7 +102,8 @@ class LandSphController extends Controller
                 "St" => $st,
                 "notif" => $notif,
                 "image" => $image
-            );return view("emails.after", $msg1);
+            );
+            return view("emails.after", $msg1);
         } else {
             if ($status == 'A') {
                 $name   = 'Approval';
