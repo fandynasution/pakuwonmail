@@ -21,6 +21,22 @@ class SalesCancelController extends Controller
             'Status' => 200
         );
 
+        $list_of_urls = explode(';', $request->url_file);
+        $list_of_files = explode(';', $request->file_name);
+
+        $url_data = [];
+        $file_data = [];
+
+        foreach ($list_of_urls as $url) {
+            $url_data[] = $url;
+        }
+
+        foreach ($list_of_files as $file) {
+            $file_data[] = $file;
+        }
+
+        $cancel_fee = number_format($request->cancel_fee, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -29,12 +45,15 @@ class SalesCancelController extends Controller
             'doc_no'        => $request->doc_no,
             'lot_no'        => $request->lot_no,
             'remarks'       => $request->remarks,
+            'cancel_fee'    => $cancel_fee,
+            'url_file'      => $url_data,
+            'file_name'     => $file_data,
             'reason_descs'  => $request->reason_descs,
             'cust_name'     => $request->cust_name,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
-            'sender_name'     => $request->sender_name,
+            'sender_name'   => $request->sender_name,
             'link'          => 'salescancel',
             'body'          => 'Please Approve '.$request->descs.' because '.$request->reason_descs.' for customer '.$request->cust_name,
         );
