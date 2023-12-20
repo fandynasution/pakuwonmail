@@ -66,17 +66,25 @@
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/R/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/C/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>
                                     <br>
-                                    @if ($data['url_link'] != 'EMPTY')
-                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px">
-                                    <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
-                                        @if ( is_array($data['url_link']) || is_object($data['url_link']) )
-                                            @foreach ($data['url_link'] as $tampil)
-                                                <a href={{ $tampil }} target="_blank">{{ trim(str_replace('%20', ' ',substr($tampil, strrpos($tampil, '/') + 1))) }}</a><br><br>
-                                            @endforeach
-                                        @else
-                                            <a href={{ $data['url_link'] }} target="_blank">{{ trim(str_replace('%20', ' ',substr($data['url_link'], strrpos($data['url_link'], '/') + 1))) }}</a><br><br>
+                                    @php
+                                        $hasAttachment = false;
+                                    @endphp
+
+                                    @foreach($data['url_link'] as $key => $url_link)
+                                        @if($url_link !== '' && $url_link !== 'EMPTY')
+                                            @if(!$hasAttachment)
+                                                @php
+                                                    $hasAttachment = true;
+                                                @endphp
+                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                                    <b style="font-style:italic;">To view the attachment, please click the links below:</b><br>
+                                            @endif
+                                            <a href="{{ $url_link }}" target="_blank">{{ trim(str_replace('%20', ' ',substr($url_link, strrpos($url_link, '/') + 1))) }}</a><br>
                                         @endif
-                                    </p>
+                                    @endforeach
+
+                                    @if($hasAttachment)
+                                        </p>
                                     @endif
                                 </td>
                             </tr>

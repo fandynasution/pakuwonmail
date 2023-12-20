@@ -20,11 +20,12 @@ class LandVerificationApprovalController extends Controller
             'Status' => 200
         );
 
-        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
+        $list_of_urls = explode(';', $request->url_link);
 
-        foreach ($newurl2 as $show)
-        {
-            $link[] = $show;
+        $url_data = [];
+
+        foreach ($list_of_urls as $url) {
+            $url_data[] = $url;
         }
 
         $dataArray = array(
@@ -32,7 +33,7 @@ class LandVerificationApprovalController extends Controller
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'nop_no'        => $request->nop_no,
-            'url_link'      => $link,
+            'url_link'      => $url_data,
             'name_owner'    => $request->name_owner,
             'own_descs'     => $request->own_descs,
             'doc_no'        => $request->doc_no,
