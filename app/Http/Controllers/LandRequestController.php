@@ -7,51 +7,103 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LandRequestMail;
-use App\Mail\UserEmail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 class LandRequestController extends Controller
 {
-    public function LandRequestMail(Request $request) {
-        $callback = array(
-            'data' => null,
-            'Error' => false,
-            'Pesan' => '',
-            'Status' => 200
-        );
+    public function LandRequestMail(Request $request) 
+    {
+        $list_of_urls = explode(';', $request->url_file);
 
-        $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
-
-        foreach ($newurl2 as $show)
-        {
-            $link[] = $show;
+        $url_data = [];
+        foreach ($list_of_urls as $url) {
+            $url_data[] = $url;
         }
 
-        $request_amt = number_format($request->request_amt, 2, '.', ',');
+        $list_of_files = explode(';', $request->file_name);
+
+        $file_data = [];
+        foreach ($list_of_files as $file) {
+            $file_data[] = $file;
+        }
+
+        $list_of_type = explode(';', $request->type);
+
+        $type_data = [];
+        foreach ($list_of_type as $type) {
+            $type_data[] = $type;
+        }
+
+        $list_of_owner = explode(';', $request->owner);
+
+        $owner_data = [];
+        foreach ($list_of_owner as $owner) {
+            $owner_data[] = $owner;
+        }
+
+        $list_of_nop_no = explode(';', $request->nop_no);
+
+        $nop_no_data = [];
+        foreach ($list_of_nop_no as $nop_no) {
+            $nop_no_data[] = $nop_no;
+        }
+
+        $list_of_sph_trx_no = explode(';', $request->sph_trx_no);
+        
+        $sph_trx_no_data = [];
+        foreach ($list_of_sph_trx_no as $sph_trx_no) {
+            $sph_trx_no_data[] = $sph_trx_no;
+        }
+
+        $list_of_request_amt = explode(';', $request->request_amt);
+        
+        $request_amt_data = [];
+        foreach ($list_of_request_amt as $amt) {
+            $formatted_amt = number_format((float)$amt, 2, '.', ',');
+            $request_amt_data[] = $formatted_amt;
+        }
 
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
-            'type'          => $request->type,
-            'url_link'      => $link,
-            'request_amt'   => $request_amt,
+            'type'          => $type_data,
+            'owner'         => $owner_data,
+            'nop_no'        => $nop_no_data,
+            'sph_trx_no'    => $sph_trx_no_data,
+            'request_amt'   => $request_amt_data,
+            'url_file'      => $url_data,
+            'file_name'     => $file_data,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
-            'sender_name'     => $request->sender_name,
+            'sender_name'   => $request->sender_name,
             'descs'         => $request->descs,
             'link'          => 'landrequest',
         );
 
-        $sendToEmail = strtolower($request->email_addr);
-        if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        {
-            Mail::to($sendToEmail)
-                ->send(new LandRequestMail($dataArray));
-            $callback['Error'] = false;
-            $callback['Pesan'] = 'sendToEmail';
-            echo json_encode($callback);
+        try {
+            $emailAddresses = $request->email_addr;
+        
+            // Check if email addresses are provided and not empty
+            if (!empty($emailAddresses)) {
+                $emails = is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
+                
+                foreach ($emails as $email) {
+                    Mail::to($email)->send(new LandRequestMail($dataArray));
+                }
+                
+                $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
+                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sentTo);
+                return 'Email berhasil dikirim ke: ' .$sentTo;
+            } else {
+                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                return "Tidak ada alamat email yang diberikan.";
+            }
+        } catch (\Exception $e) {
+            Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
+            return "Gagal mengirim email: " . $e->getMessage();
         }
     }
 
