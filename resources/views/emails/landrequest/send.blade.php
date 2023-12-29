@@ -13,9 +13,6 @@
         html, body {
             width: 100%;
         }
-        table {
-            margin: 50 auto;
-        }
         
     </style>
     
@@ -26,7 +23,7 @@
         <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e6f0eb" style="margin-left: auto;margin-right: auto;" >
             <tr>
                 <td style="padding: 40px 0;">
-                    <table style="width:100%;max-width:800px;margin:0 auto;">
+                    <table style="width:100%;max-width:600px;margin:0 auto;">
                         @include('template.header')
                     </table>
                     <table style="margin-left:200px;width:100%;max-width:840px;margin:0 auto;background-color:#ffffff;">
@@ -34,15 +31,15 @@
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
                                     <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
-                                    <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Permintaan Pembayaran dengan detail :</p>
+                                    <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Pengajuan Pembayaran dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; ">
                                     <tr>
                                         <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Nomor Dokumen</th>
                                         <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Nama Pemilik</th>
-                                        <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Rincian Pembayaran</th>
+                                        <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Rincian Pengajuan</th>
                                         <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">NOP</th>
                                         <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Periode SPH</th>
-                                        <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Nominal Pembayaran</th>
+                                        <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Nominal Pengajuan</th>
                                     </tr>
                                     @if(isset($data['type']) && is_array($data['type']) && count($data['type']) > 0)
                                         <!-- Find and display the first merge -->
@@ -106,7 +103,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table style="width:100%;max-width:800px;margin:0 auto;">
+                    <table style="width:100%;max-width:620px;margin:0 auto;">
                         @include('template.footer')
                     </table>
                 </td>
