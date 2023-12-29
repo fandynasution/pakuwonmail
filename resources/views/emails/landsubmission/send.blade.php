@@ -13,22 +13,20 @@
         html, body {
             width: 100%;
         }
-        table {
-            margin: 50 auto;
-        }
+        
     </style>
     
 </head>
 
 <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #ffffff;">
 	<div style="width: 100%; background-color: #e6f0eb; text-align: center;">
-        <table width="80%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e6f0eb" style="margin-left: auto;margin-right: auto;" >
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e6f0eb" style="margin-left: auto;margin-right: auto;" >
             <tr>
                 <td style="padding: 40px 0;">
                     <table style="width:100%;max-width:600px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="margin-left:200px;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff;">
+                    <table style="margin-left:200px;width:100%;max-width:840px;margin:0 auto;background-color:#ffffff;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">

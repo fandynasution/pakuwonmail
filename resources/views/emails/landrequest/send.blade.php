@@ -29,7 +29,7 @@
                     <table style="width:100%;max-width:800px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="margin-left:200px;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff;">
+                    <table style="margin-left:200px;width:100%;max-width:840px;margin:0 auto;background-color:#ffffff;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
