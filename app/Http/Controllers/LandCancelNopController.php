@@ -28,6 +28,7 @@ class LandCancelNopController extends Controller
             "cancell_remarks"   => $request->usercancell_remarks_id,
             "link"              => $request->usercancell_remarks_id,
             "link"              => "landcancelnop",
+            "subject"           => "Need Approval ".$request->descs
         );
     
         try {
