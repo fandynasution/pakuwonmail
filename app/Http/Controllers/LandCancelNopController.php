@@ -25,8 +25,7 @@ class LandCancelNopController extends Controller
             "nop_no"            => $request->nop_no,
             "sppt_name"         => $request->sppt_name,
             "owner_name"        => $request->owner_name,
-            "cancell_remarks"   => $request->usercancell_remarks_id,
-            "link"              => $request->usercancell_remarks_id,
+            "cancell_remarks"   => $request->cancell_remarks,
             "link"              => "landcancelnop",
             "subject"           => "Need Approval ".$request->descs
         );
