@@ -280,3 +280,8 @@ use App\Http\Controllers\ShgbMergerController as ShgbMerger;
 Route::POST('/shgbmerger', [ShgbMerger::class, 'mail']);
 Route::GET('/shgbmerger/{entity_cd}/{doc_no}/{status}/{level_no}', [ShgbMerger::class, 'changestatus']);
 Route::POST('/shgbmerger/update', [ShgbMerger::class, 'update']);
+
+use App\Http\Controllers\LandCancelNopController as LandCancelNop;
+Route::POST('/landcancelnop', [LandCancelNop::class, 'mail']);
+Route::GET('/landcancelnop/{entity_cd}/{doc_no}/{status}/{level_no}', [LandCancelNop::class, 'changestatus']);
+Route::POST('/landcancelnop/update', [LandCancelNop::class, 'update']);
