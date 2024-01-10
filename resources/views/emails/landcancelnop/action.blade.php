@@ -25,7 +25,7 @@
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
                                 <p>Please Give a Remarks to {{$data['doc_no']}} {{$data['name']}} : </p>
-                                    <form id="frmEditor" class="form-horizontal" method="POST" action="{{url('/api/shgbmerger/update')}}" enctype="multipart/form-data">
+                                    <form id="frmEditor" class="form-horizontal" method="POST" action="{{url('/api/landcancelnop/update')}}" enctype="multipart/form-data">
                                     @csrf
                                         <input type="text" id="entity_cd" name="entity_cd" value="{{$data['entity_cd']}}" hidden>
                                         <input type="text" id="doc_no" name="doc_no" value="{{$data['doc_no']}}" hidden>
