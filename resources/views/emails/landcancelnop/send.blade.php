@@ -28,41 +28,41 @@
                     <table style="width:100%;max-width:600px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="margin: 0 auto; width: 100%; max-width: 800px; background-color: #ffffff;">
+                    <table style="margin-left:200px;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff;">
                         <tbody>
                             <tr>
-                                <td style="text-align: center; padding: 20px;">
-                                    <h5 style="color: #526484; font-size: 20px; font-weight: 400; line-height: 28px; text-align: left;">Untuk Bapak/Ibu {{ $dataArray['user_name'] }}</h5>
-                                    <p style="color: #526484; font-size: 16px; text-align: left;">Tolong berikan persetujuan untuk proses Pembatalan NOP dengan detail :</p>
-                                    <table cellpadding="0" cellspacing="0" style="width: 100%; max-width: 800px; background-color: #ffffff;">
+                                <td style="text-align:center;padding: 0px 30px 0px 20px">
+                                    <h5 style="text-align:left;color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $dataArray['user_name'] }}</h5>
+                                    <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk proses Pembatalan NOP dengan detail :</p>
+                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; ">
                                         <tr>
-                                            <td style="width: 50%;">Nomor Dokumen</td>
-                                            <td>:</td>
-                                            <td>{{ $dataArray['doc_no'] }}</td>
+                                            <td>Nomor Dokumen </td>
+                                            <td> : </td>
+                                            <td> {{ $dataArray['doc_no'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%;">NOP</td>
-                                            <td>:</td>
-                                            <td>{{ $dataArray['nop_no'] }}</td>
+                                            <td>NOP </td>
+                                            <td> : </td>
+                                            <td> {{ $dataArray['nop_no'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%;">Nama pada SPPT</td>
-                                            <td>:</td>
-                                            <td>{{ $dataArray['sppt_name'] }}</td>
+                                            <td>Nama pada SPPT</td>
+                                            <td> : </td>
+                                            <td> {{ $dataArray['sppt_name'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%;">Nama Pemilik</td>
+                                            <td>Nama Pemilik</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['owner_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 50%;">Alasan Pembatalan</td>
+                                            <td>Alasan Pembatalan</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['cancell_remarks'] }}</td>
                                         </tr>
                                     </table>
                                     <br>
-                                    <p style="margin-bottom: 15px; color: #000000; font-size: 16px; text-align: left;">
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
                                         <b>Terima Kasih,</b><br>
                                         {{ $dataArray['sender_name'] }}
                                     </p>
