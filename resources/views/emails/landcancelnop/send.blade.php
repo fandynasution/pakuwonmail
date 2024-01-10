@@ -36,27 +36,27 @@
                                     <p style="color: #526484; font-size: 16px; text-align: left;">Tolong berikan persetujuan untuk proses Pembatalan NOP dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="width: 100%; max-width: 800px; background-color: #ffffff;">
                                         <tr>
-                                            <td>Nomor Dokumen</td>
+                                            <td style="width: 50%;">Nomor Dokumen</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['doc_no'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>NOP</td>
+                                            <td style="width: 50%;">NOP</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['nop_no'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Nama pada SPPT</td>
+                                            <td style="width: 50%;">Nama pada SPPT</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['sppt_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Nama Pemilik</td>
+                                            <td style="width: 50%;">Nama Pemilik</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['owner_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Alasan Pembatalan</td>
+                                            <td style="width: 50%;">Alasan Pembatalan</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['cancell_remarks'] }}</td>
                                         </tr>
