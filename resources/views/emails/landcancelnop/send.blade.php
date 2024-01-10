@@ -56,9 +56,11 @@
                                             <td>{{ $dataArray['owner_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Alasan Pembatalan</td>
-                                            <td>:</td>
-                                            <td>{{ $dataArray['cancell_remarks'] }}</td>
+                                            <td style="width:20%;">Alasan Pembatalan</td>
+                                            <td style="width:2%;">:</td>
+                                            <td style="white-space: {{ strlen($dataArray['cancell_remarks']) > 88 ? 'pre-line' : 'nowrap' }};">
+                                                {{ $dataArray['cancell_remarks'] }}
+                                            </td>
                                         </tr>
                                     </table>
                                     <br>
