@@ -42,32 +42,32 @@
                                         <th style="border: 1px solid #dddddd;text-align: center;padding: 8px;">Nominal Pengajuan</th>
                                     </tr>
                                     @if(isset($data['type']) && is_array($data['type']) && count($data['type']) > 0)
-                                        <!-- Find and display the first merge -->
-                                        @if(isset($data['type'][0]))
+                                    <!-- Find and display the first merge -->
+                                    @if(isset($data['type'][0]))
+                                        <tr>
+                                            <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['doc_no'] }}</td>
+                                            <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][0] }}</td>
+                                            <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['type'][0] }}</td>
+                                            <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['nop_no'][0] }}</td>
+                                            <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['sph_trx_no'][0] }}</td>
+                                            <td style="border: 1px solid #dddddd;padding: 8px;text-align: right;">Rp. {{ $data['request_amt'][0] }}</td>
+                                        </tr>  
+                                    @endif
+
+                                    <!-- Display other merges -->
+                                    @for($i = 1; $i < count($data['type']); $i++)
+                                        @if(isset($data['owner'][$i], $data['type'][$i], $data['nop_no'][$i], $data['sph_trx_no'][$i], $data['request_amt'][$i]))
                                             <tr>
                                                 <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['doc_no'] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][0] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['type'][0] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['nop_no'][0] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['sph_trx_no'][0] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;text-align: right;">Rp. {{ $data['request_amt'][0] }}</td>
-                                            </tr>  
+                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][$i] }}</td>
+                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['type'][$i] }}</td>
+                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['nop_no'][$i] }}</td>
+                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['sph_trx_no'][$i] }}</td>
+                                                <td style="border: 1px solid #dddddd;padding: 8px;text-align: right;">Rp. {{ $data['request_amt'][$i] }}</td>
+                                            </tr>
                                         @endif
-
-                                        <!-- Display other merges -->
-                                        @for($i = 1; $i < count($data['type']); $i++)
-                                            @if(isset($data['owner'][$i]))
-                                                <tr>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['doc_no'] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][$i] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['type'][$i] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['nop_no'][$i] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['sph_trx_no'][$i] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;text-align: right;">Rp. {{ $data['request_amt'][$i] }}</td>
-                                                </tr>
-                                            @endif
-                                        @endfor
-                                    @endif
+                                    @endfor
+                                @endif
                                     </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
