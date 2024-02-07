@@ -58,14 +58,17 @@ class SalesCancelController extends Controller
             'body'          => 'Please Approve '.$request->descs.' because '.$request->reason_descs.' for customer '.$request->cust_name,
         );
 
-        $sendToEmail = strtolower($request->email_addr);
-        if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        {
-            Mail::to($sendToEmail)
-                ->send(new SalesCancelMail($dataArray));
-            $callback['Error'] = false;
-            $callback['Pesan'] = 'sendToEmail';
-            echo json_encode($callback);
+        try {
+            $sendToEmail = strtolower($request->email_addr);
+            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
+            {
+                Mail::to($sendToEmail)->send(new SalesCancelMail($dataArray));
+                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
+                return "Email berhasil dikirim";
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika pengiriman email gagal
+            Log::error('Gagal mengirim email: ' . $e->getMessage());
         }
     }
     public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='',$level_no='',$user_id='')

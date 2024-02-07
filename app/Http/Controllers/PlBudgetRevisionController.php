@@ -38,14 +38,17 @@ class PlBudgetRevisionController extends Controller
             'body'          => 'Revision RAB Budget'
         );
 
-        $sendToEmail = strtolower($request->email_addr);
-        if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        {
-            Mail::to($sendToEmail)
-                ->send(new BudgetLymanRMail($dataArray));
-            $callback['Error'] = false;
-            $callback['Pesan'] = 'sendToEmail';
-            echo json_encode($callback);
+        try {
+            $sendToEmail = strtolower($request->email_addr);
+            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
+            {
+                Mail::to($sendToEmail)->send(new BudgetLymanRMail($dataArray));
+                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
+                return "Email berhasil dikirim";
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika pengiriman email gagal
+            Log::error('Gagal mengirim email: ' . $e->getMessage());
         }
     }
 

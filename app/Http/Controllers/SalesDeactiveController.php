@@ -37,14 +37,17 @@ class SalesDeactiveController extends Controller
             'body'          => 'Please Approve '.$request->descs.', Payment '.$request->ref_no. ' because '.$request->plan_descs,
         );
 
-        $sendToEmail = strtolower($request->email_addr);
-        if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        {
-            Mail::to($sendToEmail)
-                ->send(new SalesDeactiveMail($dataArray));
-            $callback['Error'] = false;
-            $callback['Pesan'] = 'sendToEmail';
-            echo json_encode($callback);
+        try {
+            $sendToEmail = strtolower($request->email_addr);
+            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
+            {
+                Mail::to($sendToEmail)->send(new SalesDeactiveMail($dataArray));
+                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
+                return "Email berhasil dikirim";
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika pengiriman email gagal
+            Log::error('Gagal mengirim email: ' . $e->getMessage());
         }
     }
 
