@@ -51,7 +51,7 @@ class ContractRenewController extends Controller
             if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
             {
                 Mail::to($sendToEmail)->send(new ContractRenewMail($dataArray));
-                Log::info('Email berhasil dikirim ke: ' . $sendToEmail);
+                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
                 return "Email berhasil dikirim";
             }
         } catch (\Exception $e) {
