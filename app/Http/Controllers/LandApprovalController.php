@@ -28,14 +28,14 @@ class LandApprovalController extends Controller
             $link[] = $show;
         }
 
-        // if ($request->land_area_bpn == '0' || $request->land_area_bpn == 'empty' || $request->land_area_bpn == 'null')
-        // {
+        if ($request->land_area_bpn == '0' || $request->land_area_bpn == 'empty' || $request->land_area_bpn == 'null')
+        {
             // $land_area = $request->land_area_spk;
             $land_area = number_format($request->land_area_spk, 2, '.', ',');
-        // } else {
-        //     // $land_area = $request->land_area_bpn;
-        //     $land_area = number_format($request->land_area_bpn, 2, '.', ',');
-        // }
+        } else {
+            // $land_area = $request->land_area_bpn;
+            $land_area = number_format($request->land_area_bpn, 2, '.', ',');
+        }
 
         $dataArray = array(
             'user_id'       => $request->user_id,
