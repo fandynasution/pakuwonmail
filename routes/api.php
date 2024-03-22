@@ -39,6 +39,12 @@ Route::POST('/SendMailLandfph', [LandFphApproval::class, 'LandFphApprovalMail'])
 Route::POST('/SendMailLandfph/update', [LandFphApproval::class, 'update']);
 Route::GET('/approvestatusLandFph/{status}/{entity_cd}/{doc_no}/{level_no}', [LandFphApproval::class, 'changestatus']);
 
+use App\Http\Controllers\LandChangeEntityController as LandChangeEntity;
+
+Route::POST('/SendMailchangeentity', [LandChangeEntity::class, 'LandChangeEntityMail']);
+Route::POST('/SendMailchangeentity/update', [LandChangeEntity::class, 'update']);
+Route::GET('/SendMailchangeentity/{status}/{entity_cd}/{doc_no}/{level_no}', [LandChangeEntity::class, 'changestatus']);
+
 use App\Http\Controllers\LandMasterApprovalController as LandMasterApproval;
 
 Route::POST('/SendMailLandmaster', [LandMasterApproval::class, 'LandMasterApprovalMail']);
