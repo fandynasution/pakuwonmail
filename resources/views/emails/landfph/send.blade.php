@@ -41,9 +41,19 @@
                                             <td> {{ $data['doc_no'] }} </td>
                                         </tr>
                                         <tr>
+                                            <td>Nama PT</td>
+                                            <td> : </td>
+                                            <td> {{ $data['entity_name'] }} </td>
+                                        </tr>
+                                        <tr>
                                             <td>NOP</td>
                                             <td> : </td>
                                             <td> {{ $data['nop_no'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama SPPT</td>
+                                            <td> : </td>
+                                            <td> {{ $data['name_land'] }} </td>
                                         </tr>
                                         <tr>
                                             <td>Nama Pemilik</td>

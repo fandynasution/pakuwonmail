@@ -36,6 +36,8 @@ class LandFphApprovalController extends Controller
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
             'nop_no'        => $request->nop_no,
+            'entity_name'        => $request->entity_name,
+            'name_land'        => $request->name_land,
             'name_owner'    => $request->name_owner,
             'url_link'      => $link,
             'total_amt'     => $total_amt,
