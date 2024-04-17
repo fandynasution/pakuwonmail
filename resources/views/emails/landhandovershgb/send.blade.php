@@ -36,29 +36,18 @@
                                     <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Proses SHGB dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; ">
                                         <tr>
-                                            <td>No. SHGB</td>
-                                            <td> : </td>
+                                            <th>No. SHGB</th>
+                                            <th>No. SPPT</th>
+                                            <th>Nama</th>
+                                            <th>Luas SHGB</th>
+                                            <th>Diserahkan pada</th>
+                                        </tr>
+                                        <tr>
                                             <td> {{ $data['shgb_no'] }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td>No. SPPT</td>
-                                            <td> : </td>
                                             <td> {{ $data['nop_no'] }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nama</td>
-                                            <td>:</td>
-                                            <td>{{ $data['shgb_name'] }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Luas SHGB</td>
-                                            <td>:</td>
-                                            <td>{{ $data['shgb_area'] }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Diserahkan pada</td>
-                                            <td>:</td>
-                                            <td>{{ $data['handover_to'] }}</td>
+                                            <td> {{ $data['shgb_name'] }} </td>
+                                            <td> {{ $data['shgb_area'] }} </td>
+                                            <td> {{ $data['handover_to'] }} </td>
                                         </tr>
                                     </table>
                                     <br>

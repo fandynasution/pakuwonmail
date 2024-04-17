@@ -28,6 +28,8 @@ class LandApprovalHandoverShgbController extends Controller
             $handover_to = 'Eksternal';
         }
 
+        $shgb_area = number_format($request->shgb_area, 2, '.', ',');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -39,7 +41,7 @@ class LandApprovalHandoverShgbController extends Controller
             'shgb_no'       => $request->shgb_no,
             'nop_no'        => $request->nop_no,
             'shgb_name'     => $request->shgb_name,
-            'shgb_area'     => $request->shgb_area,
+            'shgb_area'     => $shgb_area,
             'handover_to'   => $handover_to,
             'descs'         => $request->descs,
             'link'          => 'landapprovalhandovershgb',
