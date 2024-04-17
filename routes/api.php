@@ -291,3 +291,8 @@ use App\Http\Controllers\LandCancelNopController as LandCancelNop;
 Route::POST('/landcancelnop', [LandCancelNop::class, 'mail']);
 Route::GET('/landcancelnop/{entity_cd}/{doc_no}/{status}/{level_no}', [LandCancelNop::class, 'changestatus']);
 Route::POST('/landcancelnop/update', [LandCancelNop::class, 'update']);
+
+use App\Http\Controllers\LandApprovalHandoverShgbController as LandApprovalHandoverShgb;
+Route::POST('/landapprovalhandovershgb', [LandApprovalHandoverShgb::class, 'Mail']);
+Route::POST('/landapprovalhandovershgb/update', [LandApprovalHandoverShgb::class, 'update']);
+Route::GET('/landapprovalhandovershgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalHandoverShgb::class, 'changestatus']);
