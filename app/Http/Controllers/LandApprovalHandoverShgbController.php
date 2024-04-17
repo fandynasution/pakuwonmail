@@ -28,7 +28,7 @@ class LandApprovalHandoverShgbController extends Controller
             $handover_to = 'Eksternal';
         }
 
-        $shgb_area = number_format($request->shgb_area, ',');
+        $shgb_area = number_format($request->shgb_area, 0, '.', ',');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
