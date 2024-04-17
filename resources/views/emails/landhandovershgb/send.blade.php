@@ -34,22 +34,22 @@
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
                                     <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
                                     <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Proses SHGB dengan detail :</p>
-                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; ">
-                                        <tr>
-                                            <th>No. SHGB</th>
-                                            <th>No. SPPT</th>
-                                            <th>Nama</th>
-                                            <th>Luas SHGB</th>
-                                            <th>Diserahkan pada</th>
-                                        </tr>
-                                        <tr>
-                                            <td> {{ $data['shgb_no'] }} </td>
-                                            <td> {{ $data['nop_no'] }} </td>
-                                            <td> {{ $data['shgb_name'] }} </td>
-                                            <td style="text-align: right;">{{ $data['shgb_area'] }}</td>
-                                            <td> {{ $data['handover_to'] }} </td>
-                                        </tr>
-                                    </table>
+                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; border-collapse: collapse; border: 1px solid #000;">
+                                    <tr>
+                                        <th style="border: 1px solid #000;">No. SHGB</th>
+                                        <th style="border: 1px solid #000;">No. SPPT</th>
+                                        <th style="border: 1px solid #000;">Nama</th>
+                                        <th style="border: 1px solid #000;">Luas SHGB</th>
+                                        <th style="border: 1px solid #000;">Diserahkan pada</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #000;">{{ $data['shgb_no'] }}</td>
+                                        <td style="border: 1px solid #000;">{{ $data['nop_no'] }}</td>
+                                        <td style="border: 1px solid #000;">{{ $data['shgb_name'] }}</td>
+                                        <td style="border: 1px solid #000; text-align: right;">{{ $data['shgb_area'] }}</td>
+                                        <td style="border: 1px solid #000;">{{ $data['handover_to'] }}</td>
+                                    </tr>
+                                </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
                                         <b>Thank you,</b><br>
