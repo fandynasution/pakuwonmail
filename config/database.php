@@ -96,8 +96,8 @@ return [
         'SSI' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL2'),
-            'host' => '4.193.77.13',
-            'port' => '1433',
+            'host' => '10.0.1.4',
+            'port' => '2433',
             'database' => 'SSI_PROD',
             'username' => 'mgr',
             'password' => '@rie44IFCA',
