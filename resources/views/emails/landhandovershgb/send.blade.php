@@ -46,7 +46,7 @@
                                             <td> {{ $data['shgb_no'] }} </td>
                                             <td> {{ $data['nop_no'] }} </td>
                                             <td> {{ $data['shgb_name'] }} </td>
-                                            <td> {{ $data['shgb_area'] }} </td>
+                                            <td style="text-align: right;">{{ $data['shgb_area'] }}</td>
                                             <td> {{ $data['handover_to'] }} </td>
                                         </tr>
                                     </table>
