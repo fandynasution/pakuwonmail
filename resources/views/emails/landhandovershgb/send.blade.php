@@ -43,11 +43,11 @@
                                     <th style="border: 1px solid #000; text-align: center;">Diserahkan pada</th>
                                     </tr>
                                     <tr>
-                                        <td style="border: 1px solid #000;"> {{ $data['shgb_no'] }} </td>
-                                        <td style="border: 1px solid #000;"> {{ $data['nop_no'] }} </td>
-                                        <td style="border: 1px solid #000;"> {{ $data['shgb_name'] }} </td>
-                                        <td style="border: 1px solid #000; text-align: right;"> {{ $data['shgb_area'] }} </td>
-                                        <td style="border: 1px solid #000;"> {{ $data['handover_to'] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_no'] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['nop_no'] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_name'] }} </td>
+                                        <td style="border: 1px solid #000; text-align: right;padding: 5px;">{{ $data['shgb_area'] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['handover_to'] }} </td>
                                     </tr>
                                 </table>
                                     <br>
