@@ -21,6 +21,13 @@ class LandApprovalHandoverShgbController extends Controller
             'Status' => 200
         );
 
+        if ($request->handover_to == 'L')
+        {
+            $handover_to = 'LEGAL';
+        } else {
+            $handover_to = 'Eksternal';
+        }
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -33,12 +40,10 @@ class LandApprovalHandoverShgbController extends Controller
             'nop_no'        => $request->nop_no,
             'shgb_name'     => $request->shgb_name,
             'shgb_area'     => $request->shgb_area,
-            'handover_to'   => $request->handover_to,
+            'handover_to'   => $handover_to,
             'descs'         => $request->descs,
             'link'          => 'landapprovalhandovershgb',
         );
-
-        var_dump($dataArray);
 
         try {
             $sendToEmail = strtolower($request->email_addr);
