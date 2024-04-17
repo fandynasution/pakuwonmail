@@ -40,18 +40,18 @@ class LandApprovalHandoverShgbController extends Controller
 
         var_dump($dataArray);
 
-        // try {
-        //     $sendToEmail = strtolower($request->email_addr);
-        //     if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        //     {
-        //         Mail::to($sendToEmail)->send(new LandApprovalHandoverShgbMail($dataArray));
-        //         Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
-        //         return "Email berhasil dikirim";
-        //     }
-        // } catch (\Exception $e) {
-        //     // Tangani kesalahan jika pengiriman email gagal
-        //     Log::error('Gagal mengirim email: ' . $e->getMessage());
-        // }
+        try {
+            $sendToEmail = strtolower($request->email_addr);
+            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
+            {
+                Mail::to($sendToEmail)->send(new LandApprovalHandoverShgbMail($dataArray));
+                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
+                return "Email berhasil dikirim";
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika pengiriman email gagal
+            Log::error('Gagal mengirim email: ' . $e->getMessage());
+        }
     }
 
     public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
