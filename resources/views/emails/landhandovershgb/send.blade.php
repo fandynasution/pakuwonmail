@@ -36,29 +36,29 @@
                                     <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Proses SHGB dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; ">
                                         <tr>
-                                            <td>Nomor Dokumen</td>
+                                            <td>No. SHGB</td>
                                             <td> : </td>
-                                            <td> {{ $data['doc_no'] }} </td>
+                                            <td> {{ $data['shgb_no'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Nomor SHGB</td>
+                                            <td>No. SPPT</td>
                                             <td> : </td>
-                                            <td> {{ $data['ref_no'] }} </td>
+                                            <td> {{ $data['nop_no'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>NOP SHGB</td>
+                                            <td>Nama</td>
                                             <td>:</td>
-                                            <td>{{ $data['nop_no'] }}</td>
+                                            <td>{{ $data['shgb_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Luas PBT</td>
+                                            <td>Luas SHGB</td>
                                             <td>:</td>
-                                            <td>{{ $data['pbt_area'] }}</td>
+                                            <td>{{ $data['shgb_area'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Biaya SK SHGB</td>
+                                            <td>Diserahkan pada</td>
                                             <td>:</td>
-                                            <td>{{ $data['shgb_amt'] }}</td>
+                                            <td>{{ $data['handover_to'] }}</td>
                                         </tr>
                                     </table>
                                     <br>
