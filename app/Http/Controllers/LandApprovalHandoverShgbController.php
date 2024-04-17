@@ -14,29 +14,31 @@ use Illuminate\Support\Facades\DB;
 class LandApprovalHandoverShgbController extends Controller
 {
     public function Mail(Request $request) {
-        // $callback = array(
-        //     'data' => null,
-        //     'Error' => false,
-        //     'Pesan' => '',
-        //     'Status' => 200
-        // );
+        $callback = array(
+            'data' => null,
+            'Error' => false,
+            'Pesan' => '',
+            'Status' => 200
+        );
 
-        // $dataArray = array(
-        //     'user_id'       => $request->user_id,
-        //     'level_no'      => $request->level_no,
-        //     'entity_cd'     => $request->entity_cd,
-        //     'doc_no'        => $request->doc_no,
-        //     'email_addr'    => $request->email_addr,
-        //     'user_name'     => $request->user_name,
-        //     'sender_name'   => $request->sender_name,
-        //     'shgb_no'       => $request->shgb_no,
-        //     'nop_no'        => $request->nop_no,
-        //     'shgb_name'     => $request->shgb_name,
-        //     'shgb_area'     => $request->shgb_area,
-        //     'handover_to'   => $request->handover_to,
-        //     'descs'         => $request->descs,
-        //     'link'          => 'landapprovalhandovershgb',
-        // );
+        $dataArray = array(
+            'user_id'       => $request->user_id,
+            'level_no'      => $request->level_no,
+            'entity_cd'     => $request->entity_cd,
+            'doc_no'        => $request->doc_no,
+            'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
+            'sender_name'   => $request->sender_name,
+            'shgb_no'       => $request->shgb_no,
+            'nop_no'        => $request->nop_no,
+            'shgb_name'     => $request->shgb_name,
+            'shgb_area'     => $request->shgb_area,
+            'handover_to'   => $request->handover_to,
+            'descs'         => $request->descs,
+            'link'          => 'landapprovalhandovershgb',
+        );
+
+        var_dump($dataArray);
 
         // try {
         //     $sendToEmail = strtolower($request->email_addr);
@@ -50,7 +52,6 @@ class LandApprovalHandoverShgbController extends Controller
         //     // Tangani kesalahan jika pengiriman email gagal
         //     Log::error('Gagal mengirim email: ' . $e->getMessage());
         // }
-        return "123";
     }
 
     public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
