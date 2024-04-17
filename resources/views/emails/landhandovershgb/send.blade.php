@@ -36,18 +36,18 @@
                                     <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Proses SHGB dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; border-collapse: collapse; border: 1px solid #000;">
                                     <tr>
-                                        <th style="border: 1px solid #000;">No. SHGB</th>
-                                        <th style="border: 1px solid #000;">No. SPPT</th>
-                                        <th style="border: 1px solid #000;">Nama</th>
-                                        <th style="border: 1px solid #000;">Luas SHGB</th>
-                                        <th style="border: 1px solid #000;">Diserahkan pada</th>
+                                    <th style="border: 1px solid #000; text-align: center;">No. SHGB</th>
+                                    <th style="border: 1px solid #000; text-align: center;">No. SPPT</th>
+                                    <th style="border: 1px solid #000; text-align: center;">Nama</th>
+                                    <th style="border: 1px solid #000; text-align: center;">Luas SHGB</th>
+                                    <th style="border: 1px solid #000; text-align: center;">Diserahkan pada</th>
                                     </tr>
                                     <tr>
-                                        <td style="border: 1px solid #000;">{{ $data['shgb_no'] }}</td>
-                                        <td style="border: 1px solid #000;">{{ $data['nop_no'] }}</td>
-                                        <td style="border: 1px solid #000;">{{ $data['shgb_name'] }}</td>
-                                        <td style="border: 1px solid #000; text-align: right;">{{ $data['shgb_area'] }}</td>
-                                        <td style="border: 1px solid #000;">{{ $data['handover_to'] }}</td>
+                                        <td style="border: 1px solid #000;"> {{ $data['shgb_no'] }} </td>
+                                        <td style="border: 1px solid #000;"> {{ $data['nop_no'] }} </td>
+                                        <td style="border: 1px solid #000;"> {{ $data['shgb_name'] }} </td>
+                                        <td style="border: 1px solid #000; text-align: right;"> {{ $data['shgb_area'] }} </td>
+                                        <td style="border: 1px solid #000;"> {{ $data['handover_to'] }} </td>
                                     </tr>
                                 </table>
                                     <br>
