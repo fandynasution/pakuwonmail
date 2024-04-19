@@ -124,7 +124,7 @@ class LandApprovalHandoverShgbController extends Controller
                 'valuebt'       => $valuebt
             );
         }
-        return view('emails/landapprovalhandovershgb/action', $data);
+        return view('emails/landhandovershgb/action', $data);
     }
 
     public function update(Request $request)
