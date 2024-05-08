@@ -49,13 +49,6 @@ class LandSubmissionController extends Controller
             $nop_no_data[] = $nop_no;
         }
 
-        $list_of_sph_trx_no = explode(';', $request->sph_trx_no);
-        
-        $sph_trx_no_data = [];
-        foreach ($list_of_sph_trx_no as $sph_trx_no) {
-            $sph_trx_no_data[] = $sph_trx_no;
-        }
-
         $list_of_request_amt = explode(';', $request->request_amt);
         
         $request_amt_data = [];
@@ -63,6 +56,21 @@ class LandSubmissionController extends Controller
             $formatted_amt = number_format((float)$amt, 2, '.', ',');
             $request_amt_data[] = $formatted_amt;
         }
+
+        $formatted_sum_amt = number_format($request->sum_amt, 2, '.', ',');
+
+        $list_of_approve = explode('; ',  $request->approve_exist);
+        $approve_data = [];
+        foreach ($list_of_approve as $approve) {
+            $approve_data[] = $approve;
+        }
+
+        $list_of_approve_date = explode('; ',  $request->approved_date);
+        $approve_date_data = [];
+        foreach ($list_of_approve_date as $approve_date) {
+            $approve_date_data[] = $approve_date;
+        }
+
 
         $dataArray = array(
             'user_id'       => $request->user_id,
@@ -73,10 +81,13 @@ class LandSubmissionController extends Controller
             'type'          => $type_data,
             'owner'         => $owner_data,
             'nop_no'        => $nop_no_data,
-            'sph_trx_no'    => $sph_trx_no_data,
+            'sph_trx_no'    => $request->sph_trx_no,
             'request_amt'   => $request_amt_data,
+            'sum_amt'       => $formatted_sum_amt,
             'url_file'      => $url_data,
             'file_name'     => $file_data,
+            'approve_list'  => $approve_data,
+            'approved_date'  => $approve_date_data,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'sender_name'   => $request->sender_name,
