@@ -56,6 +56,7 @@ class SalesChangeNameController extends Controller
 
     public function changestatus($entity_cd='', $project_no='', $doc_no='', $lot_no='',$status='', $level_no='', $grp='', $user_id='')
     {
+
         $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
@@ -118,13 +119,15 @@ class SalesChangeNameController extends Controller
         $entity_cd = $request->entity_cd;
         $project_no = $request->project_no;
         $doc_no = $request->doc_no;
+        $lot_no = $request->lot_no;
         $status = $request->status;
         $level_no = $request->level_no;
+        $grp = $request->grp;
         $user_id = $request->user_id;
         $remarks = $request->remarks;
         if($status == 'A') {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $doc_no);
@@ -148,7 +151,7 @@ class SalesChangeNameController extends Controller
             }
         } else if($status == 'R'){
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $doc_no);
@@ -172,7 +175,7 @@ class SalesChangeNameController extends Controller
             }
         } else {
             $pdo = DB::connection('SSI')->getPdo();
-            $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
+            $sth = $pdo->prepare("EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
             $sth->bindParam(3, $doc_no);
