@@ -296,3 +296,6 @@ use App\Http\Controllers\LandApprovalHandoverShgbController as LandApprovalHando
 Route::POST('/landapprovalhandovershgb', [LandApprovalHandoverShgb::class, 'Mail']);
 Route::POST('/landapprovalhandovershgb/update', [LandApprovalHandoverShgb::class, 'update']);
 Route::GET('/landapprovalhandovershgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalHandoverShgb::class, 'changestatus']);
+
+use App\Http\Controllers\FeedbackLandSubmissionController as FeedbackSubmission;
+Route::POST('/feedbacksubmission', [FeedbackSubmission::class, 'Mail']);
