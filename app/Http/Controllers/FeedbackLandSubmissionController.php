@@ -101,6 +101,7 @@ class FeedbackLandSubmissionController extends Controller
 
         try {
             $emailAddresses = strtolower($request->email_addr);
+            $ccEmailAddresses = strtolower($request->email_cc);
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
             $status = $request->status;
@@ -108,6 +109,7 @@ class FeedbackLandSubmissionController extends Controller
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
                 $emails = is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
+                $ccEmails = !empty($ccEmailAddresses) ? (is_array($ccEmailAddresses) ? $ccEmailAddresses : [$ccEmailAddresses]) : [];
 
                 $emailSent = false;
                 
@@ -123,14 +125,23 @@ class FeedbackLandSubmissionController extends Controller
                     }
                 
                     if (!file_exists($cacheFilePath)) {
+                        // Create the email object
+                        $emailObj = Mail::to($email);
+        
+                        // Add CC addresses if any
+                        if (!empty($ccEmails)) {
+                            $emailObj->cc($ccEmails);
+                        }
+        
                         // Send email
-                        Mail::to($email)->send(new FeedbackSubmissionMail($dataArray));
-                
+                        $emailObj->send(new FeedbackSubmissionMail($dataArray));
+        
                         // Mark email as sent
                         file_put_contents($cacheFilePath, 'sent');
                         $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
-                        Log::channel('sendmail')->info('Email Feedback doc_no '.$doc_no.' Entity ' . $entity_cd.' berhasil dikirim ke: ' . $sentTo);
-                        return "Email berhasil dikirim ke: " . $sentTo;
+                        $ccTo = !empty($ccEmails) ? implode(', ', $ccEmails) : 'none';
+                        Log::channel('sendmail')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccTo);
+                        return "Email berhasil dikirim ke: " . $sentTo . ' dengan CC ke: ' . $ccTo;
                         $emailSent = true;
                     }
                 }
