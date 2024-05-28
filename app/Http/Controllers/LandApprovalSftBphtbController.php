@@ -38,22 +38,24 @@ class LandApprovalSftBphtbController extends Controller
             'doc_no'        => $request->doc_no,
             'ref_no'        => $request->ref_no,
             'nib_no'        => $request->nib_no,
-            'nop_bphtb'        => $request->nop_bphtb,
-            'bphtb_amt'        => $bphtb_amt,
+            'nop_bphtb'     => $request->nop_bphtb,
+            'bphtb_amt'     => $bphtb_amt,
             'url_link'      => $link,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
-            'sender_name'     => $request->sender_name,
+            'sender_name'   => $request->sender_name,
             'descs'         => $request->descs,
             'link'          => 'landapprovalsftbphtb',
         );
 
         try {
             $sendToEmail = strtolower($request->email_addr);
+            $doc_no = $request->doc_no;
+            $entity_cd = $request->entity_cd;
             if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
             {
                 Mail::to($sendToEmail)->send(new LandApprovalSftBphtbMail($dataArray));
-                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
+                Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
                 return "Email berhasil dikirim";
             }
         } catch (\Exception $e) {

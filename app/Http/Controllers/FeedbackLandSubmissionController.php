@@ -129,7 +129,7 @@ class FeedbackLandSubmissionController extends Controller
                         // Mark email as sent
                         file_put_contents($cacheFilePath, 'sent');
                         $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
-                        Log::channel('sendmailfeedback')->info('Email Feedback doc_no '.$doc_no.' Entity ' . $entity_cd.' berhasil dikirim ke: ' . $sentTo);
+                        Log::channel('sendmail')->info('Email Feedback doc_no '.$doc_no.' Entity ' . $entity_cd.' berhasil dikirim ke: ' . $sentTo);
                         return "Email berhasil dikirim ke: " . $sentTo;
                         $emailSent = true;
                     }
