@@ -18,6 +18,7 @@ class TestingController extends Controller
         $first = 'PO/JSU/23/88888';
         $new_ref_no = str_replace("/","-",$first);
         echo $new_ref_no;
+        var_dump("baru");
     }
 
     public function gambar()
