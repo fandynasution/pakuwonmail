@@ -24,8 +24,8 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
-                                    <h5 style="text-align:left;margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear data['user_name'] </h5>
-                                    <p style="text-align:left;margin-bottom: 15px; color: #526484; font-size: 14px;">Please Approve Revenue Sharing with details :</p>
+                                    <h5 style="text-align:left;margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Dear data['user_name'] </h5>
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">Please Approve Revenue Sharing with details :</p>
                                     <table style="padding-left: 40px;width: 100%; text-align:left;">
                                         <tr>
                                             <td style="width: 120px;">Document No. </td>

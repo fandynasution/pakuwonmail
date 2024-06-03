@@ -12,6 +12,7 @@
     <style>
         html, body {
             width: 100%;
+            color: #000000 !important;
         }
         table {
             margin: 50 auto;
@@ -32,9 +33,9 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
-                                    <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
-                                    <p style="text-align:left;color: #526484; font-size: 14px;">Tolong berikan persetujuan untuk Proses BPHTB dengan detail :</p>
-                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff">
+                                    <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
+                                    <p style="text-align:left;color: #000000; font-size: 14px;">Tolong berikan persetujuan untuk Proses BPHTB dengan detail :</p>
+                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff; color: #000000;">
                                         <tr>
                                             <td>Nomor Dokumen</td>
                                             <td> : </td>

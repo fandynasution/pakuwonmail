@@ -24,8 +24,8 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
-                                    <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear {{ $data['user_name'] }}</h5>
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">Please Approve {{ $data['descs'] }} period {{ $data['commence_date'] }} to {{ $data['expiry_date'] }}.
+                                    <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Dear {{ $data['user_name'] }}</h5>
+                                    <p style="margin-bottom: 15px; color: #000000; font-size: 14px;">Please Approve {{ $data['descs'] }} period {{ $data['commence_date'] }} to {{ $data['expiry_date'] }}.
                                     <br>Contract Renewal No {{ $data['doc_no'] }}. Entity {{ $data['entity_name'] }}
                                     </p>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['new_doc_no'] }}/A/{{ $data['level_no'] }}/{{ $data['user_id'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>

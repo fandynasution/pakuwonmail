@@ -24,10 +24,10 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
-                                    <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear {{ $data['user_name'] }}</h5>
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">Please approve No Progress {{ $data['old_doc_no'] }} with the current progress percentage of {{ $data['curr_progress'] }}% with a total progress of IDR {{ $data['amount'] }} from PO No. {{ $data['PONumberOracle']}}.</p>
+                                    <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Dear {{ $data['user_name'] }}</h5>
+                                    <p style="margin-bottom: 15px; color: #000000; font-size: 14px;">Please approve No Progress {{ $data['old_doc_no'] }} with the current progress percentage of {{ $data['curr_progress'] }}% with a total progress of IDR {{ $data['amount'] }} from PO No. {{ $data['PONumberOracle']}}.</p>
 
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">
+                                    <p style="margin-bottom: 15px; color: #000000; font-size: 14px;">
                                         Klik tombol PDF untuk melihat dokumen 
                                         <!-- <a href="{{ url('public/pdf/PR_BTID.pdf') }}" target="_blank" style="background-color:transparent;border-radius:4px;color:#007bf;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">PDF</a> -->
                                         <a href="{{ url('public/pdf/PR_BTID.pdf') }}" style="background-color:grey;border-radius:4px;color:#007bf;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">OPEN PDF</a>.</p>

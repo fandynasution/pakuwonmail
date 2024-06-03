@@ -11,7 +11,7 @@
         font-size: 14px;
         margin-bottom: 10px;
         line-height: 24px;
-        color:#026735;
+        color: #000000 !important;
         font-weight: 400;
     }
     * {

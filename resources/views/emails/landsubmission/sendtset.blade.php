@@ -12,6 +12,7 @@
     <style>
         html, body {
             width: 100%;
+            color: #000000 !important;
         }
 
         /* Normal font size for table */
@@ -42,8 +43,8 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
-                                    <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
-                                    <p style="text-align:left;color: #526484; font-size: 14px;">Tolong berikan persetujuan untuk Pengajuan Pembayaran dengan detail :</p>
+                                    <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
+                                    <p style="text-align:left;color: #000000; font-size: 14px;">Tolong berikan persetujuan untuk Pengajuan Pembayaran dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1000px;margin:0 auto;background-color:#ffffff;">
                                     <tr>
                                         <th class="no-wrap" style="border: 1px solid #dddddd;text-align: center;padding: 5px;">Nomor Dokumen</th>
