@@ -140,6 +140,9 @@
                         @php
                             $hasApproval = false;
                             $counter = 0;
+                            
+                            // Sort the data array based on approved date in descending order
+                            array_multisort($data['approved_date'], SORT_DESC, $data['approve_list']);
                         @endphp
 
                         @foreach($data['approve_list'] as $key => $approve_list)
@@ -158,6 +161,7 @@
                         @if($hasApproval)
                             </p>
                         @endif
+
                     </td>
                 </tr>
             </tbody>
