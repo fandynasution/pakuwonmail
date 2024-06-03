@@ -20,7 +20,7 @@
                     <table style="width:100%;max-width:620px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;font-size: 14px;">
+                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;font-size: 14px; color: #000000;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">

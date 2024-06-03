@@ -21,7 +21,7 @@
     
 </head>
 
-<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #ffffff;">
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #ffffff;color: #000000;">
 	<div style="width: 100%; background-color: #e6f0eb; text-align: center;">
         <table width="80%" border="0" cellpadding="0" cellspacing="0" bgcolor="#e6f0eb" style="margin-left: auto;margin-right: auto;" >
             <tr>
@@ -35,7 +35,7 @@
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
                                 <h5 style="text-align:left;color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Dear Mr./Mrs. {{ $data['user_name'] }}</h5>
                                     <p style="text-align:left;color: #000000; font-size: 14px;">Please Approve Deactive Payment with details :</p>
-                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff">
+                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff;color: #000000;">
                                         <tr>
                                             <td>Deactive No. </td>
                                             <td> : </td>

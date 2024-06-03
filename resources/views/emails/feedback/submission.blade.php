@@ -29,7 +29,7 @@
     </style>
     
 </head>
-<body width="100%" style="mso-line-height-rule: exactly; background-color: #ffffff;">
+<body width="100%" style="mso-line-height-rule: exactly; background-color: #ffffff;color: #000000 !important;">
 	<div style="width: 100%; background-color: #e6f0eb; text-align: center;">
         <table style="width:100%;max-width:1200px;;">
             @include('template.header')
@@ -41,7 +41,7 @@
                     <td style="text-align:center;padding: 0px 30px 0px 20px">
                         <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Tim Finance</h5>
                         <p style="text-align:left;color: #000000; font-size: 14px;">Pengajuan Pembayaran {{ $data['doc_no'] }} Periode SPH : {{ $data['sph_trx_no'] }} telah disetujui dengan detail :</p>
-                        <table class="remove" cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1200px;font-size: 14px;background-color:#ffffff;">
+                        <table class="remove" cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1200px;font-size: 14px;background-color:#ffffff;color: #000000 !important;">
                             <tr>
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;">No.</th>
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;">Nama Pemilik</th>
