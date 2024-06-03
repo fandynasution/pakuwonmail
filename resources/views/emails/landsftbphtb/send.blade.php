@@ -59,7 +59,7 @@
                                         <tr>
                                             <td>Nominal BPHTB</td>
                                             <td>:</td>
-                                            <td>{{ $data['bphtb_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['bphtb_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>

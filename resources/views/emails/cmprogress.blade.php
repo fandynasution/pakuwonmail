@@ -45,7 +45,7 @@
                                         </tr>
                                         <tr>
                                             <td>Amount Previous Progress : </td>
-                                            <td>{{ $data['prev_progress_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['prev_progress_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>From PO Number : </td>

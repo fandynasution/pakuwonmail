@@ -64,17 +64,17 @@
                                         <tr>
                                             <td>Uang Tanda Jadi</td>
                                             <td>:</td>
-                                            <td>Rp. {{ $data['book_amt'] }}</td>
+                                            <td style="text-align: right;">Rp. {{ $data['book_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>Pembayaran Bidang Tanah</td>
                                             <td>:</td>
-                                            <td>Rp. {{ $data['total_amt'] }}</td>
+                                            <td style="text-align: right;">Rp. {{ $data['total_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>Nominal SPH</td>
                                             <td>:</td>
-                                            <td>Rp. {{ $data['sph_amt'] }}</td>
+                                            <td style="text-align: right;">Rp. {{ $data['sph_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>

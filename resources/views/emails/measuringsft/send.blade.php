@@ -59,7 +59,7 @@
                                         <tr>
                                             <td>Biaya PNBP Pengukuran</td>
                                             <td>:</td>
-                                            <td>{{ $data['measuring_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['measuring_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>

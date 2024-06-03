@@ -59,7 +59,7 @@
                                         <tr>
                                             <td>Biaya SK SHGB</td>
                                             <td>:</td>
-                                            <td>{{ $data['shgb_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['shgb_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>

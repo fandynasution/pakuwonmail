@@ -64,17 +64,17 @@
                                         <tr>
                                             <td>Base Amount</td>
                                             <td>:</td>
-                                            <td>{{ $data['tariff_amt'] }} </td>
+                                            <td style="text-align: right;">{{ $data['tariff_amt'] }} </td>
                                         </tr>
                                         <tr>
                                             <td>Tax Amount</td>
                                             <td>:</td>
-                                            <td>{{ $data['tax_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['tax_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>Total Amount</td>
                                             <td>:</td>
-                                            <td>{{ $data['net_amt'] }} </td>
+                                            <td style="text-align: right;">{{ $data['net_amt'] }} </td>
                                         </tr>
                                     </table>
                                     <br>

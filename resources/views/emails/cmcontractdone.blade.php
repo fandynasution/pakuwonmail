@@ -33,7 +33,7 @@
                                         </tr>
                                         <tr>
                                             <td>Contract Sum : </td>
-                                            <td>{{ $data['contract_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['contract_amt'] }}</td>
                                         </tr>
                                         <tr>
                                             <td>From PO Number : </td>

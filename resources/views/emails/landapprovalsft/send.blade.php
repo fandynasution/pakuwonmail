@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>Biaya PNBP SK HAK</td>
                                             <td>:</td>
-                                            <td>{{ $data['sk_amt'] }}</td>
+                                            <td style="text-align: right;">{{ $data['sk_amt'] }}</td>
                                         </tr>
                                     </table>
                                     <br>
