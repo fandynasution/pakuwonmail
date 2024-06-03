@@ -20,12 +20,12 @@
                     <table style="width:100%;max-width:620px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;">
+                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;font-size: 14px;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
                                     <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear Mr./Mrs. {{ $data['user_name'] }},</h5>
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 16px;">Please Approve Temporary Split Lot number {{ $data['temp_no'] }}, Prospect No {{ $data['prospect_no'] }} from unit no {{ $data['lot_no_hd'] }} to {{ $data['lot_no_dt'] }}. Area : {{ $data['land_area'] }} M&sup2; with Entity : {{ $data['entity_name'] }}.</p>
+                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">Please Approve Temporary Split Lot number {{ $data['temp_no'] }}, Prospect No {{ $data['prospect_no'] }} from unit no {{ $data['lot_no_hd'] }} to {{ $data['lot_no_dt'] }}. Area : {{ $data['land_area'] }} M&sup2; with Entity : {{ $data['entity_name'] }}.</p>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/A/{{ $data['level_no'] }}/{{ $data['rt_grp_name'] }}/{{ $data['user_id'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/R/{{ $data['level_no'] }}/{{ $data['rt_grp_name'] }}/{{ $data['user_id'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/C/{{ $data['level_no'] }}/{{ $data['rt_grp_name'] }}/{{ $data['user_id'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>

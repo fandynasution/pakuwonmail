@@ -16,7 +16,7 @@
 
         /* Normal font size for table */
         table {
-        font-size: 12px; /* adjust as needed */
+        font-size: 14px; /* adjust as needed */
         }
 
         /* Media query for phone view */
@@ -43,7 +43,7 @@
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
                                     <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
-                                    <p style="text-align:left;color: #526484; font-size: 16px;">Tolong berikan persetujuan untuk Pengajuan Pembayaran dengan detail :</p>
+                                    <p style="text-align:left;color: #526484; font-size: 14px;">Tolong berikan persetujuan untuk Pengajuan Pembayaran dengan detail :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1000px;margin:0 auto;background-color:#ffffff;">
                                     <tr>
                                         <th class="no-wrap" style="border: 1px solid #dddddd;text-align: center;padding: 5px;">Nomor Dokumen</th>
@@ -88,7 +88,7 @@
                                 @endif
                                     </table>
                                     <br>
-                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
                                         <b>Thank you,</b><br>
                                         {{ $data['sender_name'] }}
                                     </p>
@@ -133,7 +133,7 @@
                                                 @php
                                                     $hasAttachment = true;
                                                 @endphp
-                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
                                                     <b style="font-style:italic;">To view the attachment, please click the links below:</b><br>
                                             @endif
                                             <a href="{{ $url_file }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
@@ -155,7 +155,7 @@
                                                 @php
                                                     $hasApproval = true;
                                                 @endphp
-                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
                                                     <span>Sudah disetujui oleh :</span><br>
                                             @endif
                                             {{ ++$counter }}. {{ $approve_list }} - {{ $data['approved_date'][$key] }}<br>

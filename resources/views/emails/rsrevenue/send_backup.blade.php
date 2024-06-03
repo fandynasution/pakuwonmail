@@ -20,19 +20,19 @@
                     <table style="width:100%;max-width:620px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;">
+                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;font-size: 14px;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
                                     <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear {{ $data['user_name'] }}</h5>
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 16px;">Please Approve Revenue Sharing, {{ $data['debtor_name'] }}, {{ $data['pgs_doc_no'] }}.</p>
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 16px;">with Total Sales = {{ $data['total_sales'] }}, Tarif percent = {{ $data['tariff_percent'] }}, Base Amount = {{ $data['tariff_amt'] }}, Tax Amount = {{ $data['tax_amt'] }}, Total = {{ $data['net_amt'] }}.</p>
+                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">Please Approve Revenue Sharing, {{ $data['debtor_name'] }}, {{ $data['pgs_doc_no'] }}.</p>
+                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">with Total Sales = {{ $data['total_sales'] }}, Tarif percent = {{ $data['tariff_percent'] }}, Base Amount = {{ $data['tariff_amt'] }}, Tax Amount = {{ $data['tax_amt'] }}, Total = {{ $data['net_amt'] }}.</p>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/{{ $data['trx_type'] }}/{{ $data['doc_date'] }}/{{ $data['ref_no'] }}/A/{{ $data['level_no'] }}/{{ $data['usergroup'] }}/{{ $data['user_id'] }}/{{ $data['supervisor'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/{{ $data['trx_type'] }}/{{ $data['doc_date'] }}/{{ $data['ref_no'] }}/R/{{ $data['level_no'] }}/{{ $data['usergroup'] }}/{{ $data['user_id'] }}/{{ $data['supervisor'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Revise</a>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/{{ $data['trx_type'] }}/{{ $data['doc_date'] }}/{{ $data['ref_no'] }}/C/{{ $data['level_no'] }}/{{ $data['usergroup'] }}/{{ $data['user_id'] }}/{{ $data['supervisor'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>
                                     <br>
                                     @if ($data['url_link'] != 'empty')
-                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px">
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px">
                                         <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
                                         
                                         @if ( is_array($data['url_link']) || is_object($data['url_link']) )

@@ -20,12 +20,12 @@
                     <table style="width:100%;max-width:620px;margin:0 auto;">
                         @include('template.header')
                     </table>
-                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;">
+                    <table style="width:100%;max-width:620px;margin:0 auto;background-color:#ffffff;font-size: 14px;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
                                     <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear {{ $data['user_name'] }}</h5>
-                                    <p style="margin-bottom: 15px; color: #526484; font-size: 16px;">Please Approve Variation Order with : </p>
+                                    <p style="margin-bottom: 15px; color: #526484; font-size: 14px;">Please Approve Variation Order with : </p>
                                     <table>
                                         <tr>
                                             <td>Variation Order No : </td>

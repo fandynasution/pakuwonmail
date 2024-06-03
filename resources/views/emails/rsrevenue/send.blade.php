@@ -33,8 +33,8 @@
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
                                     <h5 style="text-align:left;color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Dear Mr./Mrs. {{ $data['user_name'] }}</h5>
-                                    <p style="text-align:left;color: #526484; font-size: 16px;">Please Approve Revenue Sharing with details :</p>
-                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;background-color:#ffffff; ">
+                                    <p style="text-align:left;color: #526484; font-size: 14px;">Please Approve Revenue Sharing with details :</p>
+                                    <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff">
                                         <tr>
                                             <td>Document No. </td>
                                             <td> : </td>
@@ -77,7 +77,7 @@
                                         </tr>
                                     </table>
                                     <br>
-                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
                                         <b>Thank you,</b><br>
                                         {{ $data['sender_name'] }}
                                     </p>
@@ -87,7 +87,7 @@
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/{{ $data['entity_cd'] }}/{{ $data['project_no'] }}/{{ $data['doc_no'] }}/{{ $data['trx_type'] }}/{{ $data['doc_date'] }}/{{ $data['ref_no'] }}/C/{{ $data['level_no'] }}/{{ $data['usergroup'] }}/{{ $data['user_id'] }}/{{ $data['supervisor'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Cancel</a>
                                     <br>
                                     @if ($data['url_link'] != 'EMPTY')
-                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px">
+                                    <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px">
                                         <b style="font-style:italic;">To view the attachment, please click the link below : </b><br>
                                             <a href={{ $data['url_link'] }} target="_blank">{{ trim(str_replace('%20', ' ',substr($data['url_link'], strrpos($data['url_link'], '/') + 1))) }}</a><br><br>
                                     </p>

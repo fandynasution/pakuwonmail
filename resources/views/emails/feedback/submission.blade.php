@@ -16,7 +16,7 @@
 
         /* Normal font size for table */
         .remove {
-            font-size: 12px; /* adjust as needed */
+            font-size: 14px; /* adjust as needed */
         }
 
         /* Media query for phone view */
@@ -39,8 +39,8 @@
                 <tr>
                     <td style="text-align:center;padding: 0px 30px 0px 20px">
                         <h5 style="margin-bottom: 24px; color: #526484; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Tim Finance</h5>
-                        <p style="text-align:left;color: #526484; font-size: 16px;">Pengajuan Pembayaran {{ $data['doc_no'] }} Periode SPH : {{ $data['sph_trx_no'] }} telah disetujui dengan detail :</p>
-                        <table class="remove" cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1200px;;background-color:#ffffff;">
+                        <p style="text-align:left;color: #526484; font-size: 14px;">Pengajuan Pembayaran {{ $data['doc_no'] }} Periode SPH : {{ $data['sph_trx_no'] }} telah disetujui dengan detail :</p>
+                        <table class="remove" cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1200px;font-size: 14px;background-color:#ffffff;">
                             <tr>
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;">No.</th>
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;">Nama Pemilik</th>
@@ -80,7 +80,7 @@
                             @endif
                         </table>
                         <br>
-                        <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 16px;">
+                        <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
                             <b>Thank you,</b><br>
                             {{ $data['sender_name'] }}
                         </p>
@@ -94,7 +94,7 @@
                                     @php
                                         $hasAttachment = true;
                                     @endphp
-                                    <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                    <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
                                         <b style="font-style:italic;">To view the attachment, please click the links below:</b><br>
                                 @endif
                                 <a href="{{ $url_file }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
