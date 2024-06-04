@@ -61,6 +61,11 @@
                                             <td>:</td>
                                             <td>{{ $data['city'] }}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Tanggal Transaksi</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
+                                        </tr>
                                     </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">

@@ -29,6 +29,8 @@ class LandMasterRenewController extends Controller
             $link[] = $show;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
@@ -36,6 +38,7 @@ class LandMasterRenewController extends Controller
             'entity_cd_land'    => $request->entity_cd_land,
             'land_no'           => $request->land_no,
             'area'              => $area,
+            'transaction_date'              => $transaction_date,
             'city'              => $request->city,
             'entity_name'       => $request->entity_name,
             'url_link'          => $link,
