@@ -28,12 +28,15 @@ class LandVerificationApprovalController extends Controller
             $url_data[] = $url;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'nop_no'        => $request->nop_no,
             'url_link'      => $url_data,
+            'transaction_date'              => $transaction_date,
             'name_owner'    => $request->name_owner,
             'own_descs'     => $request->own_descs,
             'doc_no'        => $request->doc_no,
