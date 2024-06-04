@@ -21,6 +21,7 @@ class LandChangeEntityController extends Controller
             'Status' => 200
         );
 
+        $change_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->change_date)->format('d-m-Y');
 
         $land_area = number_format($request->land_area, 2, '.', ',');
         $dataArray = array(
@@ -36,6 +37,7 @@ class LandChangeEntityController extends Controller
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'sender_name'   => $request->sender_name,
+            'change_date'   => $change_date,
             'descs'         => $request->descs,
             'link'          => 'SendMailchangeentity',
         );
