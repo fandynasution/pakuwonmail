@@ -34,6 +34,8 @@ class ShgbMergerController extends Controller
             $shgb_ref_no_data[] = $ref_no;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             "user_id"       => $request->user_id,
             "level_no"      => $request->level_no,
@@ -43,6 +45,7 @@ class ShgbMergerController extends Controller
             "merge_ref_no"  => $request->merge_ref_no,
             "merge_nop"     => $request->merge_nop,
             "merge_area"    => $request->merge_area,
+            'transaction_date'      => $transaction_date,
             "shgb_ref_no"   => $shgb_ref_no_data,
             "url_file"      => $url_data,
             "file_name"     => $file_data,

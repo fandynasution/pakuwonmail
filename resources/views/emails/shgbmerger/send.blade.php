@@ -56,6 +56,11 @@
                                             <td>:</td>
                                             <td>{{ $dataArray['merge_area'] }}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Tanggal Penggabungan SHGB</td>
+                                            <td>:</td>
+                                            <td>{{ $dataArray['transaction_date'] }}</td>
+                                        </tr>
                                         
                                         @if(isset($dataArray['shgb_ref_no']) && is_array($dataArray['shgb_ref_no']) && count($dataArray['shgb_ref_no']) > 0)
                                             <!-- Find and display the first merge -->
