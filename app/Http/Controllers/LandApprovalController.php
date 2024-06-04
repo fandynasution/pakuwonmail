@@ -37,6 +37,8 @@ class LandApprovalController extends Controller
             $land_area = number_format($request->land_area_bpn, 2, '.', ',');
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -45,6 +47,7 @@ class LandApprovalController extends Controller
             'name_owner'      => $request->name_owner,
             'land_area'     => $land_area,
             'url_link'      => $link,
+            'transaction_date'      => $transaction_date,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
