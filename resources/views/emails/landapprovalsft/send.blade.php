@@ -52,6 +52,11 @@
                                             <td>{{ $data['sk_no'] }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Tanggal Pengajuan SK Pengukuran</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Biaya PNBP SK HAK</td>
                                             <td>:</td>
                                             <td style="text-align: right;">{{ $data['sk_amt'] }}</td>

@@ -30,6 +30,8 @@ class LandApprovalSftController extends Controller
             $link[] = $show;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -37,6 +39,7 @@ class LandApprovalSftController extends Controller
             'ref_no'        => $request->ref_no,
             'sk_no'         => $request->sk_no,
             'sk_amt'        => $sk_amt,
+            'transaction_date'              => $transaction_date,
             'url_link'      => $link,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
