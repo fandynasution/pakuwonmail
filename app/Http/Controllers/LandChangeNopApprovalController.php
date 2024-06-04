@@ -31,7 +31,7 @@ class LandChangeNopApprovalController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
-            'transaksi_date'   => $change_date,
+            'transaction_date'   => $change_date,
             'descs'         => $request->descs,
             'link'          => 'approvestatusLandChangeNop',
             'date_remarks'          => 'Tanggal Perubahan NOP',

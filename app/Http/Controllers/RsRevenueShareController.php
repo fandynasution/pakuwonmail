@@ -26,6 +26,8 @@ class RsRevenueShareController extends Controller
         $tax_amt = number_format($request->tax_amt, 2, '.', ',');
         $net_amt = number_format($request->net_amt, 2, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
@@ -40,6 +42,7 @@ class RsRevenueShareController extends Controller
             'debtor_name'   => $request->debtor_name,
             'pgs_doc_no'    => $request->pgs_doc_no,
             'total_sales'   => $total_sales,
+            'transaction_date'   => $transaction_date,
             'tariff_percent'=> $tariff_percent,
             'tariff_amt'    => $tariff_amt,
             'tax_amt'       => $tax_amt,

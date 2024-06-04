@@ -46,7 +46,7 @@
                                         <tr>
                                             <td>{{ $data['date_remarks'] }}</td>
                                             <td>:</td>
-                                            <td>{{ $data['transaksi_date'] }}</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
                                         </tr>
                                     </table>
                                     <a href="{{ url('api') }}/{{ $data['link'] }}/A/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>

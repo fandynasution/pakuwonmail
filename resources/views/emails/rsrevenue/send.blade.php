@@ -62,6 +62,11 @@
                                             <td>{{ $data['tariff_percent'] }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Date of Sales</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Base Amount</td>
                                             <td>:</td>
                                             <td style="text-align: right;">{{ $data['tariff_amt'] }} </td>
