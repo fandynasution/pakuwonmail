@@ -62,6 +62,11 @@
                                             <td>{{ $data['baf'] }} m&sup2;</td>
                                         </tr>
                                         <tr>
+                                            <td>Tanggal SPH</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }} m&sup2;</td>
+                                        </tr>
+                                        <tr>
                                             <td>Uang Tanda Jadi</td>
                                             <td>:</td>
                                             <td style="text-align: right;">Rp. {{ $data['book_amt'] }}</td>

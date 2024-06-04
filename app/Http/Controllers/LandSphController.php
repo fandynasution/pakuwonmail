@@ -34,12 +34,15 @@ class LandSphController extends Controller
             $link[] = $show;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'name_owner'    => $request->name_owner,
             'url_link'      => $link,
+            'transaction_date'              => $transaction_date,
             'nop_no'        => $request->nop_no,
             'laf'           => $laf,
             'baf'           => $baf,
