@@ -28,6 +28,8 @@ class MeasuringSftController extends Controller
 
         $measuring_amt = number_format($request->measuring_amt, 2, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -38,6 +40,7 @@ class MeasuringSftController extends Controller
             'file_no'      => $request->file_no,
             'nib_no'     => $request->nib_no,
             'measuring_amt'        => $measuring_amt,
+            'transaction_date'      => $transaction_date,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'sender_name'     => $request->sender_name,

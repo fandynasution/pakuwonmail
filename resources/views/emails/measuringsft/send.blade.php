@@ -57,6 +57,11 @@
                                             <td>{{ $data['nib_no'] }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Tanggal Transaksi</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Biaya PNBP Pengukuran</td>
                                             <td>:</td>
                                             <td style="text-align: right;">{{ $data['measuring_amt'] }}</td>
