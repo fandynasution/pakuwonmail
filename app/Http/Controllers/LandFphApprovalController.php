@@ -30,6 +30,8 @@ class LandFphApprovalController extends Controller
         $total_amt = number_format($request->total_amt, 2, '.', ',');
         $book_amt = number_format($request->book_amt, 2, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -43,6 +45,7 @@ class LandFphApprovalController extends Controller
             'total_amt'     => $total_amt,
             'book_amt'      => $book_amt,
             'email_addr'    => $request->email_addr,
+            'transaction_date'    => $transaction_date,
             'user_name'     => $request->user_name,
             'sender_name'     => $request->sender_name,
             'descs'         => $request->descs,
