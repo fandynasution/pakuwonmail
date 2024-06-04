@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\LandBoundaryMail;
 use App\Mail\UserEmail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class LandBoundaryController extends Controller
@@ -28,11 +29,15 @@ class LandBoundaryController extends Controller
             $link[] = $show;
         }
 
+        $boundary_date = Carbon::createFromFormat('Y-m-d H:i:s', $request->boundary_date);
+        $boundary_dateOnly = $boundary_date->toDateString();
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'boundary_ref'  => $request->boundary_ref,
+            'boundary_date' => $boundary_dateOnly,
             'off_name'      => $request->off_name,
             'url_link'      => $link,
             'doc_no'        => $request->doc_no,

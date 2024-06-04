@@ -51,6 +51,11 @@
                                             <td>:</td>
                                             <td>{{ $data['off_name'] }}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Tanggal Transaksi</td>
+                                            <td>:</td>
+                                            <td>{{ $data['boundary_date'] }}</td>
+                                        </tr>
                                     </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
