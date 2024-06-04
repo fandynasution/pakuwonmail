@@ -62,7 +62,7 @@
                                             <td>{{ $data['tariff_percent'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Date of Sales</td>
+                                            <td>Date of Billing</td>
                                             <td>:</td>
                                             <td>{{ $data['transaction_date'] }}</td>
                                         </tr>
