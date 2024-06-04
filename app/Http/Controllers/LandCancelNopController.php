@@ -14,6 +14,8 @@ class LandCancelNopController extends Controller
 {
     public function mail(Request $request)
     {
+        $cancel_nop_date = Carbon::createFromFormat('Y-m-d', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             "user_id"           => $request->user_id,
             "level_no"          => $request->level_no,
@@ -26,6 +28,7 @@ class LandCancelNopController extends Controller
             "sppt_name"         => $request->sppt_name,
             "owner_name"        => $request->owner_name,
             "cancell_remarks"   => $request->cancell_remarks,
+            "transaction_date"  => $cancel_nop_date,
             "link"              => "landcancelnop",
             "subject"           => "Need Approval ".$request->descs
         );
