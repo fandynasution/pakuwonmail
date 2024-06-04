@@ -47,6 +47,7 @@
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;">Nama Pemilik</th>
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;">Rincian Pengajuan</th>
                                 <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;width: 25%;">NOP</th>
+                                <th style="border: 1px solid #dddddd;text-align: left;padding: 2px;width: 25%;">Tanggal Pengajuan Pembayaran</th>
                                 <th style="border: 1px solid #dddddd;text-align: right;padding: 2px;width: 20%;">Nominal Pengajuan</th>
                             </tr>
                             @if(isset($data['type']) && is_array($data['type']) && count($data['type']) > 0)
@@ -57,6 +58,7 @@
                                         <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['owner'][0] }}</td>
                                         <td class="text" style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['type'][0] }}</td>
                                         <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['nop_no'][0] }}</td>
+                                        <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['transaction_date'][0] }}</td>
                                         <td style="border: 1px solid #dddddd;text-align: right;padding: 2px;">Rp. {{ $data['request_amt'][0] }}</td>
                                     </tr>  
                                 @endif
@@ -69,6 +71,7 @@
                                             <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['owner'][$i] }}</td>
                                             <td class="text" style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['type'][$i] }}</td>
                                             <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['nop_no'][$i] }}</td>
+                                            <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['transaction_date'][$i] }}</td>
                                             <td style="border: 1px solid #dddddd;text-align: right;padding: 2px;">Rp. {{ $data['request_amt'][$i] }}</td>
                                         </tr>
                                     @endif

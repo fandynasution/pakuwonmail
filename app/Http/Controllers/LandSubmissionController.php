@@ -71,6 +71,8 @@ class LandSubmissionController extends Controller
             $approve_date_data[] = $approve_date;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
 
         $dataArray = array(
             'user_id'       => $request->user_id,
@@ -80,6 +82,7 @@ class LandSubmissionController extends Controller
             'ref_no'        => $request->ref_no,
             'type'          => $type_data,
             'owner'         => $owner_data,
+            'transaction_date'              => $transaction_date,
             'nop_no'        => $nop_no_data,
             'sph_trx_no'    => $request->sph_trx_no,
             'request_amt'   => $request_amt_data,
