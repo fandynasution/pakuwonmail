@@ -67,7 +67,7 @@
                                             <td>{{ $data['name_new'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>Tanggal Penggantian Business Unit (Entity)</td>
                                             <td>:</td>
                                             <td>{{ $data['change_date'] }}</td>
                                         </tr>

@@ -57,7 +57,7 @@
                                             <td>{{ $data['land_area'] }} m&sup2;</td>
                                         </tr>
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>Tanggal Gambar Ukur</td>
                                             <td>:</td>
                                             <td>{{ $data['transaction_date'] }} m&sup2;</td>
                                         </tr>

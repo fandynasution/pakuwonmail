@@ -62,7 +62,7 @@
                                             <td>{{ $data['city'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>Tanggal Pengesahan Kemenkumham</td>
                                             <td>:</td>
                                             <td>{{ $data['transaction_date'] }}</td>
                                         </tr>

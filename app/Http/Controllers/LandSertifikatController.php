@@ -34,6 +34,7 @@ class LandSertifikatController extends Controller
             'transaksi_date'   => $change_date,
             'descs'         => $request->descs,
             'link'          => 'landsertifikat',
+            'date_remarks'          => 'Tanggal Pengajuan Sertifikat',
             'body'          => 'Please Approve '.$request->descs,
         );
 

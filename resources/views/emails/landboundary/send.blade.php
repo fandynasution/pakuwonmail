@@ -52,7 +52,7 @@
                                             <td>{{ $data['off_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>Tanggal Pematokan</td>
                                             <td>:</td>
                                             <td>{{ $data['boundary_date'] }}</td>
                                         </tr>

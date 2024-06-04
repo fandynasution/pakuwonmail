@@ -34,6 +34,7 @@ class LandChangeNopApprovalController extends Controller
             'transaksi_date'   => $change_date,
             'descs'         => $request->descs,
             'link'          => 'approvestatusLandChangeNop',
+            'date_remarks'          => 'Tanggal Perubahan NOP',
             'body'          => 'Please Approve '.$request->descs,
         );
 

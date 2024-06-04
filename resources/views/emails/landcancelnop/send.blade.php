@@ -57,7 +57,7 @@
                                             <td>{{ $dataArray['owner_name'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>Tanggal Cancel NOP</td>
                                             <td>:</td>
                                             <td>{{ $dataArray['transaction_date'] }}</td>
                                         </tr>

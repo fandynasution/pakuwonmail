@@ -57,7 +57,7 @@
                                             <td>{{ $data['nib_no'] }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>Tanggal Pengukuran</td>
                                             <td>:</td>
                                             <td>{{ $data['transaction_date'] }}</td>
                                         </tr>

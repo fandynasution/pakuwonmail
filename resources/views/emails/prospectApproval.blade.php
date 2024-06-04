@@ -44,7 +44,7 @@
                                     <p style="margin-bottom: 15px; color: #000000; font-size: 14px;">{{ $data['body'] }}.</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff; color: #000000;">
                                         <tr>
-                                            <td>Tanggal Transaksi</td>
+                                            <td>{{ $data['date_remarks'] }}</td>
                                             <td>:</td>
                                             <td>{{ $data['transaksi_date'] }}</td>
                                         </tr>
