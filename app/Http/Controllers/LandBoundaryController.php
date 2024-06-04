@@ -29,41 +29,40 @@ class LandBoundaryController extends Controller
             $link[] = $show;
         }
 
-        var_dump($request->boundary_date);
-        // $boundary_date = Carbon::createFromFormat('Y-m-d H:i:s', $request->boundary_date);
-        // $boundary_dateOnly = $boundary_date->toDateString();
+        $boundary_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->boundary_date);
+        $boundary_dateOnly = $boundary_date->toDateString();
 
-        // $dataArray = array(
-        //     'user_id'       => $request->user_id,
-        //     'level_no'      => $request->level_no,
-        //     'entity_cd'     => $request->entity_cd,
-        //     'boundary_ref'  => $request->boundary_ref,
-        //     'boundary_date' => $boundary_dateOnly,
-        //     'off_name'      => $request->off_name,
-        //     'url_link'      => $link,
-        //     'doc_no'        => $request->doc_no,
-        //     'email_addr'    => $request->email_addr,
-        //     'user_name'     => $request->user_name,
-        //     'sender_name'     => $request->sender_name,
-        //     'descs'         => $request->descs,
-        //     'link'          => 'landboundary',
-        //     'body'          => 'Please Approve '.$request->descs,
-        // );
+        $dataArray = array(
+            'user_id'       => $request->user_id,
+            'level_no'      => $request->level_no,
+            'entity_cd'     => $request->entity_cd,
+            'boundary_ref'  => $request->boundary_ref,
+            'boundary_date' => $boundary_dateOnly,
+            'off_name'      => $request->off_name,
+            'url_link'      => $link,
+            'doc_no'        => $request->doc_no,
+            'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
+            'sender_name'     => $request->sender_name,
+            'descs'         => $request->descs,
+            'link'          => 'landboundary',
+            'body'          => 'Please Approve '.$request->descs,
+        );
 
-        // try {
-        //     $sendToEmail = strtolower($request->email_addr);
-        //     $doc_no = $request->doc_no;
-        //     $entity_cd = $request->entity_cd;
-        //     if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-        //     {
-        //         Mail::to($sendToEmail)->send(new LandBoundaryMail($dataArray));
-        //         Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
-        //         return "Email berhasil dikirim";
-        //     }
-        // } catch (\Exception $e) {
-        //     // Tangani kesalahan jika pengiriman email gagal
-        //     Log::error('Gagal mengirim email: ' . $e->getMessage());
-        // }
+        try {
+            $sendToEmail = strtolower($request->email_addr);
+            $doc_no = $request->doc_no;
+            $entity_cd = $request->entity_cd;
+            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
+            {
+                Mail::to($sendToEmail)->send(new LandBoundaryMail($dataArray));
+                Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
+                return "Email berhasil dikirim";
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika pengiriman email gagal
+            Log::error('Gagal mengirim email: ' . $e->getMessage());
+        }
     }
 
     public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
