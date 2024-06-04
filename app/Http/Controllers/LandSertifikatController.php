@@ -21,6 +21,8 @@ class LandSertifikatController extends Controller
             'Status' => 200
         );
 
+        $change_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->change_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -28,6 +30,7 @@ class LandSertifikatController extends Controller
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
+            'transaksi_date'   => $change_date,
             'descs'         => $request->descs,
             'link'          => 'landsertifikat',
             'body'          => 'Please Approve '.$request->descs,
