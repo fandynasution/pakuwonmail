@@ -23,7 +23,7 @@ class LandChangeEntityController extends Controller
         );
 
         $change_date_r = Carbon::createFromFormat('M d Y g:iA', $request->change_date);
-        $change_date = $boundary_date->format('d-m-Y');
+        $change_date = $change_date_r->format('d-m-Y');
 
         $land_area = number_format($request->land_area, 2, '.', ',');
         $dataArray = array(
