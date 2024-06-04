@@ -57,6 +57,11 @@
                                             <td>{{ $data['pbt_area'] }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Tanggal SHGB</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Biaya SK SHGB</td>
                                             <td>:</td>
                                             <td style="text-align: right;">{{ $data['shgb_amt'] }}</td>
