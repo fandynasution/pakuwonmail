@@ -52,6 +52,11 @@
                                             <td> {{ $data['cancel_reason'] }} </td>
                                         </tr>
                                         <tr>
+                                            <td>Date of Cancel Prospect</td>
+                                            <td> : </td>
+                                            <td> {{ $data['transaction_date'] }} </td>
+                                        </tr>
+                                        <tr>
                                             <td>Remarks</td>
                                             <td> : </td>
                                             <td> {{ $data['remarks'] }} </td>
