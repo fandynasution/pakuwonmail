@@ -42,6 +42,7 @@
                                     <th style="border: 1px solid #000; text-align: center;">Nama</th>
                                     <th style="border: 1px solid #000; text-align: center;">Luas SHGB</th>
                                     <th style="border: 1px solid #000; text-align: center;">Diserahkan pada</th>
+                                    <th style="border: 1px solid #000; text-align: center;">Tanggal Transaksi</th>
                                     </tr>
                                     <tr>
                                         <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_no'] }} </td>
@@ -49,6 +50,7 @@
                                         <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_name'] }} </td>
                                         <td style="border: 1px solid #000; text-align: right;padding: 5px;">{{ $data['shgb_area'] }} </td>
                                         <td style="border: 1px solid #000;padding: 5px;">{{ $data['handover_to'] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['transaction_date'] }} </td>
                                     </tr>
                                 </table>
                                     <br>

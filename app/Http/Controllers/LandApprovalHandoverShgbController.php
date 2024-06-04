@@ -30,6 +30,8 @@ class LandApprovalHandoverShgbController extends Controller
 
         $shgb_area = number_format($request->shgb_area, 0, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -42,6 +44,7 @@ class LandApprovalHandoverShgbController extends Controller
             'nop_no'        => $request->nop_no,
             'shgb_name'     => $request->shgb_name,
             'shgb_area'     => $shgb_area,
+            'transaction_date'     => $transaction_date,
             'handover_to'   => $handover_to,
             'descs'         => $request->descs,
             'link'          => 'landapprovalhandovershgb',
