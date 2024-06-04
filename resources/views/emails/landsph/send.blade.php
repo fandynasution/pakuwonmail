@@ -54,12 +54,12 @@
                                         <tr>
                                             <td>Luas Tanah yang disepakati</td>
                                             <td>:</td>
-                                            <td>{{ $data['laf'] }} m&sup2</td>
+                                            <td>{{ $data['laf'] }} m&sup2;</td>
                                         </tr>
                                         <tr>
                                             <td>Luas Bangunan yang disepakati</td>
                                             <td>:</td>
-                                            <td>{{ $data['baf'] }} m&sup2</td>
+                                            <td>{{ $data['baf'] }} m&sup2;</td>
                                         </tr>
                                         <tr>
                                             <td>Uang Tanda Jadi</td>

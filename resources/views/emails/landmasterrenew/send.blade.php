@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>Luas Izin Lokasi</td>
                                             <td>:</td>
-                                            <td>{{ $data['area'] }} m&sup2</td>
+                                            <td>{{ $data['area'] }} m&sup2;</td>
                                         </tr>
                                         <tr>
                                             <td>Lokasi Izin Lokasi</td>
