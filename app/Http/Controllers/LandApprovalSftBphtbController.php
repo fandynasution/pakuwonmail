@@ -30,6 +30,7 @@ class LandApprovalSftBphtbController extends Controller
             $link[] = $show;
         }
         
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
@@ -41,6 +42,7 @@ class LandApprovalSftBphtbController extends Controller
             'nop_bphtb'     => $request->nop_bphtb,
             'bphtb_amt'     => $bphtb_amt,
             'url_link'      => $link,
+            'transaction_date'      => $transaction_date,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'sender_name'   => $request->sender_name,

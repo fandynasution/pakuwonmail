@@ -57,6 +57,11 @@
                                             <td>{{ $data['nop_bphtb'] }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Tanggal BPTHB</td>
+                                            <td>:</td>
+                                            <td>{{ $data['transaction_date'] }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Nominal BPHTB</td>
                                             <td>:</td>
                                             <td style="text-align: right;">{{ $data['bphtb_amt'] }}</td>
