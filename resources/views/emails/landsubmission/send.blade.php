@@ -85,7 +85,7 @@
                         </table>
                         <br>
                         <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
-                            <b>Thank you,</b><br>
+                            <b>Terimakasih,</b><br>
                             {{ $data['sender_name'] }}
                         </p>
                         <br>
@@ -130,7 +130,7 @@
                                         $hasAttachment = true;
                                     @endphp
                                     <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
-                                        <b style="font-style:italic;">To view the attachment, please click the links below:</b><br>
+                                        <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
                                 @endif
                                 <a href="{{ $url_file }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
                             @endif

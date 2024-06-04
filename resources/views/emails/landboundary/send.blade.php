@@ -59,7 +59,7 @@
                                     </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
-                                        <b>Thank you,</b><br>
+                                        <b>Terimakasih,</b><br>
                                         {{ $data['sender_name'] }}
                                     </p>
                                     <br>
