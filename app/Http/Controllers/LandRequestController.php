@@ -64,6 +64,8 @@ class LandRequestController extends Controller
             $request_amt_data[] = $formatted_amt;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -73,6 +75,7 @@ class LandRequestController extends Controller
             'nop_no'        => $nop_no_data,
             'sph_trx_no'    => $sph_trx_no_data,
             'request_amt'   => $request_amt_data,
+            'transaction_date'      => $transaction_date,
             'url_file'      => $url_data,
             'file_name'     => $file_data,
             'doc_no'        => $request->doc_no,
