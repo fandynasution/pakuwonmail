@@ -59,7 +59,7 @@
                                         <tr>
                                             <td>Tanggal Transaksi</td>
                                             <td>:</td>
-                                            <td>{{ $data['transaction_date'] }}</td>
+                                            <td>{{ $dataArray['transaction_date'] }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width:20%;">Alasan Pembatalan</td>
