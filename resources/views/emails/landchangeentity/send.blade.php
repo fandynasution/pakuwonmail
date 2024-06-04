@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>Luas Tanah</td>
                                             <td>:</td>
-                                            <td>{{ $data['land_area'] }} m&sup2</td>
+                                            <td>{{ $data['land_area'] }} m&sup2;</td>
                                         </tr>
                                         <tr>
                                             <td>Entity Awal</td>
