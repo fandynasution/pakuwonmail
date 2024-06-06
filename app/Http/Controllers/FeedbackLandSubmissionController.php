@@ -71,6 +71,8 @@ class FeedbackLandSubmissionController extends Controller
             $approve_date_data[] = $approve_date;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
 
         $dataArray = array(
             'doc_no'            => $request->doc_no,
@@ -84,6 +86,7 @@ class FeedbackLandSubmissionController extends Controller
             'email_cc'          => $request->email_cc,
             'email_addr'        => $request->email_addr,
             'user_id'           => $request->user_id,
+            'transaction_date'              => $transaction_date,
             'level_no'          => $request->level_no,
             'entity_cd'         => $request->entity_cd,
             'type'              => $type_data,
