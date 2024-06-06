@@ -20,16 +20,20 @@ class SalesTransferController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
             'email_addr'    => $request->email_addr,
+            'transaction_date'              => $transaction_date,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
             'project_no'    => $request->project_no,
             'link'          => 'salestransfer',
+            'date_remarks'          => 'Date of Sales Transfer Lot',
             'body'          => 'Please Approve '.$request->descs,
         );
 
