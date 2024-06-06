@@ -57,9 +57,14 @@
                                             <td> {{ $data['reason_descs'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Remarksr</td>
+                                            <td>Remarks</td>
                                             <td> : </td>
                                             <td> {{ $data['remarks'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date of Tenant Transfer </td>
+                                            <td> : </td>
+                                            <td> {{ $data['transaction_date'] }} </td>
                                         </tr>
                                     </table>
                                     <br>

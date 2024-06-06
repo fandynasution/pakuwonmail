@@ -22,6 +22,8 @@ class SalesDeactiveController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -30,6 +32,7 @@ class SalesDeactiveController extends Controller
             'plan_descs'    => $request->plan_descs,
             'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
+            'transaction_date'              => $transaction_date,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
             'sender_name'     => $request->sender_name,

@@ -20,6 +20,8 @@ class SalesChangeNameController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -29,6 +31,7 @@ class SalesChangeNameController extends Controller
             'old_name'      => $request->old_name,
             'new_name'      => $request->new_name,
             'reason_descs'        => $request->reason_descs,
+            'transaction_date'              => $transaction_date,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'remarks'         => $request->remarks,
