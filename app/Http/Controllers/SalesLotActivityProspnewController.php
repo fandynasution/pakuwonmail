@@ -20,18 +20,7 @@ class SalesLotActivityProspnewController extends Controller
             'Status' => 200
         );
 
-        // {
-        //     "user_id"       : "'+@f_user_id+'",
-        //     "level_no"		: "'+@f_level_no+'",
-        //     "entity_cd"     : "'+@rt_entity_cd+'",
-        //     "project_no"	: "'+@rt_project_no+'",
-        //     "doc_no"		: "'+@rt_doc_no+'",
-        //     "email_addr"    : "'+@f_email_addr+'",
-        //     "user_name"	    : "'+@f_user_name+'",
-        //     "lot_no"	    : "'+@f_lot_no+'",
-        //     "entity_name"	: "'+@f_entity_name+'",
-        //     "descs"			: "'+@f_desc+'",
-        // }
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
@@ -39,6 +28,7 @@ class SalesLotActivityProspnewController extends Controller
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
+            'transaction_date'              => $transaction_date,
             'prospect_no'   => $request->prospect_no,
             'lot_no'        => $request->lot_no,
             'email_addr'    => $request->email_addr,
@@ -47,6 +37,7 @@ class SalesLotActivityProspnewController extends Controller
             'name'          => $request->name,
             'entity_name'   => $request->entity_name,
             'descs'         => $request->descs,
+            'date_remarks'  => 'Date of Lot Prospect Activity',
             'link'          => 'saleslotactivityprospnew',
             'body'          => 'Please Approve '.$request->descs,
         );

@@ -29,6 +29,8 @@ class SalesLotActivityProspController extends Controller
             $link[] = $show;
         }
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -38,11 +40,13 @@ class SalesLotActivityProspController extends Controller
             'url_link'        => $link,
             'file_name'        => $request->file_name,
             'prospect_no'   => $request->prospect_no,
+            'transaction_date'              => $transaction_date,
             'lot_no'        => $request->lot_no,
             'email_addr'    => $request->email_addr,
             'user_name'     => $request->user_name,
             'entity_name'   => $request->entity_name,
             'descs'         => $request->descs,
+            'date_remarks'  => 'Date of Lot Prospect Activity',
             'link'          => 'saleslotactivityprosp',
             'body'          => 'Please Approve '.$request->descs,
         );
