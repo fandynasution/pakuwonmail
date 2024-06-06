@@ -25,6 +25,8 @@ class LotTempController extends Controller
 
         $formattedNumber = number_format($request->land_area, 2, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -35,6 +37,7 @@ class LotTempController extends Controller
             'user_name'     => $request->user_name,
             'sender_name'   => $request->sender_name,
             'project_no'    => $request->project_no,
+            'transaction_date'              => $transaction_date,
             'temp_no'       => $request->temp_no,
             'url_link'      => $request->url_link,
             'land_area'     => $formattedNumber,
