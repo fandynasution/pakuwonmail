@@ -20,6 +20,8 @@ class ContractTerminateController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -28,6 +30,7 @@ class ContractTerminateController extends Controller
             'doc_date'        => $request->doc_date,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
+            'transaction_date'              => $transaction_date,
             'entity_name'   => $request->entity_name,
             'tenant_name'   => $request->tenant_name,
             'sender_name'   => $request->sender_name,

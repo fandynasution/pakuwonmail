@@ -57,6 +57,11 @@
                                             <td> {{ $data['entity_name'] }} </td>
                                         </tr>
                                         <tr>
+                                            <td>Date of Contract Termination</td>
+                                            <td> : </td>
+                                            <td> {{ $data['transaction_date'] }} </td>
+                                        </tr>
+                                        <tr>
                                     </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
