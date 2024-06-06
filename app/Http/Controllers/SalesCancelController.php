@@ -38,6 +38,8 @@ class SalesCancelController extends Controller
 
         $cancel_fee = number_format($request->cancel_fee, 2, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -46,6 +48,7 @@ class SalesCancelController extends Controller
             'doc_no'        => $request->doc_no,
             'lot_no'        => $request->lot_no,
             'remarks'       => $request->remarks,
+            'transaction_date'              => $transaction_date,
             'cancel_fee'    => $cancel_fee,
             'url_file'      => $url_data,
             'file_name'     => $file_data,

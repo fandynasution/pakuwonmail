@@ -20,11 +20,14 @@ class SalesBookingDiscController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
             'project_no'    => $request->project_no,
             'doc_no'        => $request->doc_no,
             'lot_no'        => $request->lot_no,
+            'transaction_date'              => $transaction_date,
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'user_name'     => $request->user_name,

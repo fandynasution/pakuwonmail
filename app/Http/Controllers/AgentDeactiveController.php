@@ -20,11 +20,14 @@ class AgentDeactiveController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
             'doc_no'        => $request->doc_no,
+            'transaction_date'              => $transaction_date,
             'plan_descs'    => $request->plan_descs,
             'ref_no'        => $request->ref_no,
             'email_addr'    => $request->email_addr,
