@@ -20,6 +20,8 @@ class SalesLotActivityController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
@@ -27,6 +29,7 @@ class SalesLotActivityController extends Controller
             'doc_no'        => $request->doc_no,
             'ref_no'        => $request->ref_no,
             'entity_name'     => $request->entity_name,
+            'transaction_date'              => $transaction_date,
             'url_file'        => $request->url_file,
             'file_name'        => $request->file_name,
             'mailmerge'        => $request->mailmerge,
