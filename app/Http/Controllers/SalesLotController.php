@@ -22,6 +22,8 @@ class SalesLotController extends Controller
 
         $formattedNumber = number_format($request->land_area, 2, '.', ',');
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $dataArray = array(
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
@@ -31,6 +33,7 @@ class SalesLotController extends Controller
             'descs'             => $request->descs,
             'project_no'        => $request->project_no,
             'lot_no_hd'         => $request->lot_no_hd,
+            'transaction_date'              => $transaction_date,
             'rentable_area'     => $request->rentable_area,
             'temp_no'           => $request->temp_no,
             'url_link'          => $request->url_link,

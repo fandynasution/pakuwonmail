@@ -30,6 +30,7 @@ class SalesLotActivityController extends Controller
             'ref_no'        => $request->ref_no,
             'entity_name'     => $request->entity_name,
             'transaction_date'              => $transaction_date,
+            'date_remarks'      => 'Date of Lot Activity',
             'url_file'        => $request->url_file,
             'file_name'        => $request->file_name,
             'mailmerge'        => $request->mailmerge,
