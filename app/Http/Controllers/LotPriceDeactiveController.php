@@ -20,6 +20,8 @@ class LotPriceDeactiveController extends Controller
             'Status' => 200
         );
 
+        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+
         $plan_descs = str_replace('&','"',$request->plan_descs);
 
         $dataArray = array(
@@ -30,6 +32,7 @@ class LotPriceDeactiveController extends Controller
             'plan_descs'    => $plan_descs,
             'ref_no'        => $request->ref_no,
             'lot_no'        => $request->lot_no,
+            'transaction_date'              => $transaction_date,
             'email_addr'    => $request->email_addr,
             'descs'         => $request->descs,
             'user_name'     => $request->user_name,
