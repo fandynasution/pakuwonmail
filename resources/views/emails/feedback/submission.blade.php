@@ -78,11 +78,6 @@
                                 <th id="total" colspan="3">Total Pengajuan : </th>
                                 <th style="border: 1px solid #dddddd;text-align: right;padding: 2px;">Rp. {{ $data['sum_amt'] }}</th>
                             </tr>
-                            <tr>
-                                <th></th>
-                                <th id="total" colspan="3">Tanggal Approval : </th>
-                                <th style="border: 1px solid #dddddd;text-align: right;padding: 2px;">{{ $data['transaction_date'] }}</th>
-                            </tr>
                             @endif
                         </table>
                         <br>

@@ -71,8 +71,6 @@ class FeedbackLandSubmissionController extends Controller
             $approve_date_data[] = $approve_date;
         }
 
-        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
-
 
         $dataArray = array(
             'doc_no'            => $request->doc_no,
@@ -86,7 +84,6 @@ class FeedbackLandSubmissionController extends Controller
             'email_cc'          => $request->email_cc,
             'email_addr'        => $request->email_addr,
             'user_id'           => $request->user_id,
-            'transaction_date'              => $transaction_date,
             'level_no'          => $request->level_no,
             'entity_cd'         => $request->entity_cd,
             'type'              => $type_data,
@@ -104,54 +101,62 @@ class FeedbackLandSubmissionController extends Controller
 
         try {
             $emailAddresses = strtolower($request->email_addr);
-            $ccEmailAddresses = strtolower($request->email_cc);
+            $email_cc = $request->email_cc;
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
             $status = $request->status;
             $approve_seq = $request->approve_seq;
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
-                $emails = is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
-                $ccEmails = !empty($ccEmailAddresses) ? (is_array($ccEmailAddresses) ? $ccEmailAddresses : [$ccEmailAddresses]) : [];
-
+                // Explode the email addresses string into an array
+                $emails = explode(';', $emailAddresses);
+        
+                // Initialize CC emails array
+                $cc_emails = explode(';', $email_cc);
+        
+                // Set up the email object
+                $mail = new FeedbackSubmissionMail($dataArray);
+                foreach ($cc_emails as $cc_email) {
+                    $mail->cc(trim($cc_email));
+                }
+        
                 $emailSent = false;
-                
-                foreach ($emails as $email) {
-                    // Check if the email has been sent before for this document
-                    $cacheFile = 'email_feedback_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $status . '.txt';
-                    $cacheFilePath = storage_path('app/mail_cache/feedbacksubmission/' . date('Ymd'). '/' . $cacheFile);
-                    $cacheDirectory = dirname($cacheFilePath);
-                
-                    // Ensure the directory exists
-                    if (!file_exists($cacheDirectory)) {
-                        mkdir($cacheDirectory, 0755, true);
-                    }
-                
-                    if (!file_exists($cacheFilePath)) {
-                        // Create the email object
-                        $emailObj = Mail::to($email);
         
-                        // Add CC addresses if any
-                        if (!empty($ccEmails)) {
-                            $emailObj->cc($ccEmails);
-                        }
+                // Check if the email has been sent before for this document
+                $cacheFile = 'email_feedback_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $status . '.txt';
+                $cacheFilePath = storage_path('app/mail_cache/feedbacksubmission/' . date('Ymd'). '/' . $cacheFile);
+                $cacheDirectory = dirname($cacheFilePath);
         
-                        // Send email
-                        $emailObj->send(new FeedbackSubmissionMail($dataArray));
+                // Ensure the directory exists
+                if (!file_exists($cacheDirectory)) {
+                    mkdir($cacheDirectory, 0755, true);
+                }
+
+                // Acquire an exclusive lock
+                $lockFile = $cacheFilePath . '.lock';
+                $lockHandle = fopen($lockFile, 'w');
+                if (!flock($lockHandle, LOCK_EX)) {
+                    // Failed to acquire lock, handle appropriately
+                    fclose($lockHandle);
+                    throw new Exception('Failed to acquire lock');
+                }
         
-                        // Mark email as sent
-                        file_put_contents($cacheFilePath, 'sent');
-                        $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
-                        $ccTo = !empty($ccEmails) ? implode(', ', $ccEmails) : 'none';
-                        Log::channel('sendmail')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccTo);
-                        return "Email berhasil dikirim ke: " . $sentTo . ' dengan CC ke: ' . $ccTo;
-                        $emailSent = true;
-                    }
+                if (!file_exists($cacheFilePath)) {
+                    // Send email
+                    Mail::to($emails)->send($mail);
+        
+                    // Mark email as sent
+                    file_put_contents($cacheFilePath, 'sent');
+                    $sentTo = implode(', ', $emails);
+                    $ccList = implode(', ', $cc_emails);
+        
+                    Log::channel('sendmail')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccList);
+                    return "Email berhasil dikirim ke: " . $sentTo . ' dengan CC ke: ' . $ccList;
+                    $emailSent = true;
                 }
             } else {
-                Log::channel('sendmail')->warning("Tidak ada alamat email untuk feedback yang diberikan");
-                Log::channel('sendmail')->warning($doc_no);
-                return "Tidak ada alamat email untuk feedback yang diberikan";
+                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
             Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
