@@ -6,6 +6,7 @@ require 'vendor/autoload.php';
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use SendGrid\Mail\To;
 use SendGrid\Mail\Cc;
 use SendGrid\Mail\Bcc;
@@ -31,7 +32,6 @@ use SendGrid\Mail\OpenTracking;
 use SendGrid\Mail\SubscriptionTracking;
 use SendGrid\Mail\Ganalytics;
 use SendGrid\Mail\ReplyTo;
-use Carbon\Carbon;
 use Exception;
 
 class InvoiceIfcaController extends Controller

@@ -11,6 +11,7 @@ use App\Mail\EmailSendApproval;
 use App\Mail\SalesDeactiveMail;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SalesDeactiveController extends Controller
 {

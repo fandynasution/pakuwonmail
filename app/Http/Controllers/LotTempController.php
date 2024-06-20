@@ -12,6 +12,7 @@ use App\Mail\SalesDeactiveMail;
 use App\Mail\LotTempMail;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class LotTempController extends Controller
 {

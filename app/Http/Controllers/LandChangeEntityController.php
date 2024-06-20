@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use App\Mail\LandChangeEntityMail;
 use Carbon\Carbon;
+use App\Mail\LandChangeEntityMail;
 
 class LandChangeEntityController extends Controller
 {

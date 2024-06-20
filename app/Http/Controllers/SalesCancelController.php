@@ -11,6 +11,7 @@ use App\Mail\EmailSendApproval;
 use App\Mail\SalesCancelMail;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SalesCancelController extends Controller
 {

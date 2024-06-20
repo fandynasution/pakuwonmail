@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\LotPriceDeactiveMail;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class LotPriceDeactiveController extends Controller
 {

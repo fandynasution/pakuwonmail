@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\SalesLotActivityMail;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class SalesLotActivityController extends Controller
 {

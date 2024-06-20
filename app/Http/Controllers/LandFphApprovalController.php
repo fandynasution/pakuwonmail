@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use App\Mail\LandFphMail;
 use Carbon\Carbon;
+use App\Mail\LandFphMail;
 
 class LandFphApprovalController extends Controller
 {
