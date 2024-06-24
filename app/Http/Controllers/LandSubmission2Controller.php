@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use App\Mail\LandSubmissionEmail;
 
 class LandSubmissionController extends Controller
@@ -76,75 +74,47 @@ class LandSubmissionController extends Controller
 
         $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
 
+
         $dataArray = array(
-            'user_id'           => $request->user_id,
-            'level_no'          => $request->level_no,
-            'entity_cd'         => $request->entity_cd,
-            'doc_no'            => $request->doc_no,
-            'ref_no'            => $request->ref_no,
-            'type'              => $type_data,
-            'owner'             => $owner_data,
-            'transaction_date'  => $transaction_date,
-            'nop_no'            => $nop_no_data,
-            'sph_trx_no'        => $request->sph_trx_no,
-            'request_amt'       => $request_amt_data,
-            'sum_amt'           => $formatted_sum_amt,
-            'url_file'          => $url_data,
-            'file_name'         => $file_data,
-            'approve_list'      => $approve_data,
-            'approved_date'     => $approve_date_data,
-            'email_addr'        => $request->email_addr,
-            'user_name'         => $request->user_name,
-            'sender_name'       => $request->sender_name,
-            'descs'             => $request->descs,
-            'link'              => 'landsubmission',
+            'user_id'       => $request->user_id,
+            'level_no'      => $request->level_no,
+            'entity_cd'     => $request->entity_cd,
+            'doc_no'        => $request->doc_no,
+            'ref_no'        => $request->ref_no,
+            'type'          => $type_data,
+            'owner'         => $owner_data,
+            'transaction_date'              => $transaction_date,
+            'nop_no'        => $nop_no_data,
+            'sph_trx_no'    => $request->sph_trx_no,
+            'request_amt'   => $request_amt_data,
+            'sum_amt'       => $formatted_sum_amt,
+            'url_file'      => $url_data,
+            'file_name'     => $file_data,
+            'approve_list'  => $approve_data,
+            'approved_date'  => $approve_date_data,
+            'email_addr'    => $request->email_addr,
+            'user_name'     => $request->user_name,
+            'sender_name'   => $request->sender_name,
+            'descs'         => $request->descs,
+            'link'          => 'landsubmission',
         );
 
         try {
             $emailAddresses = $request->email_addr;
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
-            $level_no = $request->level_no;
-            $approve_seq = $request->approve_seq;
         
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
-                $email = $emailAddresses; // Since $emailAddresses is always a single email address (string)
-
-                // Check if the email has been sent before for this document
-                $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
-                $cacheFilePath = storage_path('app/mail_cache/send_lm_submission/' . date('Ymd') . '/' . $cacheFile);
-                $cacheDirectory = dirname($cacheFilePath);
-
-                // Ensure the directory exists
-                if (!file_exists($cacheDirectory)) {
-                    mkdir($cacheDirectory, 0755, true);
-                }
-
-                // Acquire an exclusive lock
-                $lockFile = $cacheFilePath . '.lock';
-                $lockHandle = fopen($lockFile, 'w');
-                if (!flock($lockHandle, LOCK_EX)) {
-                    // Failed to acquire lock, handle appropriately
-                    fclose($lockHandle);
-                    throw new Exception('Failed to acquire lock');
-                }
-
-                if (!file_exists($cacheFilePath)) {
-                    // Send email
+                $emails = is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
+                
+                foreach ($emails as $email) {
                     Mail::to($email)->send(new LandSubmissionEmail($dataArray));
-        
-                    // Mark email as sent
-                    file_put_contents($cacheFilePath, 'sent');
-        
-                    // Log the success
-                    Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
-                    return 'Email berhasil dikirim ke: ' . $email;
-                } else {
-                    // Email was already sent
-                    Log::channel('sendmail')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
-                    return 'Email has already been sent to: ' . $email;
                 }
+                
+                $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
+                Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
+                return 'Email berhasil dikirim ke: ' .$sentTo;
             } else {
                 Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
@@ -157,12 +127,7 @@ class LandSubmissionController extends Controller
 
     public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
     {
-
-        Artisan::call('config:cache');
-        Artisan::call('cache:clear');
-        Cache::flush();
-
-        $where = array(
+        $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
             'entity_cd'     => $entity_cd,
@@ -171,12 +136,22 @@ class LandSubmissionController extends Controller
             'module'        => 'LM',
         );
 
+        $where3 = array(
+            'doc_no'        => $doc_no,
+            'entity_cd'     => $entity_cd,
+            'level_no'      => $level_no,
+            'type'          => 'E',
+            'module'        => 'LM',
+        );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
-        ->where($where)
-        ->whereIn('status', ["A", "R", "C"])
+        ->where($where2)
         ->get();
 
+        $query3 = DB::connection('SSI')
+        ->table('mgr.cb_cash_request_appr')
+        ->where($where3)
+        ->get();
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to Land Submission No. '.$doc_no ;
             $notif = 'Restricted !';

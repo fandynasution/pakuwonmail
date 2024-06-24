@@ -58,7 +58,7 @@
                                         <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['owner'][0] }}</td>
                                         <td class="text" style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['type'][0] }}</td>
                                         <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['nop_no'][0] }}</td>
-                                        <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['transaction_date'][0] }}</td>
+                                        <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['transaction_date'] }}</td>
                                         <td style="border: 1px solid #dddddd;text-align: right;padding: 2px;">Rp. {{ $data['request_amt'][0] }}</td>
                                     </tr>  
                                 @endif
@@ -71,14 +71,14 @@
                                             <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['owner'][$i] }}</td>
                                             <td class="text" style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['type'][$i] }}</td>
                                             <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['nop_no'][$i] }}</td>
-                                            <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['transaction_date'][$i] }}</td>
+                                            <td style="border: 1px solid #dddddd;text-align: left;padding: 2px;">{{ $data['transaction_date'] }}</td>
                                             <td style="border: 1px solid #dddddd;text-align: right;padding: 2px;">Rp. {{ $data['request_amt'][$i] }}</td>
                                         </tr>
                                     @endif
                                 @endfor
                             <tr>
                                 <th></th>
-                                <th id="total" colspan="3">Total Pengajuan : </th>
+                                <th id="total" colspan="4">Total Pengajuan : </th>
                                 <th style="border: 1px solid #dddddd;text-align: right;padding: 2px;">Rp. {{ $data['sum_amt'] }}</th>
                             </tr>
                             @endif
