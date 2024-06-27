@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\FeedbackSubmissionMail;
+use App\Mail\FeedbackSubmissionNoAttachMail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -84,6 +85,8 @@ class FeedbackLandSubmissionController extends Controller
             'entity_name'       => $request->entity_name,
             'email_cc'          => $request->email_cc,
             'email_addr'        => $request->email_addr,
+            'email_cc2'          => $request->email_cc,
+            'email_addr2'        => $request->email_addr,
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
             'entity_cd'         => $request->entity_cd,
@@ -93,6 +96,8 @@ class FeedbackLandSubmissionController extends Controller
             'sph_trx_no'        => $request->sph_trx_no,
             'url_file'          => $url_data,
             'file_name'         => $file_data,
+            'url_file2'         => $request->url_file2,
+            'file_name2'        => $request->file_name2,
             'request_amt'       => $request_amt_data,
             'sum_amt'           => $formatted_sum_amt,
             'approve_list'      => $approve_data,
@@ -103,6 +108,8 @@ class FeedbackLandSubmissionController extends Controller
         try {
             $emailAddresses = strtolower($request->email_addr);
             $email_cc = $request->email_cc;
+            $emailAddresses2 = strtolower($request->email_addr2);
+            $email_cc2 = $request->email_cc2;
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
             $status = $request->status;
@@ -152,6 +159,30 @@ class FeedbackLandSubmissionController extends Controller
                     $ccList = implode(', ', $cc_emails);
         
                     Log::channel('sendmail')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccList);
+
+                        // Now process the second set of emails (similar logic)
+                    if (!empty($emailAddresses2)) {
+                        // Explode the email addresses string into an array
+                        $emails2 = explode(';', $emailAddresses2);
+
+                        // Initialize CC emails array
+                        $cc_emails2 = explode(';', $email_cc2);
+
+                        // Set up the email object for the second set of emails
+                        $mail2 = new FeedbackSubmissionNoAttachMail($dataArray);
+
+                        foreach ($cc_emails2 as $cc_email) {
+                            $mail2->cc(trim($cc_email));
+                        }
+
+                        // Send email to the second set of recipients
+                        Mail::to($emails2)->send($mail2);
+
+                        // Log successful email sending for the second set
+                        $sentTo2 = implode(', ', $emails2);
+                        $ccList2 = implode(', ', $cc_emails2);
+                        Log::channel('sendmail')->info('Email Feedback doc_no ' . $request->doc_no . ' Entity ' . $request->entity_cd . ' berhasil dikirim ke: ' . $sentTo2 . ' dengan CC ke: ' . $ccList2);
+                    }
                     return "Email berhasil dikirim ke: " . $sentTo . ' dengan CC ke: ' . $ccList;
                     $emailSent = true;
                 }
@@ -163,5 +194,6 @@ class FeedbackLandSubmissionController extends Controller
             Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
+        
     }
 }
