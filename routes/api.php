@@ -299,3 +299,8 @@ Route::GET('/landapprovalhandovershgb/{status}/{entity_cd}/{doc_no}/{level_no}',
 
 use App\Http\Controllers\FeedbackLandSubmissionController as FeedbackSubmission;
 Route::POST('/feedbacksubmission', [FeedbackSubmission::class, 'Mail']);
+
+use App\Http\Controllers\LandApprovalHandoverLegalController as LandApprovalHandoverLegal;
+Route::POST('/landapprovalhandoverlegal', [LandApprovalHandoverLegal::class, 'Mail']);
+Route::POST('/landapprovalhandoverlegal/update', [LandApprovalHandoverLegal::class, 'update']);
+Route::GET('/landapprovalhandoverlegal/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalHandoverLegal::class, 'changestatus']);
