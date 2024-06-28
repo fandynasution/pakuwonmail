@@ -28,6 +28,20 @@ class LandSphController extends Controller
         $laf = number_format($request->laf, 2, '.', ',');
         $baf = number_format($request->baf, 2, '.', ',');
 
+        $list_of_urls = explode(';', $request->url_link);
+
+        $url_data = [];
+        foreach ($list_of_urls as $url) {
+            $url_data[] = $url;
+        }
+
+        $list_of_files = explode(';', $request->file_name);
+
+        $file_data = [];
+        foreach ($list_of_files as $file) {
+            $file_data[] = $file;
+        }
+
         $newurl2 = explode(";", trim(str_replace(' ','%20',$request->url_link)));
 
         foreach ($newurl2 as $show)
@@ -41,8 +55,10 @@ class LandSphController extends Controller
             'user_id'       => $request->user_id,
             'level_no'      => $request->level_no,
             'entity_cd'     => $request->entity_cd,
+            'approved_seq'  => $request->approved_seq,
             'name_owner'    => $request->name_owner,
-            'url_link'      => $link,
+            'url_link'      => $url_data,
+            'file_name'      => $file_data,
             'transaction_date'              => $transaction_date,
             'nop_no'        => $request->nop_no,
             'laf'           => $laf,
@@ -60,16 +76,57 @@ class LandSphController extends Controller
         );
 
         try {
-            $sendToEmail = strtolower($request->email_addr);
-            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-            {
-                Mail::to($sendToEmail)->send(new LandSphMail($dataArray));
-                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
-                return "Email berhasil dikirim";
+            $emailAddresses = $request->email_addr;
+            $doc_no = $request->doc_no;
+            $entity_cd = $request->entity_cd;
+            $level_no = $request->level_no;
+            $approve_seq = $request->approved_seq;
+        
+            // Check if email addresses are provided and not empty
+            if (!empty($emailAddresses)) {
+                $email = $emailAddresses; // Since $emailAddresses is always a single email address (string)
+
+                // Check if the email has been sent before for this document
+                $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
+                $cacheFilePath = storage_path('app/mail_cache/send_lm_sph/' . date('Ymd') . '/' . $cacheFile);
+                $cacheDirectory = dirname($cacheFilePath);
+
+                // Ensure the directory exists
+                if (!file_exists($cacheDirectory)) {
+                    mkdir($cacheDirectory, 0755, true);
+                }
+
+                // Acquire an exclusive lock
+                $lockFile = $cacheFilePath . '.lock';
+                $lockHandle = fopen($lockFile, 'w');
+                if (!flock($lockHandle, LOCK_EX)) {
+                    // Failed to acquire lock, handle appropriately
+                    fclose($lockHandle);
+                    throw new Exception('Failed to acquire lock');
+                }
+
+                if (!file_exists($cacheFilePath)) {
+                    // Send email
+                    Mail::to($email)->send(new LandSphMail($dataArray));
+        
+                    // Mark email as sent
+                    file_put_contents($cacheFilePath, 'sent');
+        
+                    // Log the success
+                    Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
+                    return 'Email berhasil dikirim ke: ' . $email;
+                } else {
+                    // Email was already sent
+                    Log::channel('sendmail')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
+                    return 'Email has already been sent to: ' . $email;
+                }
+            } else {
+                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            // Tangani kesalahan jika pengiriman email gagal
-            Log::error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
+            return "Gagal mengirim email: " . $e->getMessage();
         }
     }
 

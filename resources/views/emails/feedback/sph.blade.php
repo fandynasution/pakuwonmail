@@ -33,13 +33,23 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 0px 30px 0px 20px">
-                                    <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
-                                    <p style="text-align:left;color: #000000; font-size: 14px;">Tolong berikan persetujuan untuk Surat Pelepasan HAK dengan detail :</p>
+                                    <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Tim Pemetaan,</h5>
+                                    <p style="text-align:left;color: #000000; font-size: 14px;">Surat Perlepasan HAK (SPH) telah disetujui dengan detail berikut :</p>
                                     <table cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:800px;margin:0 auto;font-size: 14px;background-color:#ffffff; color: #000000;">
                                         <tr>
                                             <td>Nomor Dokumen</td>
                                             <td> : </td>
                                             <td> {{ $data['doc_no'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Periode SPH</td>
+                                            <td> : </td>
+                                            <td> {{ $data['periode'] }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kode SPH</td>
+                                            <td> : </td>
+                                            <td> {{ $data['code_sph'] }} </td>
                                         </tr>
                                         <tr>
                                             <td>NOP</td>
@@ -66,21 +76,6 @@
                                             <td>:</td>
                                             <td>{{ $data['transaction_date'] }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Uang Tanda Jadi</td>
-                                            <td>:</td>
-                                            <td style="text-align: right;">Rp. {{ $data['book_amt'] }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pembayaran Bidang Tanah</td>
-                                            <td>:</td>
-                                            <td style="text-align: right;">Rp. {{ $data['total_amt'] }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nominal SPH</td>
-                                            <td>:</td>
-                                            <td style="text-align: right;">Rp. {{ $data['sph_amt'] }}</td>
-                                        </tr>
                                     </table>
                                     <br>
                                     <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
@@ -88,30 +83,6 @@
                                         {{ $data['sender_name'] }}
                                     </p>
                                     <br>
-                                    <a href="{{ url('api') }}/{{ $data['link'] }}/A/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" style="background-color:#1ee0ac;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Approve</a>
-                                    <a href="{{ url('api') }}/{{ $data['link'] }}/R/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" style="background-color:#f4bd0e;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Request Info</a>
-                                    <a href="{{ url('api') }}/{{ $data['link'] }}/C/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px">Reject</a>
-                                    <br>
-                                    @php
-                                        $hasAttachment = false;
-                                    @endphp
-
-                                    @foreach($data['url_link'] as $key => $url_link)
-                                        @if($url_link !== '' && $data['file_name'][$key] !== '' && $url_link !== 'EMPTY' && $data['file_name'][$key] !== 'EMPTY')
-                                            @if(!$hasAttachment)
-                                                @php
-                                                    $hasAttachment = true;
-                                                @endphp
-                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
-                                                    <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
-                                            @endif
-                                            <a href="{{ $url_link }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
-                                        @endif
-                                    @endforeach
-
-                                    @if($hasAttachment)
-                                        </p>
-                                    @endif
                                 </td>
                             </tr>
                         </tbody>
