@@ -307,3 +307,10 @@ use App\Http\Controllers\LandApprovalHandoverLegalController as LandApprovalHand
 Route::POST('/landapprovalhandoverlegal', [LandApprovalHandoverLegal::class, 'Mail']);
 Route::POST('/landapprovalhandoverlegal/update', [LandApprovalHandoverLegal::class, 'update']);
 Route::GET('/landapprovalhandoverlegal/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalHandoverLegal::class, 'changestatus']);
+
+
+use App\Http\Controllers\LandApprovalSplitShgbController as LandApprovalSplitShgb;
+
+Route::POST('/landapprovalsplitshgb', [LandApprovalSplitShgb::class, 'Mail']);
+Route::POST('/landapprovalsplitshgb/update', [LandApprovalSplitShgb::class, 'update']);
+Route::GET('/landapprovalsplitshgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSplitShgb::class, 'changestatus']);
