@@ -31,55 +31,59 @@
 </head>
 <body width="100%" style="mso-line-height-rule: exactly; background-color: #ffffff;">
 	<div style="width: 100%; background-color: #e6f0eb; text-align: center;">
-        <table style="width:100%;max-width:1200px;;">
+        <table style="width:100%;max-width:1300px;;">
             @include('template.header')
         </table>
-        <table style="width:100%;max-width:1200px;;background-color:#ffffff;align:center">
+        <table style="width:100%;max-width:1300px;;background-color:#ffffff;align:center">
             <!-- table content -->
             <tbody>
                 <tr>
                     <td style="text-align:center;padding: 0px 30px 0px 20px">
                         <h5 style="margin-bottom: 24px; color: #000000; font-size: 20px; font-weight: 400; line-height: 28px;">Untuk Bapak/Ibu {{ $data['user_name'] }}</h5>
-                        <p style="text-align:left;color: #000000; font-size: 14px;">Tolong berikan persetujuan untuk Proses Penyerahan SHGB & SPPT : </p>
+                        <p style="text-align:left;color: #000000; font-size: 14px;">Tolong berikan persetujuan untuk proses Perpanjangan SHGB dengan detail :</p>
                         <table class="remove" cellpadding="0" cellspacing="0" style="text-align:left;width:100%;max-width:1200px;;background-color:#ffffff;">
                             <tr>
                                 <th style="border: 1px solid #000; text-align: center;">No. SHGB</th>
-                                <th style="border: 1px solid #000; text-align: center;">No. SPPT</th>
-                                <th style="border: 1px solid #000; text-align: center;">Nama</th>
-                                <th style="border: 1px solid #000; text-align: center;">Luas SHGB</th>
-                                <th style="border: 1px solid #000; text-align: center;">Diserahkan pada</th>
-                                <th style="border: 1px solid #000; text-align: center;">Nama Customer</th>
-                                <th style="border: 1px solid #000; text-align: center;">Tanggal Serah Terima</th>
-                                <th style="border: 1px solid #000; text-align: center;">Keterangan</th>
+                                <th style="border: 1px solid #000; text-align: center;">NOP</th>
+                                <th style="border: 1px solid #000; text-align: center;">NIB</th>
+                                <th style="border: 1px solid #000; text-align: center;">Tanggal Terbit</th>
+                                <th style="border: 1px solid #000; text-align: center;">Tanggal Expired</th>
+                                <th style="border: 1px solid #000; text-align: center;">Luas SHGB (M&sup2;)</th>
+                                <th style="border: 1px solid #000; text-align: center;">NIB (Baru)</th>
+                                <th style="border: 1px solid #000; text-align: center;">Tanggal SHGB Terbit (Baru)</th>
+                                <th style="border: 1px solid #000; text-align: center;">Tanggal SHGB Expired (Baru)</th>
                             </tr>
+                             
                             @if(isset($data['shgb_no']) && is_array($data['shgb_no']) && count($data['shgb_no']) > 0)
                             <!-- Find and display the first merge -->
                                 @if(isset($data['shgb_no'][0]))
-                                <tr>
-                                    <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_no'][0] }} </td>
-                                    <td style="border: 1px solid #000;padding: 5px;"> {{ $data['nop_no'][0] }} </td>
-                                    <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_name'][0] }} </td>
-                                    <td style="border: 1px solid #000; text-align: right;padding: 5px;">{{ $data['shgb_area'][0] }} </td>
-                                    <td style="border: 1px solid #000;padding: 5px;">{{ $data['handover_to'] }} </td>
-                                    <td style="border: 1px solid #000;padding: 5px;">{{ $data['customer_name'] }} </td>
-                                    <td style="border: 1px solid #000;padding: 5px;">{{ $data['transaction_date'] }} </td>
-                                    <td style="border: 1px solid #000;padding: 5px;">{{ $data['remarks'] }} </td>
-                                </tr>  
+                                    <tr>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_no'][0] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['nop_no'][0] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['nib_no'][0] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_date'][0] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_expired'][0] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_area'][0] }}</td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['nib_no_extension'][0] }}</td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_date_ext'][0] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_expired_ext'][0] }}</td>
+                                    </tr>  
                                 @endif
 
                                 <!-- Display other merges -->
                                 @for($i = 1; $i < count($data['shgb_no']); $i++)
-                                    @if(isset($data['shgb_no'][$i], $data['nop_no'][$i]))
-                                    <tr>
+                                    @if(isset($data['shgb_no'][$i], $data['nib_no'][$i]))
+                                        <tr>
                                         <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_no'][$i] }} </td>
                                         <td style="border: 1px solid #000;padding: 5px;"> {{ $data['nop_no'][$i] }} </td>
-                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_name'][$i] }} </td>
-                                        <td style="border: 1px solid #000; text-align: right;padding: 5px;">{{ $data['shgb_area'][$i] }} </td>
-                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['handover_to'] }} </td>
-                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['customer_name'] }} </td>
-                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['transaction_date'] }} </td>
-                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['remarks'] }} </td>
-                                    </tr>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['nib_no'][$i] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_date'][$i] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_expired'][$i] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_area'][$i] }}</td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['nib_no_extension'][$i] }}</td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_date_ext'][$i] }} </td>
+                                        <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_expired_ext'][$i] }}</td>
+                                        </tr>
                                     @endif
                                 @endfor
                             @endif
@@ -123,49 +127,23 @@
                         @php
                             $hasAttachment = false;
                         @endphp
-
-                        @foreach($data['url_file'] as $key => $url_file)
-                            @if($url_file !== '' && $data['file_name'][$key] !== '' && $url_file !== 'EMPTY' && $data['file_name'][$key] !== 'EMPTY')
+        
+                        @foreach($data['url_link'] as $key => $url_link)
+                            @if($url_link !== '' && $data['file_name'][$key] !== '' && $url_link !== 'EMPTY' && $data['file_name'][$key] !== 'EMPTY')
                                 @if(!$hasAttachment)
                                     @php
                                         $hasAttachment = true;
                                     @endphp
-                                    <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
-                                        <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
+                                    <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 16px;">
+                                        <span>Untuk melihat lampiran, tolong klik tautan dibawah ini : </span><br>
                                 @endif
-                                <a href="{{ $url_file }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
+                                <a href="{{ $url_link }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
                             @endif
                         @endforeach
-
+        
                         @if($hasAttachment)
                             </p>
                         @endif
-
-                        @php
-                            $hasApproval = false;
-                            $counter = 0;
-                            
-                            // Sort the data array based on approved date in descending order
-                            array_multisort($data['approved_date'], SORT_DESC, $data['approve_list']);
-                        @endphp
-
-                        @foreach($data['approve_list'] as $key => $approve_list)
-                            @if($approve_list !== '' && $approve_list !== 'EMPTY')
-                                @if(!$hasApproval)
-                                    @php
-                                        $hasApproval = true;
-                                    @endphp
-                                    <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
-                                        <span>Sudah disetujui oleh :</span><br>
-                                @endif
-                                {{ ++$counter }}. {{ $approve_list }} - {{ $data['approved_date'][$key] }}<br>
-                            @endif
-                        @endforeach
-
-                        @if($hasApproval)
-                            </p>
-                        @endif
-
                     </td>
                 </tr>
             </tbody>

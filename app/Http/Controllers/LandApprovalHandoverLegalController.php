@@ -29,7 +29,12 @@ class LandApprovalHandoverLegalController extends Controller
             $handover_to = 'Eksternal';
         }
 
-        $shgb_area = number_format($request->shgb_area, 0, '.', ',');
+        $list_of_shgb_area = explode(';', $request->shgb_area);
+
+        $shgb_area_data = [];
+        foreach ($list_of_shgb_area as $shgb_area) {
+            $shgb_area_data[] = number_format((float)$shgb_area, 2, '.', ',');
+        }
 
         $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s', $request->transaction_date)->format('d-m-Y');
 
@@ -59,6 +64,27 @@ class LandApprovalHandoverLegalController extends Controller
             $approve_date_data[] = $approve_date;
         }
 
+        $list_of_shgb_no = explode(';', $request->shgb_no);
+
+        $shgb_no_data = [];
+        foreach ($list_of_shgb_no as $shgb_no) {
+            $shgb_no_data[] = $shgb_no;
+        }
+
+        $list_of_nop_no = explode(';', $request->nop_no);
+
+        $nop_no_data = [];
+        foreach ($list_of_nop_no as $nop_no) {
+            $nop_no_data[] = $nop_no;
+        }
+
+        $list_of_shgb_name = explode(';', $request->shgb_name);
+
+        $shgb_name_data = [];
+        foreach ($list_of_shgb_name as $shgb_name) {
+            $shgb_name_data[] = $shgb_name;
+        }
+
         $dataArray = array(
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
@@ -67,16 +93,16 @@ class LandApprovalHandoverLegalController extends Controller
             'email_addr'        => $request->email_addr,
             'user_name'         => $request->user_name,
             'sender_name'       => $request->sender_name,
-            'shgb_no'           => $request->shgb_no,
-            'nop_no'            => $request->nop_no,
-            'shgb_name'         => $request->shgb_name,
-            'shgb_area'         => $shgb_area,
-            'transaction_date'  => $transaction_date,
-            'handover_to'       => $handover_to,
-            'descs'             => $request->descs,
+            'handover_to'       => $request->handover_to,
+            'customer_name'     => $request->customer_name,
             'url_file'          => $url_data,
             'file_name'         => $file_data,
-            'customer_name'     => $request->customer_name,
+            'shgb_no'           => $shgb_no_data,
+            'nop_no'            => $nop_no_data,
+            'shgb_name'         => $shgb_name_data,
+            'shgb_area'         => $shgb_area_data,
+            'transaction_date'  => $transaction_date,
+            'descs'             => $request->descs,
             'remarks'           => $request->remarks,
             'approve_list'      => $approve_data,
             'approved_date'     => $approve_date_data,
@@ -94,7 +120,7 @@ class LandApprovalHandoverLegalController extends Controller
 
                 // Check if the email has been sent before for this document
                 $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
-                $cacheFilePath = storage_path('app/mail_cache/send_shgb_legal/' . date('Ymd') . '/' . $cacheFile);
+                $cacheFilePath = storage_path('app/mail_cache/send_handover_legal/' . date('Ymd') . '/' . $cacheFile);
                 $cacheDirectory = dirname($cacheFilePath);
 
                 // Ensure the directory exists

@@ -314,3 +314,9 @@ use App\Http\Controllers\LandApprovalSplitShgbController as LandApprovalSplitShg
 Route::POST('/landapprovalsplitshgb', [LandApprovalSplitShgb::class, 'Mail']);
 Route::POST('/landapprovalsplitshgb/update', [LandApprovalSplitShgb::class, 'update']);
 Route::GET('/landapprovalsplitshgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalSplitShgb::class, 'changestatus']);
+
+use App\Http\Controllers\LandApprovalExtShgbController as LandApprovalExtShgb;
+
+Route::POST('/landapprovalextshgb', [LandApprovalExtShgb::class, 'Mail']);
+Route::POST('/landapprovalextshgb/update', [LandApprovalExtShgb::class, 'update']);
+Route::GET('/landapprovalextshgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalExtShgb::class, 'changestatus']);
