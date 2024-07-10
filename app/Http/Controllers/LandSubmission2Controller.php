@@ -113,14 +113,14 @@ class LandSubmissionController extends Controller
                 }
                 
                 $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
-                Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
-                return 'Email berhasil dikirim ke: ' .$sentTo;
+                Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
+                return 'Email berhasil dikirim';
             } else {
-                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
     }

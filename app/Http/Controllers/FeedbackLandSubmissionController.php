@@ -158,7 +158,7 @@ class FeedbackLandSubmissionController extends Controller
                     $sentTo = implode(', ', $emails);
                     $ccList = implode(', ', $cc_emails);
         
-                    Log::channel('sendmail')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccList);
+                    Log::channel('sendmailapproval')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccList);
 
                         // Now process the second set of emails (similar logic)
                     if (!empty($emailAddresses2)) {
@@ -181,17 +181,17 @@ class FeedbackLandSubmissionController extends Controller
                         // Log successful email sending for the second set
                         $sentTo2 = implode(', ', $emails2);
                         $ccList2 = implode(', ', $cc_emails2);
-                        Log::channel('sendmail')->info('Email Feedback doc_no ' . $request->doc_no . ' Entity ' . $request->entity_cd . ' berhasil dikirim ke: ' . $sentTo2 . ' dengan CC ke: ' . $ccList2);
+                        Log::channel('sendmailapproval')->info('Email Feedback doc_no ' . $request->doc_no . ' Entity ' . $request->entity_cd . ' berhasil dikirim ke: ' . $sentTo2 . ' dengan CC ke: ' . $ccList2);
                     }
-                    return "Email berhasil dikirim ke: " . $sentTo . ' dengan CC ke: ' . $ccList;
+                    return "Email berhasil dikirim";
                     $emailSent = true;
                 }
             } else {
-                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
         

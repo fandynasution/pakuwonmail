@@ -113,19 +113,19 @@ class LandSphController extends Controller
                     file_put_contents($cacheFilePath, 'sent');
         
                     // Log the success
-                    Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
-                    return 'Email berhasil dikirim ke: ' . $email;
+                    Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
+                    return 'Email berhasil dikirim';
                 } else {
                     // Email was already sent
-                    Log::channel('sendmail')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
+                    Log::channel('sendmailapproval')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
                     return 'Email has already been sent to: ' . $email;
                 }
             } else {
-                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
     }

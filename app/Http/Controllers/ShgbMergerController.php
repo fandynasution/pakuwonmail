@@ -58,7 +58,8 @@ class ShgbMergerController extends Controller
     
         try {
             $emailAddresses = $request->email_addr;
-        
+            $doc_no = $request->doc_no;
+            $entity_cd = $request->entity_cd;
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
                 $emails = is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
@@ -68,14 +69,14 @@ class ShgbMergerController extends Controller
                 }
                 
                 $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
-                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sentTo);
-                return 'Email berhasil dikirim ke: ' .$sentTo;
+                Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
+                return 'Email berhasil dikirim';
             } else {
-                Log::channel('sendmail')->warning('Tidak ada alamat email yang diberikan.');
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            Log::channel('sendmail')->error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
     }

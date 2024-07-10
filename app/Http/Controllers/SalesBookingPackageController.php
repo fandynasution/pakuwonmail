@@ -43,7 +43,7 @@ class SalesBookingPackageController extends Controller
             if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
             {
                 Mail::to($sendToEmail)->send(new SalesBookingMail($dataArray));
-                Log::channel('sendmail')->info('Email berhasil dikirim ke: ' . $sendToEmail);
+                Log::channel('sendmailapproval')->info('Email berhasil dikirim ke: ' . $sendToEmail);
                 return "Email berhasil dikirim";
             }
         } catch (\Exception $e) {

@@ -52,7 +52,7 @@ class CmContractDoneController extends Controller
             if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
             {
                 Mail::to($sendToEmail)->send(new CmContractDone($dataArray));
-                Log::channel('sendmail')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
+                Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
                 return "Email berhasil dikirim";
             }
         } catch (\Exception $e) {
