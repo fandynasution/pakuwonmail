@@ -39,6 +39,7 @@ class LandApprovalSftController extends Controller
             'entity_cd'     => $request->entity_cd,
             'ref_no'        => $request->ref_no,
             'sk_no'         => $request->sk_no,
+            'approve_seq'         => $request->approve_seq,
             'sk_amt'        => $sk_amt,
             'transaction_date'              => $transaction_date,
             'url_link'      => $link,
@@ -55,11 +56,48 @@ class LandApprovalSftController extends Controller
             $sendToEmail = strtolower($request->email_addr);
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
-            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-            {
-                Mail::to($sendToEmail)->send(new LandApprovalSftMail($dataArray));
-                Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
-                return "Email berhasil dikirim";
+            $level_no = $request->level_no;
+            $approve_seq = $request->approve_seq;
+            if (!empty($sendToEmail)) {
+                $email = $sendToEmail;
+
+                // Check if the email has been sent before for this document
+                $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
+                $cacheFilePath = storage_path('app/mail_cache/send_handover_legal/' . date('Ymd') . '/' . $cacheFile);
+                $cacheDirectory = dirname($cacheFilePath);
+
+                // Ensure the directory exists
+                if (!file_exists($cacheDirectory)) {
+                    mkdir($cacheDirectory, 0755, true);
+                }
+
+                // Acquire an exclusive lock
+                $lockFile = $cacheFilePath . '.lock';
+                $lockHandle = fopen($lockFile, 'w');
+                if (!flock($lockHandle, LOCK_EX)) {
+                    // Failed to acquire lock, handle appropriately
+                    fclose($lockHandle);
+                    throw new Exception('Failed to acquire lock');
+                }
+
+                if (!file_exists($cacheFilePath)) {
+                    // Send email
+                    Mail::to($email)->send(new LandApprovalSftMail($dataArray));
+        
+                    // Mark email as sent
+                    file_put_contents($cacheFilePath, 'sent');
+        
+                    // Log the success
+                    Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
+                    return 'Email berhasil dikirim';
+                } else {
+                    // Email was already sent
+                    Log::channel('sendmailapproval')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
+                    return 'Email has already been sent to: ' . $email;
+                }
+            } else {
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
+                return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
             // Tangani kesalahan jika pengiriman email gagal
