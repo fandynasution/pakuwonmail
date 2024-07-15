@@ -31,7 +31,8 @@ class LandFphApprovalController extends Controller
         $total_amt = number_format($request->total_amt, 2, '.', ',');
         $book_amt = number_format($request->book_amt, 2, '.', ',');
 
-        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+        $transaction_date = Carbon::createFromFormat('M  j Y h:iA', $request->transaction_date)->format('d-m-Y');
+        // Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
