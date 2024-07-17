@@ -320,3 +320,13 @@ use App\Http\Controllers\LandApprovalExtShgbController as LandApprovalExtShgb;
 Route::POST('/landapprovalextshgb', [LandApprovalExtShgb::class, 'Mail']);
 Route::POST('/landapprovalextshgb/update', [LandApprovalExtShgb::class, 'update']);
 Route::GET('/landapprovalextshgb/{status}/{entity_cd}/{doc_no}/{level_no}', [LandApprovalExtShgb::class, 'changestatus']);
+
+
+use App\Http\Controllers\AutoSendController as AutoSend;
+Route::GET('/autosend', [AutoSend::class, 'index']);
+
+use App\Http\Controllers\LandRequestLegalController as LandRequestLegal;
+
+Route::POST('/landrequestlegal', [LandRequestLegal::class, 'index']);
+Route::POST('/landrequestlegal/update', [LandRequestLegal::class, 'update']);
+Route::GET('/landrequestlegal/{status}/{entity_cd}/{doc_no}/{level_no}', [LandRequestLegal::class, 'changestatus']);
