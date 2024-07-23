@@ -7,12 +7,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-use App\Mail\FeedbackSubmissionMail;
-use App\Mail\FeedbackSubmissionNoAttachMail;
+use App\Mail\FeedbackLandRequestMail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class FeedbackLandSubmissionController extends Controller
+class FeedbackLandRequestController extends Controller
 {
     public function Mail(Request $request)
     {
@@ -51,6 +50,13 @@ class FeedbackLandSubmissionController extends Controller
             $nop_no_data[] = $nop_no;
         }
 
+        $list_of_sph_trx_no = explode(';', $request->sph_trx_no);
+        
+        $sph_trx_no_data = [];
+        foreach ($list_of_sph_trx_no as $sph_trx_no) {
+            $sph_trx_no_data[] = $sph_trx_no;
+        }
+
         $list_of_request_amt = explode(';', $request->request_amt);
         
         $request_amt_data = [];
@@ -58,8 +64,6 @@ class FeedbackLandSubmissionController extends Controller
             $formatted_amt = number_format((float)$amt, 2, '.', ',');
             $request_amt_data[] = $formatted_amt;
         }
-
-        $formatted_sum_amt = number_format($request->sum_amt, 2, '.', ',');
 
         $list_of_approve = explode('; ',  $request->approve_exist);
         $approve_data = [];
@@ -73,43 +77,28 @@ class FeedbackLandSubmissionController extends Controller
             $approve_date_data[] = $approve_date;
         }
 
-
         $dataArray = array(
             'doc_no'            => $request->doc_no,
-            'reason'            => $request->reason,
-            'approve_seq'       => $request->approve_seq,
             'descs_send'        => $request->descs_send,
-            'subject'           => $request->subject,
             'user_name'         => $request->user_name,
-            'sender_name'       => $request->staff_act_send,
+            'staff_act_send'    => $request->staff_act_send,
             'entity_name'       => $request->entity_name,
-            'email_cc'          => $request->email_cc,
-            'email_addr'        => $request->email_addr,
-            'email_cc2'          => $request->email_cc,
-            'email_addr2'        => $request->email_addr,
-            'user_id'           => $request->user_id,
-            'level_no'          => $request->level_no,
-            'entity_cd'         => $request->entity_cd,
+            'url_file'          => $url_data,
+            'file_name'         => $file_data,
             'type'              => $type_data,
             'owner'             => $owner_data,
             'nop_no'            => $nop_no_data,
-            'sph_trx_no'        => $request->sph_trx_no,
-            'url_file'          => $url_data,
-            'file_name'         => $file_data,
-            'url_file2'         => $request->url_file2,
-            'file_name2'        => $request->file_name2,
+            'sph_trx_no'        => $sph_trx_no_data,
             'request_amt'       => $request_amt_data,
-            'sum_amt'           => $formatted_sum_amt,
             'approve_list'      => $approve_data,
             'approved_date'     => $approve_date_data,
-            'descs'             => $request->descs,
+            'descs'             => $request->descs, 
         );
 
+        // var_dump($dataArray);
         try {
             $emailAddresses = strtolower($request->email_addr);
             $email_cc = $request->email_cc;
-            $emailAddresses2 = strtolower($request->email_addr2);
-            $email_cc2 = $request->email_cc2;
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
             $status = $request->status;
@@ -123,7 +112,7 @@ class FeedbackLandSubmissionController extends Controller
                 $cc_emails = explode(';', $email_cc);
         
                 // Set up the email object
-                $mail = new FeedbackSubmissionMail($dataArray);
+                $mail = new FeedbackLandRequestMail($dataArray);
                 foreach ($cc_emails as $cc_email) {
                     $mail->cc(trim($cc_email));
                 }
@@ -132,7 +121,7 @@ class FeedbackLandSubmissionController extends Controller
         
                 // Check if the email has been sent before for this document
                 $cacheFile = 'email_feedback_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $status . '.txt';
-                $cacheFilePath = storage_path('app/mail_cache/feedbacksubmission/' . date('Ymd'). '/' . $cacheFile);
+                $cacheFilePath = storage_path('app/mail_cache/feedbacklandrequest/' . date('Ymd'). '/' . $cacheFile);
                 $cacheDirectory = dirname($cacheFilePath);
         
                 // Ensure the directory exists
@@ -158,31 +147,7 @@ class FeedbackLandSubmissionController extends Controller
                     $sentTo = implode(', ', $emails);
                     $ccList = implode(', ', $cc_emails);
         
-                    Log::channel('sendmailapprovalfeedback')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo . ' dengan CC ke: ' . $ccList);
-
-                        // Now process the second set of emails (similar logic)
-                    if (!empty($emailAddresses2)) {
-                        // Explode the email addresses string into an array
-                        $emails2 = explode(';', $emailAddresses2);
-
-                        // Initialize CC emails array
-                        $cc_emails2 = explode(';', $email_cc2);
-
-                        // Set up the email object for the second set of emails
-                        $mail2 = new FeedbackSubmissionNoAttachMail($dataArray);
-
-                        foreach ($cc_emails2 as $cc_email) {
-                            $mail2->cc(trim($cc_email));
-                        }
-
-                        // Send email to the second set of recipients
-                        Mail::to($emails2)->send($mail2);
-
-                        // Log successful email sending for the second set
-                        $sentTo2 = implode(', ', $emails2);
-                        $ccList2 = implode(', ', $cc_emails2);
-                        Log::channel('sendmailapprovalfeedback')->info('Email Feedback doc_no ' . $request->doc_no . ' Entity ' . $request->entity_cd . ' berhasil dikirim ke: ' . $sentTo2 . ' dengan CC ke: ' . $ccList2);
-                    }
+                    Log::channel('sendmailapprovalfeedback')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
                     return "Email berhasil dikirim";
                     $emailSent = true;
                 } else {
@@ -197,6 +162,5 @@ class FeedbackLandSubmissionController extends Controller
             Log::channel('sendmailapprovalfeedback')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
-        
     }
 }

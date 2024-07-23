@@ -128,6 +128,13 @@ return [
             'ignore_exceptions' => false,
             'level' => env('LOG_LEVEL', 'debug'),
         ],
+
+        'sendmailapprovalfeedback' => [
+            'driver' => 'daily', // You can choose the appropriate log driver (single, daily, syslog, etc.)
+            'path' => storage_path('logs/sendmailfeedback/' . date('Ymd') . '/sendmailapproval.log'),
+            'ignore_exceptions' => false,
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
     ],
 
 ];

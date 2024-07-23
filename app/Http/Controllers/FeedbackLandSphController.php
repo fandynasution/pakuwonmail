@@ -123,16 +123,19 @@ class FeedbackLandSphController extends Controller
                     $sentTo = implode(', ', $emails);
                     $ccList = implode(', ', $cc_emails);
         
-                    Log::channel('sendmailapproval')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
+                    Log::channel('sendmailapprovalfeedback')->info('Email Feedback doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
                     return "Email berhasil dikirim";
                     $emailSent = true;
+                } else {
+                    // Email was already sent
+                    return 'Email has already been sent';
                 }
             } else {
-                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
+                Log::channel('sendmailapprovalfeedback')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmailapprovalfeedback')->error('Gagal mengirim email: ' . $e->getMessage());
             return "Gagal mengirim email: " . $e->getMessage();
         }
         
