@@ -25,7 +25,7 @@ class ContractRenewController extends Controller
         $new_doc_no1 = str_replace("-","_ash",$new_doc_no);
         $contract_sum = number_format($request->contract_sum, 2, '.', ',');
 
-        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s', $request->transaction_date)->format('d-m-Y');
+        $transaction_date = Carbon::createFromFormat('M  j Y h:iA', $request->transaction_date)->format('d-m-Y');
 
         $dataArray = array(
             'entity_cd'     => $request->entity_cd,
