@@ -22,34 +22,48 @@ class LandApprovalHandoverShgbController extends Controller
             'Status' => 200
         );
 
-        if ($request->handover_to == 'L')
-        {
-            $handover_to = 'LEGAL';
-        } else {
-            $handover_to = 'Eksternal';
+        $list_of_handover_to = explode(';', $request->handover_to);
+        $handover_to_data = [];
+        foreach ($list_of_handover_to as $handover_to) {
+            $handover_to_data[] = ($handover_to == 'L') ? 'LEGAL' : 'Eksternal';
         }
 
-        $shgb_area = number_format($request->shgb_area, 0, '.', ',');
+        $dataArrays = [
+            'shgb_no' => explode(';', $request->shgb_no),
+            'nop_no' => explode(';', $request->nop_no),
+            'shgb_name' => explode(';', $request->shgb_name),
+            'shgb_area' => explode(';', $request->shgb_area),
+            'handover_to' => $handover_to_data
+        ];
 
-        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+        // Ensure all arrays are the same length
+        $arrayLength = count($dataArrays['shgb_no']);
+        foreach ($dataArrays as $key => $array) {
+            if (count($array) !== $arrayLength) {
+                throw new Exception("Array length mismatch for key {$key}");
+            }
+        }
+
+        $transaction_date = Carbon::createFromFormat('M j Y h:iA', $request->transaction_date)->format('d-m-Y');
 
         $dataArray = array(
-            'user_id'       => $request->user_id,
-            'level_no'      => $request->level_no,
-            'entity_cd'     => $request->entity_cd,
-            'doc_no'        => $request->doc_no,
-            'email_addr'    => $request->email_addr,
-            'user_name'     => $request->user_name,
-            'sender_name'   => $request->sender_name,
-            'shgb_no'       => $request->shgb_no,
-            'nop_no'        => $request->nop_no,
-            'shgb_name'     => $request->shgb_name,
-            'shgb_area'     => $shgb_area,
-            'transaction_date'     => $transaction_date,
-            'handover_to'   => $handover_to,
-            'descs'         => $request->descs,
-            'link'          => 'landapprovalhandovershgb',
+            'user_id' => $request->user_id,
+            'level_no' => $request->level_no,
+            'entity_cd' => $request->entity_cd,
+            'doc_no' => $request->doc_no,
+            'email_addr' => $request->email_addr,
+            'user_name' => $request->user_name,
+            'sender_name' => $request->sender_name,
+            'shgb_no' => $dataArrays['shgb_no'],
+            'nop_no' => $dataArrays['nop_no'],
+            'shgb_name' => $dataArrays['shgb_name'],
+            'shgb_area' => $dataArrays['shgb_area'],
+            'handover_to' => $dataArrays['handover_to'],
+            'transaction_date' => $transaction_date,
+            'descs' => $request->descs,
+            'link' => 'landapprovalhandovershgb',
         );
+
 
         try {
             $sendToEmail = strtolower($request->email_addr);
