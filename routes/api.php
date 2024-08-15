@@ -335,3 +335,9 @@ Route::POST('/feedbackSph', [FeedbackSph::class, 'Mail']);
 use App\Http\Controllers\FeedbackLandRequestController as FeedbackLandRequest;
 Route::POST('/feedbacklandrequest', [FeedbackLandRequest::class, 'Mail']);
 
+use App\Http\Controllers\ContractTerminateLotController as ContractTerminateLot;
+
+Route::POST('/contractterminatelot', [ContractTerminateLot::class, 'Mail']);
+Route::POST('/contractterminatelot/update', [ContractTerminateLot::class, 'update']);
+Route::GET('/contractterminatelot/{entity_cd}/{project_no}/{doc_no}/{status}/{level_no}/{user_id}/{doc_date}', [ContractTerminateLot::class, 'changestatus']);
+

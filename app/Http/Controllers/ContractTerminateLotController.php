@@ -99,33 +99,20 @@ class ContractTerminateLotController extends Controller
 
     public function changestatus($entity_cd='', $project_no='', $doc_no='', $status='', $level_no='', $user_id='', $doc_date='')
     {
-        $where2 = array(
-            'doc_no'        => $doc_no,
-            'status'        => array("A",'R', 'C'),
-            'entity_cd'     => $entity_cd,
-            'level_no'      => $level_no,
-            'type'          => 'U',
-            'module'        => 'TM',
-            'request_type'  => 'T1',
+        $where = array(
+            'doc_no'       => $doc_no,
+            'entity_cd'    => $entity_cd,
+            'level_no'     => $level_no,
+            'type'         => 'U',
+            'module'       => 'TM',
+            'request_type' => 'T2',
         );
-
-        $where3 = array(
-            'doc_no'        => $doc_no,
-            'entity_cd'     => $entity_cd,
-            'level_no'      => $level_no,
-            'type'          => 'U',
-            'module'        => 'TM',
-            'request_type'  => 'T1',
-        );
+        
         $query = DB::connection('SSI')
-        ->table('mgr.cb_cash_request_appr')
-        ->where($where2)
-        ->get();
-
-        $query3 = DB::connection('SSI')
-        ->table('mgr.cb_cash_request_appr')
-        ->where($where3)
-        ->get();
+            ->table('mgr.cb_cash_request_appr')
+            ->where($where)
+            ->whereIn('status', ['A', 'R', 'C'])
+            ->get();
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to Contract Terminate Lot No. '.$doc_no ;
             $notif = 'Restricted !';
@@ -136,37 +123,68 @@ class ContractTerminateLotController extends Controller
                 "St" => $st,
                 "notif" => $notif,
                 "image" => $image
-            );return view("emails.after", $msg1);
-        } else {
-            if ($status == 'A') {
-                $name   = 'Approval';
-                $bgcolor = '#40de1d';
-                $valuebt  = 'Approve';
-            }else if ($status == 'R') {
-                $name   = 'Revision';
-                $bgcolor = '#f4bd0e';
-                $valuebt  = 'Revise';
-            } else if ($status == 'C'){
-                $name   = 'Cancelation';
-                $bgcolor = '#e85347';
-                $valuebt  = 'Cancel';
-            }
-            $new_doc_no = str_replace("_sla","/",$doc_no);
-            $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
-            $data = array(
-                'entity_cd'     => $entity_cd, 
-                'project_no'     => $project_no, 
-                'doc_no'        => $new_doc_no1, 
-                'doc_date'        => $doc_date, 
-                'status'        => $status,
-                'level_no'      => $level_no, 
-                'user_id'      => $user_id, 
-                'name'          => $name,
-                'bgcolor'       => $bgcolor,
-                'valuebt'       => $valuebt
             );
+            return view("emails.after", $msg1);
+        } else {
+            $where2 = array(
+                'doc_no'        => $doc_no,
+                'entity_cd'     => $entity_cd,
+                'level_no'      => $level_no,
+                'status'        => 'P',
+                'type'          => 'U',
+                'module'        => 'TM',
+                'request_type'  => 'T2',
+            );
+
+            $query2 = DB::connection('SSI')
+                ->table('mgr.cb_cash_request_appr')
+                ->where($where2)
+                ->get();
+
+            if ($query2->isEmpty()) {  // Use isEmpty() instead of count() == 0
+                $msg = 'There is Contract Terminate Lot No. ' . $doc_no;
+                $notif = 'Restricted!';
+                $st = 'OK';
+                $image = "double_approve.png";
+                $msg1 = array(
+                    "Pesan" => $msg,
+                    "St" => $st,
+                    "notif" => $notif,
+                    "image" => $image
+                );
+                return view("emails.after", $msg1);
+            } else {
+                if ($status == 'A') {
+                    $name   = 'Approval';
+                    $bgcolor = '#40de1d';
+                    $valuebt  = 'Approve';
+                }else if ($status == 'R') {
+                    $name   = 'Revision';
+                    $bgcolor = '#f4bd0e';
+                    $valuebt  = 'Revise';
+                } else if ($status == 'C'){
+                    $name   = 'Cancelation';
+                    $bgcolor = '#e85347';
+                    $valuebt  = 'Cancel';
+                }
+                $new_doc_no = str_replace("_sla","/",$doc_no);
+                $new_doc_no1 = str_replace("_ash","-",$new_doc_no);
+                $data = array(
+                    'entity_cd'     => $entity_cd, 
+                    'project_no'     => $project_no, 
+                    'doc_no'        => $new_doc_no1, 
+                    'doc_date'        => $doc_date, 
+                    'status'        => $status,
+                    'level_no'      => $level_no, 
+                    'user_id'      => $user_id, 
+                    'name'          => $name,
+                    'bgcolor'       => $bgcolor,
+                    'valuebt'       => $valuebt
+                );
+                return view('emails/contractterminatelot/action', $data);
+            }
         }
-        return view('emails/contractterminatelot/action', $data);
+        
     }
 
     public function update(Request $request)
@@ -214,6 +232,7 @@ class ContractTerminateLotController extends Controller
             $sth->bindParam(6, $level_no);
             $sth->bindParam(7, $user_id);
             $sth->bindParam(8, $remarks);
+            $sth->execute();
             if ($sth == true) {
                 $msg = "You Have Successfully Made a Revise Request on Contract Terminate Lot No. ".$doc_no;
                 $notif = 'Revised !';
