@@ -28,8 +28,7 @@ class LandMeasuringController extends Controller
         {
             $link[] = $show;
         }
-
-        $transaction_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->transaction_date)->format('d-m-Y');
+        $transaction_date = Carbon::createFromFormat('M  j Y h:iA', $request->transaction_date)->format('d-m-Y');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
