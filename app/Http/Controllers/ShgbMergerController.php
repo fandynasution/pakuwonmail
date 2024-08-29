@@ -62,62 +62,60 @@ class ShgbMergerController extends Controller
             "link"          => "shgbmerger",
             "subject"       => "Need Approval ".$request->descs
         );
-
-        var_dump($dataArray);
     
-        // try {
-        //     $emailAddresses = $request->email_addr;
-        //     $doc_no = $request->doc_no;
-        //     $entity_cd = $request->entity_cd;
-        //     $level_no = $request->level_no;
-        //     $approve_seq = $request->approve_seq;
+        try {
+            $emailAddresses = $request->email_addr;
+            $doc_no = $request->doc_no;
+            $entity_cd = $request->entity_cd;
+            $level_no = $request->level_no;
+            $approve_seq = $request->approve_seq;
 
 
-        //     // Check if email addresses are provided and not empty
-        //     if (!empty($emailAddresses)) {
-        //         $email = $emailAddresses;
+            // Check if email addresses are provided and not empty
+            if (!empty($emailAddresses)) {
+                $email = $emailAddresses;
 
-        //         // Check if the email has been sent before for this document
-        //         $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
-        //         $cacheFilePath = storage_path('app/mail_cache/send_shgb_merger/' . date('Ymd') . '/' . $cacheFile);
-        //         $cacheDirectory = dirname($cacheFilePath);
+                // Check if the email has been sent before for this document
+                $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
+                $cacheFilePath = storage_path('app/mail_cache/send_shgb_merger/' . date('Ymd') . '/' . $cacheFile);
+                $cacheDirectory = dirname($cacheFilePath);
 
-        //         // Ensure the directory exists
-        //         if (!file_exists($cacheDirectory)) {
-        //             mkdir($cacheDirectory, 0755, true);
-        //         }
+                // Ensure the directory exists
+                if (!file_exists($cacheDirectory)) {
+                    mkdir($cacheDirectory, 0755, true);
+                }
 
-        //         $lockFile = $cacheFilePath . '.lock';
-        //         $lockHandle = fopen($lockFile, 'w');
-        //         if (!flock($lockHandle, LOCK_EX)) {
-        //             // Failed to acquire lock, handle appropriately
-        //             fclose($lockHandle);
-        //             throw new Exception('Failed to acquire lock');
-        //         }
+                $lockFile = $cacheFilePath . '.lock';
+                $lockHandle = fopen($lockFile, 'w');
+                if (!flock($lockHandle, LOCK_EX)) {
+                    // Failed to acquire lock, handle appropriately
+                    fclose($lockHandle);
+                    throw new Exception('Failed to acquire lock');
+                }
 
-        //         if (!file_exists($cacheFilePath)) {
-        //             // Send email
-        //             Mail::to($email)->send(new ShgbMergerMail($dataArray));
+                if (!file_exists($cacheFilePath)) {
+                    // Send email
+                    Mail::to($email)->send(new ShgbMergerMail($dataArray));
         
-        //             // Mark email as sent
-        //             file_put_contents($cacheFilePath, 'sent');
+                    // Mark email as sent
+                    file_put_contents($cacheFilePath, 'sent');
         
-        //             // Log the success
-        //             Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
-        //             return 'Email berhasil dikirim';
-        //         } else {
-        //             // Email was already sent
-        //             Log::channel('sendmailapproval')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
-        //             return 'Email has already been sent to: ' . $email;
-        //         }
-        //     } else {
-        //         Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
-        //         return "Tidak ada alamat email yang diberikan.";
-        //     }
-        // } catch (\Exception $e) {
-        //     Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
-        //     return "Gagal mengirim email: " . $e->getMessage();
-        // }
+                    // Log the success
+                    Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
+                    return 'Email berhasil dikirim';
+                } else {
+                    // Email was already sent
+                    Log::channel('sendmailapproval')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
+                    return 'Email has already been sent to: ' . $email;
+                }
+            } else {
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
+                return "Tidak ada alamat email yang diberikan.";
+            }
+        } catch (\Exception $e) {
+            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
+            return "Gagal mengirim email: " . $e->getMessage();
+        }
     }
 
     public function changestatus($entity_cd ='', $doc_no ='', $status='', $level_no='')
