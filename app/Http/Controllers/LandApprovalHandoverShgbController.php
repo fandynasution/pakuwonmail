@@ -217,7 +217,7 @@ class LandApprovalHandoverShgbController extends Controller
                     $bgcolor = '#e85347';
                     $valuebt  = 'Cancel';
                 }
-                $data = array(
+                $data = [
                     'entity_cd'     => $entity_cd, 
                     'doc_no'        => $doc_no, 
                     'status'        => $status,
@@ -226,8 +226,8 @@ class LandApprovalHandoverShgbController extends Controller
                     'bgcolor'       => $bgcolor,
                     'valuebt'       => $valuebt,
                     'entity_name'   => $query_get->entity_name
-                );
-                return view('emails/landhandovershgb/action', $data);
+                ];
+                return view('emails/landhandovershgb/action', compact('data'));
             }
         }
     }
