@@ -283,6 +283,6 @@ class LandBoundaryController extends Controller
             "notif" => $notif,
             'entity_name'   => $query_get->entity_name
         );
-        return view("emails.after_end.after", $msg1);
+        return view("emails.after", $msg1);
     }
 }
