@@ -28,12 +28,26 @@ class LandApprovalHandoverShgbController extends Controller
             $handover_to_data[] = ($handover_to == 'L') ? 'LEGAL' : 'Eksternal';
         }
 
+        $list_of_urls = explode(';', $request->url_link);
+
+        $url_data = [];
+        foreach ($list_of_urls as $url) {
+            $url_data[] = $url;
+        }
+
+        $list_of_files = explode(';', $request->file_name);
+
+        $file_data = [];
+        foreach ($list_of_files as $file) {
+            $file_data[] = $file;
+        }
+
         $dataArrays = [
             'shgb_no' => explode(';', $request->shgb_no),
             'nop_no' => explode(';', $request->nop_no),
             'shgb_name' => explode(';', $request->shgb_name),
             'shgb_area' => explode(';', $request->shgb_area),
-            'handover_to' => $handover_to_data
+            'handover_to' => $handover_to_data,
         ];
 
         // Ensure all arrays are the same length
@@ -53,6 +67,8 @@ class LandApprovalHandoverShgbController extends Controller
             'doc_no' => $request->doc_no,
             'email_addr' => $request->email_addr,
             'user_name' => $request->user_name,
+            'url_link'          => $url_data,
+            'file_name'         => $file_data,
             'sender_name' => $request->sender_name,
             'shgb_no' => $dataArrays['shgb_no'],
             'nop_no' => $dataArrays['nop_no'],
@@ -63,7 +79,6 @@ class LandApprovalHandoverShgbController extends Controller
             'descs' => $request->descs,
             'link' => 'landapprovalhandovershgb',
         );
-
 
         try {
             $sendToEmail = strtolower($request->email_addr);

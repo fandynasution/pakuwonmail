@@ -101,6 +101,26 @@
                         <a href="{{ url('api') }}/{{ $data['link'] }}/C/{{ $data['entity_cd'] }}/{{ $data['doc_no'] }}/{{ $data['level_no'] }}" target="_blank" style="background-color:#e85347;border-radius:4px;color:#ffffff;display:inline-block;font-size:13px;font-weight:400;line-height:44px;text-align:center;text-decoration:none;padding: 0px 40px;margin: 10px">Reject</a>
                         <!--<![endif]-->
                         <br>
+                        @php
+                            $hasAttachment = false;
+                        @endphp
+
+                        @foreach($data['url_link'] as $key => $url_link)
+                            @if($url_link !== '' && $data['file_name'][$key] !== '' && $url_link !== 'EMPTY' && $data['file_name'][$key] !== 'EMPTY')
+                                @if(!$hasAttachment)
+                                    @php
+                                        $hasAttachment = true;
+                                    @endphp
+                                    <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
+                                        <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
+                                @endif
+                                <a href="{{ $url_link }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
+                            @endif
+                        @endforeach
+
+                        @if($hasAttachment)
+                            </p>
+                        @endif
                     </td>
                 </tr>
             </tbody>
