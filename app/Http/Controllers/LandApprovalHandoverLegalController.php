@@ -85,6 +85,12 @@ class LandApprovalHandoverLegalController extends Controller
             $shgb_name_data[] = $shgb_name;
         }
 
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $request->entity_cd)
+        ->first();
+
         $dataArray = array(
             'user_id'           => $request->user_id,
             'level_no'          => $request->level_no,
@@ -93,6 +99,7 @@ class LandApprovalHandoverLegalController extends Controller
             'email_addr'        => $request->email_addr,
             'user_name'         => $request->user_name,
             'sender_name'       => $request->sender_name,
+            'entity_name'       => $query_get->entity_name,
             'handover_to'       => $request->handover_to,
             'customer_name'     => $request->customer_name,
             'url_file'          => $url_data,
@@ -173,22 +180,11 @@ class LandApprovalHandoverLegalController extends Controller
             'module'        => 'LM',
         );
 
-        $where3 = array(
-            'doc_no'        => $doc_no,
-            'entity_cd'     => $entity_cd,
-            'level_no'      => $level_no,
-            'type'          => 'M',
-            'module'        => 'LM',
-        );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        $query3 = DB::connection('SSI')
-        ->table('mgr.cb_cash_request_appr')
-        ->where($where3)
-        ->get();
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to Approval Land Hand Over Legal Doc. No. '.$doc_no ;
             $notif = 'Restricted !';
@@ -202,30 +198,59 @@ class LandApprovalHandoverLegalController extends Controller
             );
             return view("emails.after", $msg1);
         } else {
-            if ($status == 'A') {
-                $name   = 'Approval';
-                $bgcolor = '#40de1d';
-                $valuebt  = 'Approve';
-            }else if ($status == 'R') {
-                $name   = 'Revision';
-                $bgcolor = '#f4bd0e';
-                $valuebt  = 'Revise';
-            } else if ($status == 'C'){
-                $name   = 'Cancelation';
-                $bgcolor = '#e85347';
-                $valuebt  = 'Cancel';
-            }
-            $data = array(
-                'entity_cd'     => $entity_cd, 
-                'doc_no'        => $doc_no, 
-                'status'        => $status,
-                'level_no'      => $level_no, 
-                'name'          => $name,
-                'bgcolor'       => $bgcolor,
-                'valuebt'       => $valuebt
+            $where3 = array(
+                'doc_no'        => $doc_no,
+                'status'        => 'P',
+                'entity_cd'     => $entity_cd,
+                'level_no'      => $level_no,
+                'type'          => 'M',
+                'module'        => 'LM',
             );
+            $query3 = DB::connection('SSI')
+            ->table('mgr.cb_cash_request_appr')
+            ->where($where3)
+            ->get();
+
+            if(count($query3)==0){
+                $msg = 'There is no Request to Land Hand Over Legal No. '.$doc_no ;
+                $notif = 'Restricted !';
+                $st  = 'OK';
+                $image = "double_approve.png";
+                $msg1 = array(
+                    "Pesan" => $msg,
+                    "St" => $st,
+                    "notif" => $notif,
+                    "image" => $image,
+                    "entity_name"   => $query_get->entity_name
+                );
+                return view("emails.after_end.after", $msg1);
+            } else {
+                if ($status == 'A') {
+                    $name   = 'Approval';
+                    $bgcolor = '#40de1d';
+                    $valuebt  = 'Approve';
+                }else if ($status == 'R') {
+                    $name   = 'Revision';
+                    $bgcolor = '#f4bd0e';
+                    $valuebt  = 'Revise';
+                } else if ($status == 'C'){
+                    $name   = 'Cancelation';
+                    $bgcolor = '#e85347';
+                    $valuebt  = 'Cancel';
+                }
+                $data = array(
+                    'entity_cd'     => $entity_cd, 
+                    'doc_no'        => $doc_no, 
+                    'status'        => $status,
+                    'level_no'      => $level_no, 
+                    'name'          => $name,
+                    'bgcolor'       => $bgcolor,
+                    'valuebt'       => $valuebt,
+                    'entity_name'   => $query_get->entity_name
+                );
+                return view('emails/landhandoverlegal/action', $data);
+            }
         }
-        return view('emails/landhandoverlegal/action', $data);
     }
 
     public function update(Request $request)

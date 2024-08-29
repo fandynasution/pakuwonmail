@@ -191,7 +191,7 @@ class LandApprovalHandoverShgbController extends Controller
             ->get();
 
             if(count($query3)==0){
-                $msg = 'There is no Request to Land Boundary No. '.$doc_no ;
+                $msg = 'There is no Request to Land Hand Over SHGB No. '.$doc_no ;
                 $notif = 'Restricted !';
                 $st  = 'OK';
                 $image = "double_approve.png";
