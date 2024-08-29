@@ -112,6 +112,13 @@ class LandBoundaryController extends Controller
 
     public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
     {
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $entity_cd)
+        ->first();
+
+
         $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
@@ -266,7 +273,7 @@ class LandBoundaryController extends Controller
         $query_get = DB::connection('SSI')
         ->table('mgr.cf_entity')
         ->select('entity_name')
-        ->where('entity_cd', $entity_cd)
+        ->where('entity_cd', $request->entity_cd)
         ->first();
 
         $msg1 = array(
