@@ -97,6 +97,12 @@ class LandApprovalSplitShgbController extends Controller
         $shgb_area_split = number_format((float)$request->shgb_area_split, 2, '.', ',');
         $remaining_area = number_format((float)$request->remaining_area, 2, '.', ',');
 
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $request->entity_cd)
+        ->first();
+
         $dataArray = array(
             'user_id'               => $request->user_id,
             'level_no'              => $request->level_no,
@@ -124,23 +130,63 @@ class LandApprovalSplitShgbController extends Controller
             "email_addr"            => $request->email_addr,
             "user_name"             => $request->user_name,
             "sender_name"           => $request->sender_name,
+            'entity_name'           => $query_get->entity_name,
             "descs"                 => $request->descs,
             "link"                  => "landapprovalsplitshgb",
         );
 
         try {
-            $sendToEmail = strtolower($request->email_addr);
+            $emailAddresses = $request->email_addr;
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
-            if(isset($sendToEmail) && !empty($sendToEmail) && filter_var($sendToEmail, FILTER_VALIDATE_EMAIL))
-            {
-                Mail::to($sendToEmail)->send(new LandApprovalSplitShgbMail($dataArray));
-                Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sendToEmail);
-                return "Email berhasil dikirim";
+            $level_no = $request->level_no;
+            $approve_seq = $request->approve_seq;
+
+
+            // Check if email addresses are provided and not empty
+            if (!empty($emailAddresses)) {
+                $email = $emailAddresses;
+
+                // Check if the email has been sent before for this document
+                $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
+                $cacheFilePath = storage_path('app/mail_cache/send_land_splitshgb/' . date('Ymd') . '/' . $cacheFile);
+                $cacheDirectory = dirname($cacheFilePath);
+
+                // Ensure the directory exists
+                if (!file_exists($cacheDirectory)) {
+                    mkdir($cacheDirectory, 0755, true);
+                }
+
+                $lockFile = $cacheFilePath . '.lock';
+                $lockHandle = fopen($lockFile, 'w');
+                if (!flock($lockHandle, LOCK_EX)) {
+                    // Failed to acquire lock, handle appropriately
+                    fclose($lockHandle);
+                    throw new Exception('Failed to acquire lock');
+                }
+
+                if (!file_exists($cacheFilePath)) {
+                    // Send email
+                    Mail::to($email)->send(new LandApprovalSplitShgbMail($dataArray));
+        
+                    // Mark email as sent
+                    file_put_contents($cacheFilePath, 'sent');
+        
+                    // Log the success
+                    Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
+                    return 'Email berhasil dikirim';
+                } else {
+                    // Email was already sent
+                    Log::channel('sendmailapproval')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
+                    return 'Email has already been sent to: ' . $email;
+                }
+            } else {
+                Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
+                return "Tidak ada alamat email yang diberikan.";
             }
         } catch (\Exception $e) {
-            // Tangani kesalahan jika pengiriman email gagal
-            Log::error('Gagal mengirim email: ' . $e->getMessage());
+            Log::channel('sendmailapproval')->error('Gagal mengirim email: ' . $e->getMessage());
+            return "Gagal mengirim email: " . $e->getMessage();
         }
     }
 
@@ -155,22 +201,11 @@ class LandApprovalSplitShgbController extends Controller
             'module'        => 'LM',
         );
 
-        $where3 = array(
-            'doc_no'        => $doc_no,
-            'entity_cd'     => $entity_cd,
-            'level_no'      => $level_no,
-            'type'          => 'Q',
-            'module'        => 'LM',
-        );
         $query = DB::connection('SSI')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        $query3 = DB::connection('SSI')
-        ->table('mgr.cb_cash_request_appr')
-        ->where($where3)
-        ->get();
         if(count($query)>0){
             $msg = 'You Have Already Made a Request to Approval Land Split SHGB Doc. No. '.$doc_no ;
             $notif = 'Restricted !';
@@ -184,30 +219,59 @@ class LandApprovalSplitShgbController extends Controller
             );
             return view("emails.after", $msg1);
         } else {
-            if ($status == 'A') {
-                $name   = 'Approval';
-                $bgcolor = '#40de1d';
-                $valuebt  = 'Approve';
-            }else if ($status == 'R') {
-                $name   = 'Revision';
-                $bgcolor = '#f4bd0e';
-                $valuebt  = 'Revise';
-            } else if ($status == 'C'){
-                $name   = 'Cancelation';
-                $bgcolor = '#e85347';
-                $valuebt  = 'Cancel';
-            }
-            $data = array(
-                'entity_cd'     => $entity_cd, 
-                'doc_no'        => $doc_no, 
-                'status'        => $status,
-                'level_no'      => $level_no, 
-                'name'          => $name,
-                'bgcolor'       => $bgcolor,
-                'valuebt'       => $valuebt
+            $where3 = array(
+                'doc_no'        => $doc_no,
+                'status'        => 'P',
+                'entity_cd'     => $entity_cd,
+                'level_no'      => $level_no,
+                'type'          => 'Q',
+                'module'        => 'LM',
             );
+            $query3 = DB::connection('SSI')
+            ->table('mgr.cb_cash_request_appr')
+            ->where($where3)
+            ->get();
+
+            if(count($query3)==0){
+                $msg = 'There is no Request to Land Split SHGB Doc No. '.$doc_no ;
+                $notif = 'Restricted !';
+                $st  = 'OK';
+                $image = "double_approve.png";
+                $msg1 = array(
+                    "Pesan" => $msg,
+                    "St" => $st,
+                    "notif" => $notif,
+                    "image" => $image,
+                    "entity_name"   => $query_get->entity_name
+                );
+                return view("emails.after_end.after", $msg1);
+            } else {
+                if ($status == 'A') {
+                    $name   = 'Approval';
+                    $bgcolor = '#40de1d';
+                    $valuebt  = 'Approve';
+                }else if ($status == 'R') {
+                    $name   = 'Revision';
+                    $bgcolor = '#f4bd0e';
+                    $valuebt  = 'Revise';
+                } else if ($status == 'C'){
+                    $name   = 'Cancelation';
+                    $bgcolor = '#e85347';
+                    $valuebt  = 'Cancel';
+                }
+                $data = array(
+                    'entity_cd'     => $entity_cd, 
+                    'doc_no'        => $doc_no, 
+                    'status'        => $status,
+                    'level_no'      => $level_no, 
+                    'name'          => $name,
+                    'bgcolor'       => $bgcolor,
+                    'valuebt'       => $valuebt,
+                    'entity_name'   => $query_get->entity_name
+                );
+                return view('emails/landsplitshgb/action', $data);
+            }
         }
-        return view('emails/landsplitshgb/action', $data);
     }
 
     public function update(Request $request)
@@ -250,12 +314,19 @@ class LandApprovalSplitShgbController extends Controller
             $st = 'OK';
             $image = "reject.png";
         }
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $request->entity_cd)
+        ->first();
+
         $msg1 = array(
             "Pesan" => $msg,
             "St" => $st,
             "image" => $image,
-            "notif" => $notif
+            "notif" => $notif,
+            'entity_name'   => $query_get->entity_name
         );
-        return view("emails.after", $msg1);
+        return view("emails.after_end.after", $msg1);
     }
 }
