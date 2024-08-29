@@ -34,7 +34,7 @@ class LandBoundaryController extends Controller
         $query_get = DB::connection('SSI')
         ->table('mgr.cf_entity')
         ->select('entity_name')
-        ->where('entity_cd', $entity_cd)
+        ->where('entity_cd', $request->entity_cd)
         ->first();
 
         $dataArray = array(
