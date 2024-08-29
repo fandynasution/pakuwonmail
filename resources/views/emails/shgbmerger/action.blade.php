@@ -37,17 +37,17 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 20px">
-                                <p>Please Give a Remarks to {{$data['doc_no']}} {{$data['name']}} : </p>
+                                <p>Please Give a Remarks to {{$doc_no}} {{$name}} : </p>
                                     <form id="frmEditor" class="form-horizontal" method="POST" action="{{url('/api/shgbmerger/update')}}" enctype="multipart/form-data">
                                     @csrf
-                                        <input type="text" id="entity_cd" name="entity_cd" value="{{$data['entity_cd']}}" hidden>
-                                        <input type="text" id="doc_no" name="doc_no" value="{{$data['doc_no']}}" hidden>
-                                        <input type="text" id="status" name="status" value="{{$data['status']}}" hidden>
-                                        <input type="text" id="level_no" name="level_no" value="{{$data['level_no']}}" hidden>
+                                        <input type="text" id="entity_cd" name="entity_cd" value="{{$entity_cd}}" hidden>
+                                        <input type="text" id="doc_no" name="doc_no" value="{{$doc_no}}" hidden>
+                                        <input type="text" id="status" name="status" value="{{$status}}" hidden>
+                                        <input type="text" id="level_no" name="level_no" value="{{$level_no}}" hidden>
                                         <div class="form-group">
                                             <textarea class="form-control" id="remarks" name="remarks" rows="3"></textarea>
                                         </div>                                          
-                                        <input type="submit" class="btn" style="background-color:{{$data['bgcolor']}};color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px" value={{$data['valuebt']}}>
+                                        <input type="submit" class="btn" style="background-color:{{$bgcolor}};color:#ffffff;display:inline-block;font-size:13px;font-weight:600;line-height:44px;text-align:center;text-decoration:none;text-transform: uppercase; padding: 0px 40px;margin: 10px" value={{$valuebt}}>
                                     </form>
                                 </td>
                             </tr>
