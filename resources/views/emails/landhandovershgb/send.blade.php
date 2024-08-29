@@ -32,7 +32,20 @@
 <body width="100%" style="mso-line-height-rule: exactly; background-color: #ffffff;">
 	<div style="width: 100%; background-color: #e6f0eb; text-align: center;">
         <table style="width:100%;max-width:1200px;;">
-            @include('template.header')
+        <tbody>
+            <tr>
+                <td style="text-align: center; padding-bottom:25px;color: #000000 !important;">
+                    <img width = "120" src="{{ url('/public/images/header.png') }}" alt="logo">
+                    <p style="font-size: 16px; color: #000000; padding-top: 0px;">
+                        @empty($data['entity_name'])
+                            PT. Suryacipta Swadaya
+                        @else
+                            {{ $data['entity_name'] }}
+                        @endempty
+                    </p>
+                </td>
+            </tr>
+        </tbody>
         </table>
         <table style="width:100%;max-width:1200px;;background-color:#ffffff;align:center">
             <!-- table content -->
