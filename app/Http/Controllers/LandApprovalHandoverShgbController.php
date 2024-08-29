@@ -182,7 +182,7 @@ class LandApprovalHandoverShgbController extends Controller
                 'status'        => 'P',
                 'entity_cd'     => $entity_cd,
                 'level_no'      => $level_no,
-                'type'          => 'D',
+                'type'          => 'H',
                 'module'        => 'LM',
             );
             $query3 = DB::connection('SSI')
