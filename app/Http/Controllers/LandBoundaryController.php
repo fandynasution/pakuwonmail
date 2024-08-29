@@ -29,7 +29,7 @@ class LandBoundaryController extends Controller
             $link[] = $show;
         }
 
-        $boundary_date = Carbon::createFromFormat('Y-m-d H:i:s.u', $request->boundary_date)->format('d-m-Y');
+        $boundary_date = Carbon::createFromFormat('M  j Y h:iA', $request->boundary_date)->format('d-m-Y');
 
         $dataArray = array(
             'user_id'       => $request->user_id,
