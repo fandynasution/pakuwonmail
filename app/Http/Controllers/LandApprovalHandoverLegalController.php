@@ -321,12 +321,19 @@ class LandApprovalHandoverLegalController extends Controller
                 $image = "reject.png";
             }
         }
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $request->entity_cd)
+        ->first();
+
         $msg1 = array(
             "Pesan" => $msg,
             "St" => $st,
             "image" => $image,
-            "notif" => $notif
+            "notif" => $notif,
+            'entity_name'   => $query_get->entity_name
         );
-        return view("emails.after", $msg1);
+        return view("emails.after_end.after", $msg1);
     }
 }
