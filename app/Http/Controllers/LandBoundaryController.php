@@ -118,7 +118,6 @@ class LandBoundaryController extends Controller
         ->where('entity_cd', $entity_cd)
         ->first();
 
-
         $where2 = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),

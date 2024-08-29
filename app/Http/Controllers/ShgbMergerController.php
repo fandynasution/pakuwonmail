@@ -37,6 +37,12 @@ class ShgbMergerController extends Controller
 
         $transaction_date = Carbon::createFromFormat('M  j Y h:iA', $request->transaction_date)->format('d-m-Y');
 
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $request->entity_cd)
+        ->first();
+
         $dataArray = array(
             "user_id"       => $request->user_id,
             "level_no"      => $request->level_no,
@@ -45,6 +51,7 @@ class ShgbMergerController extends Controller
             "descs"         => $request->descs,
             "merge_ref_no"  => $request->merge_ref_no,
             "merge_nop"     => $request->merge_nop,
+            'entity_name'   => $query_get->entity_name,
             "merge_area"    => $request->merge_area,
             'transaction_date'=> $transaction_date,
             "shgb_ref_no"   => $shgb_ref_no_data,
@@ -60,17 +67,47 @@ class ShgbMergerController extends Controller
             $emailAddresses = $request->email_addr;
             $doc_no = $request->doc_no;
             $entity_cd = $request->entity_cd;
+            $level_no = $request->level_no;
+            $approve_seq = $request->approve_seq;
+
+
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
-                $emails = is_array($emailAddresses) ? $emailAddresses : [$emailAddresses];
-                
-                foreach ($emails as $email) {
-                    Mail::to($email)->send(new ShgbMergerMail($dataArray));
+                $email = $emailAddresses;
+
+                // Check if the email has been sent before for this document
+                $cacheFile = 'email_sent_' . $approve_seq . '_' . $entity_cd . '_' . $doc_no . '_' . $level_no . '.txt';
+                $cacheFilePath = storage_path('app/mail_cache/send_shgb_merger/' . date('Ymd') . '/' . $cacheFile);
+                $cacheDirectory = dirname($cacheFilePath);
+
+                // Ensure the directory exists
+                if (!file_exists($cacheDirectory)) {
+                    mkdir($cacheDirectory, 0755, true);
                 }
-                
-                $sentTo = is_array($emailAddresses) ? implode(', ', $emailAddresses) : $emailAddresses;
-                Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $sentTo);
-                return 'Email berhasil dikirim';
+
+                $lockFile = $cacheFilePath . '.lock';
+                $lockHandle = fopen($lockFile, 'w');
+                if (!flock($lockHandle, LOCK_EX)) {
+                    // Failed to acquire lock, handle appropriately
+                    fclose($lockHandle);
+                    throw new Exception('Failed to acquire lock');
+                }
+
+                if (!file_exists($cacheFilePath)) {
+                    // Send email
+                    Mail::to($email)->send(new ShgbMergerMail($dataArray));
+        
+                    // Mark email as sent
+                    file_put_contents($cacheFilePath, 'sent');
+        
+                    // Log the success
+                    Log::channel('sendmailapproval')->info('Email doc_no ' . $doc_no . ' Entity ' . $entity_cd . ' berhasil dikirim ke: ' . $email);
+                    return 'Email berhasil dikirim';
+                } else {
+                    // Email was already sent
+                    Log::channel('sendmailapproval')->info('Email doc_no '.$doc_no.' Entity ' . $entity_cd.' already sent to: ' . $email);
+                    return 'Email has already been sent to: ' . $email;
+                }
             } else {
                 Log::channel('sendmailapproval')->warning('Tidak ada alamat email yang diberikan.');
                 return "Tidak ada alamat email yang diberikan.";
@@ -83,6 +120,13 @@ class ShgbMergerController extends Controller
 
     public function changestatus($entity_cd ='', $doc_no ='', $status='', $level_no='')
     {
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $entity_cd)
+        ->first();
+
+
         $where = array(
             'doc_no'        => $doc_no,
             'status'        => array("A",'R', 'C'),
@@ -105,34 +149,64 @@ class ShgbMergerController extends Controller
                 "Pesan" => $msg,
                 "St" => $st,
                 "notif" => $notif,
-                "image" => $image
+                "image" => $image,
+                "entity_name"   => $query_get->entity_name
             );
             return view("emails.after", $msg1);
         } else {
-            if ($status == 'A') {
-                $name   = 'Approval';
-                $bgcolor = '#40de1d';
-                $valuebt  = 'Approve';
-            }else if ($status == 'R') {
-                $name   = 'Revision';
-                $bgcolor = '#f4bd0e';
-                $valuebt  = 'Revise';
-            } else {
-                $name   = 'Cancelation';
-                $bgcolor = '#e85347';
-                $valuebt  = 'Cancel';
-            }
-            $data = array(
-                'entity_cd'     => $entity_cd, 
-                'doc_no'        => $doc_no, 
-                'status'        => $status,
-                'level_no'      => $level_no, 
-                'name'          => $name,
-                'bgcolor'       => $bgcolor,
-                'valuebt'       => $valuebt
+            $where3 = array(
+                'doc_no'        => $doc_no,
+                'status'        => 'P',
+                'entity_cd'     => $entity_cd,
+                'level_no'      => $level_no,
+                'type'          => 'J',
+                'module'        => 'LM',
             );
+            $query3 = DB::connection('SSI')
+            ->table('mgr.cb_cash_request_appr')
+            ->where($where3)
+            ->get();
+
+            if(count($query3)==0){
+                $msg = 'There is no Request to Land Approval SHGB Merge No. '.$doc_no ;
+                $notif = 'Restricted !';
+                $st  = 'OK';
+                $image = "double_approve.png";
+                $msg1 = array(
+                    "Pesan" => $msg,
+                    "St" => $st,
+                    "notif" => $notif,
+                    "image" => $image,
+                    "entity_name"   => $query_get->entity_name
+                );
+                return view("emails.after_end.after", $msg1);
+            } else {
+                if ($status == 'A') {
+                    $name   = 'Approval';
+                    $bgcolor = '#40de1d';
+                    $valuebt  = 'Approve';
+                }else if ($status == 'R') {
+                    $name   = 'Revision';
+                    $bgcolor = '#f4bd0e';
+                    $valuebt  = 'Revise';
+                } else if ($status == 'C'){
+                    $name   = 'Cancelation';
+                    $bgcolor = '#e85347';
+                    $valuebt  = 'Cancel';
+                }
+                $data = array(
+                    'entity_cd'     => $entity_cd, 
+                    'doc_no'        => $doc_no, 
+                    'status'        => $status,
+                    'level_no'      => $level_no, 
+                    'name'          => $name,
+                    'bgcolor'       => $bgcolor,
+                    'valuebt'       => $valuebt,
+                    'entity_name'   => $query_get->entity_name
+                );
+                return view('emails/shgbmerger/action', $data);
+            }
         }
-        return view('emails/shgbmerger/action')->with('data', $data);
     }
 
     public function update(Request $request)
@@ -174,12 +248,19 @@ class ShgbMergerController extends Controller
             $st = 'OK';
             $image = "reject.png";
         }
+        $query_get = DB::connection('SSI')
+        ->table('mgr.cf_entity')
+        ->select('entity_name')
+        ->where('entity_cd', $request->entity_cd)
+        ->first();
+
         $msg1 = array(
             "Pesan" => $msg,
             "St" => $st,
             "image" => $image,
-            "notif" => $notif
+            "notif" => $notif,
+            'entity_name'   => $query_get->entity_name
         );
-        return view("emails.after", $msg1);
+        return view("emails.after_end.after", $msg1);
     }
 }
