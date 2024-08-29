@@ -17,12 +17,28 @@ class LandCancelNopController extends Controller
     {
         $cancel_nop_date = Carbon::createFromFormat('Y-m-d', $request->transaction_date)->format('d-m-Y');
 
+        $list_of_urls = explode(';', $request->url_link);
+
+        $url_data = [];
+        foreach ($list_of_urls as $url) {
+            $url_data[] = $url;
+        }
+
+        $list_of_files = explode(';', $request->file_name);
+
+        $file_data = [];
+        foreach ($list_of_files as $file) {
+            $file_data[] = $file;
+        }
+
         $dataArray = array(
             "user_id"           => $request->user_id,
             "level_no"          => $request->level_no,
             "entity_cd"         => $request->entity_cd,
             "doc_no"            => $request->doc_no,
             "descs"             => $request->descs,
+            'url_link'          => $url_data,
+            'file_name'         => $file_data,
             "user_name"         => $request->user_name,
             "sender_name"       => $request->sender_name,
             "nop_no"            => $request->nop_no,

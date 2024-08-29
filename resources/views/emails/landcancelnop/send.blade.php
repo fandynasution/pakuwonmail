@@ -79,6 +79,26 @@
                                     <a href="{{ url('api') }}/{{ $dataArray['link'] }}/{{ $dataArray['entity_cd'] }}/{{ $dataArray['doc_no'] }}/R/{{ $dataArray['level_no'] }}" style="display: inline-block; font-size: 13px; font-weight: 600; line-height: 20px; text-align: center; text-decoration: none; text-transform: uppercase; padding: 10px 40px; background-color: #f4bd0e; border-radius: 4px; color: #ffffff;">Request Info</a>
                                     <a href="{{ url('api') }}/{{ $dataArray['link'] }}/{{ $dataArray['entity_cd'] }}/{{ $dataArray['doc_no'] }}/C/{{ $dataArray['level_no'] }}" style="display: inline-block; font-size: 13px; font-weight: 600; line-height: 20px; text-align: center; text-decoration: none; text-transform: uppercase; padding: 10px 40px; background-color: #e85347; border-radius: 4px; color: #ffffff;">Reject</a>
                                     <br>
+                                    @php
+                                        $hasAttachment = false;
+                                    @endphp
+
+                                    @foreach($dataArray['url_link'] as $key => $url_link)
+                                        @if($url_link !== '' && $dataArray['file_name'][$key] !== '' && $url_link !== 'EMPTY' && $dataArray['file_name'][$key] !== 'EMPTY')
+                                            @if(!$hasAttachment)
+                                                @php
+                                                    $hasAttachment = true;
+                                                @endphp
+                                                <p style="text-align:left; margin-bottom: 15px; color: #000000; font-size: 14px;">
+                                                    <b style="font-style:italic;">Untuk melihat lampiran, tolong klik tautan dibawah ini : </b><br>
+                                            @endif
+                                            <a href="{{ $url_link }}" target="_blank">{{ $dataArray['file_name'][$key] }}</a><br>
+                                        @endif
+                                    @endforeach
+
+                                    @if($hasAttachment)
+                                        </p>
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>
