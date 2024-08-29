@@ -227,7 +227,8 @@ class LandApprovalHandoverShgbController extends Controller
                     'valuebt'       => $valuebt,
                     'entity_name'   => $query_get->entity_name
                 );
-                return view('emails/landhandovershgb/action', $data);
+                var_dump($data);
+                // return view('emails/landhandovershgb/action', $data);
             }
         }
     }
