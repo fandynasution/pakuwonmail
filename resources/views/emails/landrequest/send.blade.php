@@ -57,7 +57,7 @@
 
                                         <!-- Display other merges -->
                                         @for($i = 1; $i < count($data['type']); $i++)
-                                            @if(isset($data['owner'][$i]))
+                                            @if(isset($data['sph_trx_no'][$i]))
                                                 <tr>
                                                     <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['doc_no'] }}</td>
                                                     <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][$i] }}</td>
