@@ -85,7 +85,7 @@
                                     @endphp
 
                                     @foreach($data['url_file'] as $key => $url_file)
-                                        @if($url_file !== '' && $data['file_name'][$key] !== '' && $url_file !== 'EMPTY' && $data['file_name'][$key] !== 'EMPTY')
+                                        @if($key < count($data['file_name']) && $url_file !== '' && $data['file_name'][$key] !== '' && $url_file !== 'EMPTY' && $data['file_name'][$key] !== 'EMPTY')
                                             @if(!$hasAttachment)
                                                 @php
                                                     $hasAttachment = true;
@@ -96,6 +96,7 @@
                                             <a href="{{ $url_file }}" target="_blank">{{ $data['file_name'][$key] }}</a><br>
                                         @endif
                                     @endforeach
+
 
                                     @if($hasAttachment)
                                         </p>
