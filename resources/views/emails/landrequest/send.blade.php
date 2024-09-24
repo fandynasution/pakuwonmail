@@ -47,9 +47,9 @@
                                         @if(isset($data['type'][0]))
                                             <tr>
                                                 <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['doc_no'] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][0] }}</td>
+                                                <td style="border: 1px solid #dddddd;padding: 8px;">-</td>
                                                 <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['type'][0] }}</td>
-                                                <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['nop_no'][0] }}</td>
+                                                <td style="border: 1px solid #dddddd;padding: 8px;">-</td>
                                                 <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['sph_trx_no'][0] }}</td>
                                                 <td style="border: 1px solid #dddddd;padding: 8px;text-align: right;">Rp. {{ $data['request_amt'][0] }}</td>
                                             </tr>  
@@ -60,9 +60,9 @@
                                             @if(isset($data['sph_trx_no'][$i]))
                                                 <tr>
                                                     <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['doc_no'] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['owner'][$i] }}</td>
+                                                    <td style="border: 1px solid #dddddd;padding: 8px;">-</td>
                                                     <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['type'][$i] }}</td>
-                                                    <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['nop_no'][$i] }}</td>
+                                                    <td style="border: 1px solid #dddddd;padding: 8px;">-</td>
                                                     <td style="border: 1px solid #dddddd;padding: 8px;">{{ $data['sph_trx_no'][$i] }}</td>
                                                     <td style="border: 1px solid #dddddd;padding: 8px;text-align: right;">Rp. {{ $data['request_amt'][$i] }}</td>
                                                 </tr>
