@@ -85,6 +85,10 @@
                         </table>
                         <br>
                         <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
+                            <b>Note: {{ $data['descpeng'] }}</b>
+                        </p>
+                        <br>
+                        <p style="text-align:left;margin-bottom: 15px; color: #000000; font-size: 14px;">
                             <b>Terimakasih,</b><br>
                             {{ $data['sender_name'] }}
                         </p>
