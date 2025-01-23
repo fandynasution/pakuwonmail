@@ -149,7 +149,7 @@ class LandApprovalSplitShgbController extends Controller
             $entity_cd = $request->entity_cd;
             $level_no = $request->level_no;
             $approve_seq = $request->approve_seq;
-            
+
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
                 $email = $emailAddresses;
@@ -249,7 +249,7 @@ class LandApprovalSplitShgbController extends Controller
                     "St" => $st,
                     "notif" => $notif,
                     "image" => $image,
-                    "entity_name"   => $query_get->entity_name
+                    'entity_name'  => 'PT. Suryacipta Swadaya'
                 );
                 return view("emails.after_end.after", $msg1);
             } else {
