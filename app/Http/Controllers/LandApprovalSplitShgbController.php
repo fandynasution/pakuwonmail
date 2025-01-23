@@ -267,7 +267,7 @@ class LandApprovalSplitShgbController extends Controller
                     'name'          => $name,
                     'bgcolor'       => $bgcolor,
                     'valuebt'       => $valuebt,
-                    'entity_name'   => $query_get->entity_name
+		    'entity_name'  => 'PT. Suryacipta Swadaya'
                 );
                 return view('emails/landsplitshgb/action', $data);
             }

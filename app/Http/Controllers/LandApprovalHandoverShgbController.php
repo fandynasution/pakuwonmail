@@ -54,7 +54,7 @@ class LandApprovalHandoverShgbController extends Controller
         $arrayLength = count($dataArrays['shgb_no']);
         foreach ($dataArrays as $key => $array) {
             if (count($array) !== $arrayLength) {
-                throw new Exception("Array length mismatch for key {$key}");
+                throw new \Exception("Array length mismatch for key {$key}");
             }
         }
 
