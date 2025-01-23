@@ -64,6 +64,7 @@
                                 <th style="border: 1px solid #000; text-align: center;">Tanggal Expired</th>
                                 <th style="border: 1px solid #000; text-align: center;">Luas Awal SHGB (M&sup2;)</th>
                                 <th style="border: 1px solid #000; text-align: center;">Luas Akhir SHGB (M&sup2;)</th>
+                                <th style="border: 1px solid #000; text-align: center;">Induk / Pecahan</th>
                                 <th style="border: 1px solid #000; text-align: center;">Keterangan</th>
                             </tr>
                             <tr>
@@ -76,6 +77,7 @@
                                 <td style="border: 1px solid #000;padding: 5px;">{{ $data['shgb_area_split'] }} </td>
                                 <td style="border: 1px solid #000;padding: 5px;"> {{ $data['remaining_area'] }}</td>
                                 <td style="border: 1px solid #000;padding: 5px;">{{ $data['split_status_hd'] }}</td>
+                                <td style="border: 1px solid #000;padding: 5px;"></td>
                             </tr>
                             @if(isset($data['shgb_no']) && is_array($data['shgb_no']) && count($data['shgb_no']) > 0)
                             <!-- Find and display the first merge -->
@@ -90,6 +92,7 @@
                                         <td style="border: 1px solid #000;padding: 5px;"> </td>
                                         <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_area'][0] }}</td>
                                         <td style="border: 1px solid #000;padding: 5px;">{{ $data['split_status_dt'][0] }}</td>
+                                        <td style="border: 1px solid #000;padding: 5px;">{{ $data['split_descs_data'][0] }}</td>
                                     </tr>  
                                 @endif
 
@@ -106,6 +109,7 @@
                                             <td style="border: 1px solid #000;padding: 5px;"> </td>
                                             <td style="border: 1px solid #000;padding: 5px;"> {{ $data['shgb_area'][$i] }}</td>
                                             <td style="border: 1px solid #000;padding: 5px;">{{ $data['split_status_dt'][$i] }}</td>
+                                            <td style="border: 1px solid #000;padding: 5px;">{{ $data['split_descs_data'][$i] }}</td>
                                         </tr>
                                     @endif
                                 @endfor

@@ -92,6 +92,13 @@ class LandApprovalSplitShgbController extends Controller
             $split_status_dt_data[] = $split_status_dt;
         }
 
+        $list_of_split_descs = explode(';', $request->split_descs);
+
+        $split_descs_data = [];
+        foreach ($list_of_split_descs as $split_descs) {
+            $split_descs_data[] = $split_descs;
+        }
+
         $shgb_date_split = Carbon::createFromFormat('M  j Y h:iA', $request->shgb_date_split)->format('d-m-Y');
         $shgb_expired_split = Carbon::createFromFormat('M  j Y h:iA', $request->shgb_expired_split)->format('d-m-Y');
         $shgb_area_split = number_format((float)$request->shgb_area_split, 2, '.', ',');
@@ -132,6 +139,7 @@ class LandApprovalSplitShgbController extends Controller
             "sender_name"           => $request->sender_name,
             'entity_name'           => $query_get->entity_name,
             "descs"                 => $request->descs,
+            "split_descs_data"      => $split_descs_data,
             "link"                  => "landapprovalsplitshgb",
         );
 
@@ -141,8 +149,7 @@ class LandApprovalSplitShgbController extends Controller
             $entity_cd = $request->entity_cd;
             $level_no = $request->level_no;
             $approve_seq = $request->approve_seq;
-
-
+            
             // Check if email addresses are provided and not empty
             if (!empty($emailAddresses)) {
                 $email = $emailAddresses;
