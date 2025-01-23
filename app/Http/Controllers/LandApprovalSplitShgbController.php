@@ -239,6 +239,8 @@ class LandApprovalSplitShgbController extends Controller
             ->where($where3)
             ->get();
 
+            var_dump($query3);
+
             if(count($query3)==0){
                 $msg = 'There is no Request to Land Split SHGB Doc No. '.$doc_no ;
                 $notif = 'Restricted !';
