@@ -235,7 +235,8 @@ Route::GET('/cmvo/{entity_cd}/{project_no}/{doc_no}/{ref_no}/{status}/{level_no}
 use App\Http\Controllers\LandChangeNopApprovalController as LandChangeNopApproval;
 
 Route::POST('/approvestatusLandChangeNop', [LandChangeNopApproval::class, 'Mail']);
-Route::GET('/approvestatusLandChangeNop/{status}/{entity_cd}/{doc_no}/{level_no}', [LandChangeNopApproval::class, 'changestatus']);
+Route::POST('/approvestatusLandChangeNop/update', [LandChangeNopApproval::class, 'update']);
+Route::GET('/approvestatusLandChangeNop/{entity_cd}/{doc_no}/{status}/{level_no}/{user_id}', [LandChangeNopApproval::class, 'changestatus']);
 
 use App\Http\Controllers\CoordinateController as Coordinate;
 
