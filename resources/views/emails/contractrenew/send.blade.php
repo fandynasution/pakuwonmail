@@ -57,7 +57,7 @@
                                             <td>{{ $data['lot_no'] }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Contract Amount</td>
+                                            <td>Total Contract Amount (Rent Only)</td>
                                             <td>:</td>
                                             <td>IDR {{ $data['contract_sum'] }} </td>
                                         </tr>
