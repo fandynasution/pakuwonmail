@@ -99,7 +99,7 @@ class LandApprovalExtShgbController extends Controller
             $files_data[] = $file_name;
         }
 
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $request->entity_cd)
@@ -198,7 +198,7 @@ class LandApprovalExtShgbController extends Controller
         );
 
         
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
@@ -225,7 +225,7 @@ class LandApprovalExtShgbController extends Controller
                 'trx_type'      => 'EX',
                 'request_type'  => 'H4'
             );
-            $query3 = DB::connection('SSI')
+            $query3 = DB::connection('mail_db')
             ->table('mgr.cb_cash_request_appr')
             ->where($where3)
             ->get();
@@ -293,7 +293,7 @@ class LandApprovalExtShgbController extends Controller
             $imagestatus = "reject.png";
         }
 
-        $pdo = DB::connection('SSI')->getPdo();
+        $pdo = DB::connection('mail_db')->getPdo();
         $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_extension_shgb ?, ?, ?, ?, ?;");
         $sth->bindParam(1, $entity_cd);
         $sth->bindParam(2, $doc_no);
@@ -312,7 +312,7 @@ class LandApprovalExtShgbController extends Controller
             $st = 'OK';
             $image = "reject.png";
         }
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $request->entity_cd)

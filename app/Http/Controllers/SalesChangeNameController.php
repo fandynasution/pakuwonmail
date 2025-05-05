@@ -72,7 +72,7 @@ class SalesChangeNameController extends Controller
             'module'        => 'SA',
         );
 
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
@@ -132,7 +132,7 @@ class SalesChangeNameController extends Controller
         $user_id = $request->user_id;
         $remarks = $request->remarks;
         if($status == 'A') {
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
@@ -156,7 +156,7 @@ class SalesChangeNameController extends Controller
                 $image = "reject.png";
             }
         } else if($status == 'R'){
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);
@@ -180,7 +180,7 @@ class SalesChangeNameController extends Controller
                 $image = "reject.png";
             }
         } else {
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("EXEC mgr.xrl_send_mail_approval_sales_change_name ?, ?, ?, ?, ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $project_no);

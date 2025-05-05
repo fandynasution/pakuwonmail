@@ -109,7 +109,7 @@ class LandChangeNopApprovalController extends Controller
             'entity_cd'     => $entity_cd,
         );
 
-        $queryent = DB::connection('SSI')
+        $queryent = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->where($whereent)
         ->get();
@@ -125,7 +125,7 @@ class LandChangeNopApprovalController extends Controller
             'request_type'  => 'Z4'
         );
 
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where)
         ->whereIn('status', ["A", "R", "C"])
@@ -155,7 +155,7 @@ class LandChangeNopApprovalController extends Controller
                 'request_type'  => 'Z4'
             ];
 
-            $query2 = DB::connection('SSI')
+            $query2 = DB::connection('mail_db')
             ->table('mgr.cb_cash_request_appr')
             ->where($where2)
             ->get();
@@ -233,7 +233,7 @@ class LandChangeNopApprovalController extends Controller
             $imagestatus = "reject.png";
         }
 
-        $pdo = DB::connection('SSI')->getPdo();
+        $pdo = DB::connection('mail_db')->getPdo();
         $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_change_nop ?, ?, ?, ?;");
         $sth->bindParam(1, $entity_cd);
         $sth->bindParam(2, $doc_no);

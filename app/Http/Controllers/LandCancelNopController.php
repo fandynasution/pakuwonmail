@@ -86,7 +86,7 @@ class LandCancelNopController extends Controller
             'module'        => 'LM',
             'trx_type'      => 'NC',
         );
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where)
         ->get();
@@ -150,7 +150,7 @@ class LandCancelNopController extends Controller
             $statusdesc = "Cancelled";
             $image = "reject.png";
         }
-        $pdo = DB::connection('SSI')->getPdo();
+        $pdo = DB::connection('mail_db')->getPdo();
         $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_cancel_nop ?, ?, ?, ?, ?;");
         $sth->bindParam(1, $entity_cd);
         $sth->bindParam(2, $doc_no);

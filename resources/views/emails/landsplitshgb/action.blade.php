@@ -24,7 +24,7 @@
                                     <img width = "120" src="{{ url('/public/images/header.png') }}" alt="logo">
                                     <p style="font-size: 16px; color: #000000; padding-top: 0px;">
                                         @empty(trim($entity_name))
-                                            PT. Suryacipta Swadaya
+                                            PT. IFCA Property365 Indonesia
                                         @else
                                             {{ trim($entity_name) }}
                                         @endempty

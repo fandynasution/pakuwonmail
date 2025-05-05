@@ -37,7 +37,7 @@ class ShgbMergerController extends Controller
 
         $transaction_date = Carbon::createFromFormat('M  j Y h:iA', $request->transaction_date)->format('d-m-Y');
 
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $request->entity_cd)
@@ -120,7 +120,7 @@ class ShgbMergerController extends Controller
 
     public function changestatus($entity_cd ='', $doc_no ='', $status='', $level_no='')
     {
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $entity_cd)
@@ -135,7 +135,7 @@ class ShgbMergerController extends Controller
             'type'          => 'J',
             'module'        => 'LM',
         );
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where)
         ->get();
@@ -162,7 +162,7 @@ class ShgbMergerController extends Controller
                 'type'          => 'J',
                 'module'        => 'LM',
             );
-            $query3 = DB::connection('SSI')
+            $query3 = DB::connection('mail_db')
             ->table('mgr.cb_cash_request_appr')
             ->where($where3)
             ->get();
@@ -229,7 +229,7 @@ class ShgbMergerController extends Controller
             $statusdesc = "Cancelled";
             $image = "reject.png";
         }
-        $pdo = DB::connection('SSI')->getPdo();
+        $pdo = DB::connection('mail_db')->getPdo();
         $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_sft_merge_shgb ?, ?, ?, ?, ?;");
         $sth->bindParam(1, $entity_cd);
         $sth->bindParam(2, $doc_no);
@@ -248,7 +248,7 @@ class ShgbMergerController extends Controller
             $st = 'OK';
             $image = "reject.png";
         }
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $request->entity_cd)

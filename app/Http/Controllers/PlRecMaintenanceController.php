@@ -69,12 +69,12 @@ class PlRecMaintenanceController extends Controller
             'type'          => 'C',
             'module'        => 'PL',
         );
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        $query3 = DB::connection('SSI')
+        $query3 = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
@@ -92,7 +92,7 @@ class PlRecMaintenanceController extends Controller
         } else {
             if($status == 'A') {
                 $sqlsendemail = "mgr.xrl_send_mail_approval_pl_rec_maintenace '" . $entity_cd . "', '" . $project_no . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "', '" . $user_id . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Approved the PL Rec Maintenance No. ".$doc_no;
                     $notif = 'Approved !';
@@ -106,7 +106,7 @@ class PlRecMaintenanceController extends Controller
                 }
             } else if($status == 'R'){
                 $sqlsendemail = "mgr.xrl_send_mail_approval_pl_rec_maintenace '" . $entity_cd . "', '" . $project_no . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "', '" . $user_id . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Made a Revise Request on PL Rec Maintenance No. ".$doc_no;
                     $notif = 'Revised !';
@@ -120,7 +120,7 @@ class PlRecMaintenanceController extends Controller
                 }
             } else {
                 $sqlsendemail = "mgr.xrl_send_mail_approval_pl_rec_maintenace '" . $entity_cd . "', '" . $project_no . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "', '" . $user_id . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Cancelled the PL Rec Maintenance No. ".$doc_no;
                     $notif = 'Cancelled !';

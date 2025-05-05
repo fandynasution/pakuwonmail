@@ -6,4 +6,4 @@ MAIL_USERNAME=system@suryainternusa.com
 MAIL_PASSWORD=hdkrhjhtgsnzyggj
 MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=system@suryainternusa.com
-MAIL_FROM_NAME='IFCA SOFTWARE - SSI'
+MAIL_FROM_NAME='IFCA SOFTWARE'

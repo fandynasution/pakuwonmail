@@ -28,7 +28,7 @@ class AutoSendController extends Controller
     {
         ini_set('memory_limit', '8192M');
 
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->whereNull('sent_mail_date')
         ->where('status', 'P')
@@ -65,7 +65,7 @@ class AutoSendController extends Controller
                 'user_name' => $user_id
             );
 
-            $queryUg = DB::connection('SSI')
+            $queryUg = DB::connection('mail_db')
             ->table('mgr.security_groupings')
             ->where($whereUg)
             ->get();
@@ -87,7 +87,7 @@ class AutoSendController extends Controller
                     'level_no'  => $downLevel
                 );
     
-                $querybefore = DB::connection('SSI')
+                $querybefore = DB::connection('mail_db')
                 ->table('mgr.cb_cash_request_appr')
                 ->where($wherebefore)
                 ->get();

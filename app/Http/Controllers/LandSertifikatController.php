@@ -72,12 +72,12 @@ class LandSertifikatController extends Controller
             'type'          => 'T',
             'module'        => 'LM',
         );
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
 
-        $query3 = DB::connection('SSI')
+        $query3 = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where3)
         ->get();
@@ -95,7 +95,7 @@ class LandSertifikatController extends Controller
         } else {
             if($status == 'A') {
                 $sqlsendemail = "mgr.xrl_send_mail_approval_land_sertifikat '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Approved the Certificate No. ".$doc_no;
                     $notif = 'Approved !';
@@ -109,7 +109,7 @@ class LandSertifikatController extends Controller
                 }
             } else if($status == 'R'){
                 $sqlsendemail = "mgr.xrl_send_mail_approval_land_sertifikat '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Made a Revise Request on Certificate No. ".$doc_no;
                     $notif = 'Revised !';
@@ -123,7 +123,7 @@ class LandSertifikatController extends Controller
                 }
             } else {
                 $sqlsendemail = "mgr.xrl_send_mail_approval_land_sertifikat '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Cancelled the Certificate No. ".$doc_no;
                     $notif = 'Cancelled !';

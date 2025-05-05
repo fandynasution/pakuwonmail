@@ -64,7 +64,7 @@ class ApprovalController extends Controller
             'type'          => 'P',
             'module'        => 'SA'
         );
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
@@ -82,7 +82,7 @@ class ApprovalController extends Controller
         } else {
             if($status == 'A') {
                 $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Approved the Prospect No. ".$doc_no;
                     $notif = 'Approved !';
@@ -96,7 +96,7 @@ class ApprovalController extends Controller
                 }
             } else if($status == 'R'){
                 $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Made a Revise Request on Prospect No. ".$doc_no;
                     $notif = 'Revised !';
@@ -110,7 +110,7 @@ class ApprovalController extends Controller
                 }
             } else {
                 $sqlsendemail = "mgr.xrl_send_mail_approval_prospect_lot '" . $entity_cd . "', '" . $doc_no . "', '" . $status . "', '" . $level_no . "'";
-                $snd = DB::connection('SSI')->insert($sqlsendemail);
+                $snd = DB::connection('mail_db')->insert($sqlsendemail);
                 if ($snd == '1') {
                     $msg = "You Have Successfully Cancelled the Prospect No. ".$doc_no;
                     $notif = 'Cancelled !';

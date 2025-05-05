@@ -60,7 +60,7 @@ class LandApprovalHandoverShgbController extends Controller
 
         $transaction_date = Carbon::createFromFormat('M j Y h:iA', $request->transaction_date)->format('d-m-Y');
 
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $request->entity_cd)
@@ -144,7 +144,7 @@ class LandApprovalHandoverShgbController extends Controller
 
     public function changestatus($status='', $entity_cd='', $doc_no='', $level_no='')
     {
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $entity_cd)
@@ -159,7 +159,7 @@ class LandApprovalHandoverShgbController extends Controller
             'module'        => 'LM',
         );
 
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
@@ -185,7 +185,7 @@ class LandApprovalHandoverShgbController extends Controller
                 'type'          => 'H',
                 'module'        => 'LM',
             );
-            $query3 = DB::connection('SSI')
+            $query3 = DB::connection('mail_db')
             ->table('mgr.cb_cash_request_appr')
             ->where($where3)
             ->get();
@@ -240,7 +240,7 @@ class LandApprovalHandoverShgbController extends Controller
         $level_no = $request->level_no;
         $remarks = $request->remarks;
         if($status == 'A') {
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_handover_shgb ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
@@ -260,7 +260,7 @@ class LandApprovalHandoverShgbController extends Controller
                 $image = "reject.png";
             }
         } else if($status == 'R'){
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_handover_shgb ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
@@ -280,7 +280,7 @@ class LandApprovalHandoverShgbController extends Controller
                 $image = "reject.png";
             }
         } else {
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_handover_shgb ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
@@ -300,7 +300,7 @@ class LandApprovalHandoverShgbController extends Controller
                 $image = "reject.png";
             }
         }
-        $query_get = DB::connection('SSI')
+        $query_get = DB::connection('mail_db')
         ->table('mgr.cf_entity')
         ->select('entity_name')
         ->where('entity_cd', $request->entity_cd)

@@ -21,7 +21,7 @@ class EmailSendController extends Controller
             'status' => 'P', 
         );
         try { 
-            $data = DB::connection('SSI')
+            $data = DB::connection('mail_db')
             ->table('mgr.ar_debtor')
             ->where($criteria)
             ->get();
@@ -92,7 +92,7 @@ class EmailSendController extends Controller
                     $status = array(
                         'status' => 'A',
                     );
-                    $query = DB::connection('SSI')
+                    $query = DB::connection('mail_db')
                     ->table('mgr.ar_debtor')
                     ->where($where)
                     ->update($status);
@@ -122,7 +122,7 @@ class EmailSendController extends Controller
                     $status = array(
                         'status' => 'R',
                     );
-                    $query = DB::connection('SSI')
+                    $query = DB::connection('mail_db')
                     ->table('mgr.ar_debtor')
                     ->where($where)
                     ->update($status);
@@ -169,7 +169,7 @@ class EmailSendController extends Controller
             'entity_cd'     => '023',
             'level_no'      => '1',
         );
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();

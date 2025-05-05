@@ -70,7 +70,7 @@ class LandChangeEntityController extends Controller
             'module'        => 'LM',
         );
 
-        $query = DB::connection('SSI')
+        $query = DB::connection('mail_db')
         ->table('mgr.cb_cash_request_appr')
         ->where($where2)
         ->get();
@@ -121,7 +121,7 @@ class LandChangeEntityController extends Controller
         $level_no = $request->level_no;
         $remarks = $request->remarks;
         if($status == 'A') {
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_change_entity ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
@@ -142,7 +142,7 @@ class LandChangeEntityController extends Controller
                 $image = "reject.png";
             }
         } else if($status == 'R'){
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_change_entity ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
@@ -162,7 +162,7 @@ class LandChangeEntityController extends Controller
                 $image = "reject.png";
             }
         } else {
-            $pdo = DB::connection('SSI')->getPdo();
+            $pdo = DB::connection('mail_db')->getPdo();
             $sth = $pdo->prepare("SET NOCOUNT ON; EXEC mgr.xrl_send_mail_approval_land_fph ?, ?, ?, ?, ?;");
             $sth->bindParam(1, $entity_cd);
             $sth->bindParam(2, $doc_no);
